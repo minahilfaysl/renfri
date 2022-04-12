@@ -1,26 +1,24 @@
 import { StyleSheet } from "react-native";
 import { 
-    Montserrat_300Light,
     Montserrat_400Regular,
     Montserrat_500Medium,
-  } from '@expo-google-fonts/montserrat';
+  } from '@expo-google-fonts/montserrat'
 import { 
     OpenSans_400Regular,
-  } from '@expo-google-fonts/open-sans';
-
+    OpenSans_700Bold,
+  } from '@expo-google-fonts/open-sans'
 import { useFonts } from 'expo-font';
 
-export default function useFont() {
-    let [fontsLoaded, error] = useFonts({ 
-        Montserrat_300Light,
+export default function use() {
+    return useFonts({
         Montserrat_400Regular,
         Montserrat_500Medium,
         OpenSans_400Regular,
+        OpenSans_700Bold,
     })
 }
 
 export const GlobalStyles = StyleSheet.create({
-
     // colours
     darkGreen: {color: '#193E26'},
     lightGreen: {color: '#588D60'},
@@ -98,5 +96,13 @@ export const GlobalStyles = StyleSheet.create({
         fontSize: 8,
         letterSpacing: 1.5,
         textTransform: 'uppercase'
+    },
+
+    navbarBold: {
+        fontFamily: 'OpenSans_700Bold',
+        fontSize: 12,
+        letterSpacing: 0.25,
+        textAlign: "center",
+        color: '#588D60',
     }
 })
