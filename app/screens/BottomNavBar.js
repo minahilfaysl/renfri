@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { View, Text, SafeAreaView, Picker, TouchableOpacity, StatusBar, Image, ScrollView, TextInput, StyleSheet, Animated, Dimensions, Vibration, Alert, KeyboardAvoidingView, Platform} from "react-native";
 import {AntDesign, MaterialCommunityIcons, Ionicons, SimpleLineIcons} from "@expo/vector-icons";
+import { GlobalStyles } from '../styles/global';
 
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
@@ -12,7 +13,7 @@ const BottomNavBar  = ({navigation}) => {
                 <Image 
                     style={styles.menu_icon} 
                     source = {require("../assets/navbar/Search.png")}/>
-                <Text style={styles.menu_text}>
+                <Text style={[GlobalStyles.body2, styles.menu_text]}>
                     Search
                 </Text>
             </View>
@@ -20,7 +21,7 @@ const BottomNavBar  = ({navigation}) => {
                 <Image 
                     style={styles.menu_icon} 
                     source = {require("../assets/navbar/User_light.png")}/>
-                <Text style={styles.menu_text}>
+                <Text style={[GlobalStyles.body2, styles.menu_text]}>
                     Profile
                 </Text>
             </View>
@@ -28,7 +29,7 @@ const BottomNavBar  = ({navigation}) => {
                 <Image 
                     style={styles.menu_icon} 
                     source = {require("../assets/navbar/Add_ring_light.png")}/>
-                <Text style={styles.menu_text}>
+                <Text style={[GlobalStyles.body2, styles.menu_text]}>
                     Post
                 </Text>
             </View>
@@ -36,7 +37,7 @@ const BottomNavBar  = ({navigation}) => {
                 <Image 
                     style={styles.menu_icon} 
                     source = {require("../assets/navbar/Bell_pin_light.png")}/>
-                <Text style={styles.menu_text}>
+                <Text style={[GlobalStyles.body2, styles.menu_text]}>
                     Notifs
                 </Text>
             </View>
@@ -44,7 +45,7 @@ const BottomNavBar  = ({navigation}) => {
                 <Image 
                     style={styles.menu_icon} 
                     source = {require("../assets/navbar/Message_light.png")}/>
-                <Text style={styles.menu_text}>
+                <Text style={[GlobalStyles.body2, styles.menu_text]}>
                     Chat
                 </Text>
             </View>
