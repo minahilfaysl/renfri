@@ -1,244 +1,263 @@
-// import React, { useState, useRef, useEffect } from "react";
-// import { View, Text, SafeAreaView, Picker, TouchableOpacity, StatusBar, Image, ScrollView, TextInput, StyleSheet, Animated, Dimensions, Vibration, Alert, KeyboardAvoidingView, Platform} from "react-native";
-// import {AntDesign, MaterialCommunityIcons, Ionicons, SimpleLineIcons} from "@expo/vector-icons";
-// import SearchBottomNavBar from "./navbar/ProfileBottomNavBar";
+import React, { useState, useRef, useEffect } from "react";
+import { View, Text, SafeAreaView, Picker, TouchableOpacity, StatusBar, Image, ScrollView, TextInput, StyleSheet, Animated, Dimensions, Vibration, Alert, KeyboardAvoidingView, Platform} from "react-native";
+import {AntDesign, MaterialCommunityIcons, Ionicons, SimpleLineIcons} from "@expo/vector-icons";
+import PostBottomNavBar from "./navbar/PostBottomNavBar";
+import { Montserrat_400Regular, Montserrat_500Medium } from '@expo-google-fonts/montserrat';
+import { OpenSans_400Regular, OpenSans_700Bold } from '@expo-google-fonts/open-sans';
+import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
+import UrgentButton from "../components/UrgentButton";
+// import UrgentButton from '../components/UrgentButton';
 
-// const actual_height = Dimensions.get("window").height
-// const actual_width = Dimensions.get("window").width
+const actual_height = Dimensions.get("window").height
+const actual_width = Dimensions.get("window").width
 
-// const CreateANewListingForm  = ({navigation}) => {
-// 	return (
-//         <SafeAreaView style={styles.overall}>
-//             {/* <ScrollView> */}
-//             <View style={styles.greenbox}>
-//             </View>
-//             <View style={styles.darkgreenbox}>
-//                 <Text style={styles.heading}>
-//                     Search By Category
-//                 </Text>
-//             </View>
-//             <View style={styles.spacing}>
-//                 <TouchableOpacity style={styles.category_box_one}
-//                 onPress={() => {console.log("downnn Rent an Item pressed!!!!")}}>
-//                 <TouchableOpacity
-//                     onPress={() => {console.log("Rent an Item pressed")}}>
-//                         <Image 
-//                         style={styles.cat_img} 
-//                         source = {require("../assets/category.png")}/>
-//                         <Text style={styles.text}>
-//                             Rent An Item
-//                         </Text>
-//                     </TouchableOpacity>
-//                     <AntDesign name="down" style={styles.downicon} size={0.05*actual_width}/>
-//                 </TouchableOpacity>
-                
-                
-//                 <TouchableOpacity style={styles.category_box_two}
-//                 onPress={() => {console.log("downnn buy an Item pressed!!!!")}}>
-//                     <TouchableOpacity
-//                     onPress={() => {console.log("Buy an Item pressed")}}>
-//                         <Image 
-//                         style={styles.cat_img} 
-//                         source = {require("../assets/category.png")}/>
-//                         <Text style={styles.text}>
-//                             Buy An Item
-//                         </Text>
-//                     </TouchableOpacity>
-//                     <AntDesign name="down" style={styles.downicon} size={0.05*actual_width}/>
-//                 </TouchableOpacity>
+const CreateANewListingForm  = (props) => {
+    
+    // here are all the variables from the input fields
+    const [title, setTitle] = useState('');
+    const [desc, setDesc] = useState('');
+    const [price, setPrice] = useState('');
+    const [duration, setDuration] = useState('');
+    const [insurance, setInsurance] = useState('');
+    const [tags, setTags] = useState('');
 
+    let [fontsLoaded] = useFonts({
+        Montserrat_400Regular,
+        Montserrat_500Medium,
+        OpenSans_400Regular,
+        OpenSans_700Bold,
+    })
+    
+    if (!fontsLoaded) {
+        return <AppLoading />;
+    }
 
-//                 <TouchableOpacity style={styles.category_box_three}
-//                 onPress={() => {console.log("downnn requested items pressed!!!!")}}>
-//                     <TouchableOpacity
-//                     onPress={() => {console.log("Requested Items pressed")}}>
-//                         <Image 
-//                         style={styles.cat_img} 
-//                         source = {require("../assets/category.png")}/>
-//                         <Text style={styles.text}>
-//                             Requested Items
-//                         </Text>
-//                     </TouchableOpacity>
-//                     <AntDesign name="down" style={styles.downicon} size={0.05*actual_width}/>
-//                 </TouchableOpacity>
+    if (props.category == 'rent') {
+	return (
+        <SafeAreaView style={styles.overall}>
+            <View style = {styles.overall}>
+                {/* the top navbar */}
+                <StatusBar backgroundColor="#588D60" />
+                <View style={styles.rentSubTopNavBox}>
+                    <Text style={styles.heading2}>
+                        Rent an Item
+                    </Text>
+                </View>
+                <View style={styles.topNavBox}>
+                    <Text style={styles.heading1}>
+                        Create A Listing or Post
+                    </Text>
+                </View>
+                {/* the form */}
+                <ScrollView style = {styles.formContainer}> 
+                    <View style = {styles.formContainer2}>
+                        <Text style = {styles.body_text_rent} textAlign="left">
+                            Upload Images of Your Item (up to 5)
+                        </Text>
+                        
 
+                        {/* title */}
+                        <Text
+                            style = {styles.body_text_rent} textAlign="left">
+                            Add Title For Your Item *
+                        </Text>
+                        <TextInput
+                            onChangeText = {(value) => setTitle(value)}
+                            style={styles.text_box_rent}/>
 
-//                 <TouchableOpacity style={styles.category_box_four}
-//                 onPress={() => {console.log("downnn offered services pressed!!!!")}}>
-//                     <TouchableOpacity
-//                     onPress={() => {console.log("Offered Services pressed")}}>
-//                         <Image 
-//                         style={styles.cat_img} 
-//                         source = {require("../assets/category.png")}/>
-//                         <Text style={styles.text}>
-//                             Offered Services
-//                         </Text>
-//                     </TouchableOpacity>
-//                     <AntDesign name="down" style={styles.downicon} size={0.05*actual_width}/>
-//                 </TouchableOpacity>
+                        {/* description */}
+                        <Text style = {styles.body_text_rent} textAlign="left">
+                            Add Item Description
+                        </Text>
+                        <TextInput
+                            multiline
+                            numberOfLines={4}
+                            onChangeText = {(value) => setDesc(value)}
+                            style={styles.text_box_desc_rent}/>
 
+                        {/* price */}
+                        <Text style = {styles.body_text_rent} textAlign="left">
+                            Enter Price For Your Item in PKR *
+                        </Text>
+                        <TextInput
+                            onChangeText = {(value) => setPrice(value)}
+                            style={styles.text_box_rent}/>
 
-//                 <TouchableOpacity style={styles.category_box_five}
-//                 onPress={() => {console.log("downnn requested services pressed!!!!")}}>
-//                     <TouchableOpacity
-//                     onPress={() => {console.log("Requested Services pressed")}}>
-//                         <Image 
-//                         style={styles.cat_img} 
-//                         source = {require("../assets/category.png")}/>
-//                         <Text style={styles.text}>
-//                             Requested Services
-//                         </Text>
-//                     </TouchableOpacity>
-//                     <AntDesign name="down" style={styles.downicon} size={0.05*actual_width}/>
-//                 </TouchableOpacity>
-//             </View>
-            
-//             <SearchBottomNavBar />
-//         </SafeAreaView>
-// )}
-// export default CreateANewListingForm
+                        {/* duration of rent */}
+                        <Text style = {styles.body_text_rent} textAlign="left">
+                            Duration of Rent
+                        </Text>
+                        <TextInput
+                            onChangeText = {(value) => setDuration(value)}
+                            style={styles.text_box_rent}/>
+                        
+                        {/* insurance */}
+                        <Text style = {styles.body_text_rent} textAlign="left">
+                            Insurance (in case of damages) in PKR
+                        </Text>
+                        <TextInput 
+                            onChangeText = {(value) => setInsurance(value)}
+                            style={styles.text_box_rent}/>
 
-// const styles = StyleSheet.create({
-//     overall: {
-//         marginTop: StatusBar.currentHeight,
-//         width: Dimensions.get("window").width,
-//         minHeight: Dimensions.get("window").height,
-//         backgroundColor: "rgb(255, 255, 255)",
-//     },
-//     scrollView: {
-//     },
-//     greenbox: {
-//         width: "100%",
-//         height: 0.03*actual_height,
-//         left: 0,
-//         top: 0,
-//         backgroundColor: "#588D60",
-//     },
-//     darkgreenbox: {
-//         width: "100%",
-//         height: 0.07*actual_height,
-//         backgroundColor: "rgb(25, 62, 38)",
-//         position: "absolute",
-//         left: 0,
-//         top: 0.03*actual_height,
-//         shadowOffset: {
-//             width: 0,
-//             height: 4
-//         },
-//         shadowColor: "rgba(0, 0, 0, 0.25)",
-//         shadowRadius: 4,
-//         borderBottomRightRadius: 100, 
-// 	},
-//     heading: {
-//         position: "absolute",
-//         width: 206,
-//         height: 26,
-//         left: 0.15*actual_width,
-//         top: 0.02*actual_height,
-//         // font-family: 'Montserrat';
-//         fontWeight: "400",
-//         fontSize: 21,
-//         lineHeight: 26,
-//         color: "#FFFFFF",
-//     },
-//     category_box_one: {
-//         position: "relative",
-//         width: 0.85*actual_width,
-//         height: 100,
-//         backgroundColor: "#670000",
-//         borderRadius: 20,
-//     },
-//     category_box_two: {
-//         position: "relative",
-//         width: 0.85*actual_width,
-//         height: 100,
-//         backgroundColor: "#D6482F",
-//         borderRadius: 20,
-//     },
-//     category_box_three: {
-//         position: "relative",
-//         width: 0.85*actual_width,
-//         height: 100,
-//         backgroundColor: "#FF886E",
-//         borderRadius: 20,
-//     },
-//     category_box_four: {
-//         position: "relative",
-//         width: 0.85*actual_width,
-//         height: 100,
-//         backgroundColor: "#C7C4AC",
-//         borderRadius: 20,
-//     },
-//     category_box_five: {
-//         position: "relative",
-//         width: 0.85*actual_width,
-//         height: 100,
-//         backgroundColor: "#588D60",
-//         borderRadius: 20,
-//     },
-//     spacing: {
-//         top: 0.1*actual_height,
-//         height: 0.77*actual_height,
-//         flexDirection: "column",
-//         justifyContent: "space-around",
-//         alignItems: "center",
-//     },
-//     text: {
-//         position: "absolute",
-//         width: 0.8*actual_width,
-//         height: 40,
-//         top: "35%",
-//         // fontFamily: 'Montserrat',
-//         fontWeight: "400",
-//         fontSize: 0.08*actual_width,
-//         lineHeight: 35,
-//         textAlign: "center",
-//         alignSelf: "center",
-//         letterSpacing: 0.25,
-//         color: "#FFFFFF",
-//     },
-//     cat_img: {
-//         height: "100%", 
-//         width: "100%", 
-//         borderBottomRightRadius: 90,
-//         borderBottomLeftRadius: 20,
-//         borderTopLeftRadius: 20,
-//         borderTopRightRadius: 20,
-//     },
-//     downicon: {
-//         position: "absolute",
-//         bottom: 0.005*actual_height,
-//         color: "#FFFFFF",
-//         left: "92%",
-//     },
-//     menu: {
-//         flex: 1,
-//         flexDirection: "row",
-//         position: "absolute",
-//         bottom: 0,
-//         height: 0.08*actual_height,
-//         width: "100%",
-//         backgroundColor: "#FFFFFF",
-//         borderTopLeftRadius: 10,
-//         borderTopRightRadius: 10,
-//         borderTopColor: "#193E26",
-//         borderTopWidth: 2,
-//         borderRightWidth: 2,
-//         borderLeftWidth: 2,
-//         justifyContent: "space-around",
-//     },
-//     menu_text: {
-//         textAlign: "center",
-//         color: "#193E26",
-//     },
-//     one_unit: {
-//         width: 0.12*actual_width,
-//         height: 0.08*actual_height,
-//         flex: 1,
-//         flexDirection: "column",
-//         alignContent: "center",
-//     },
-//     menu_icon: {
-//         alignSelf: "center",
-//     },
-// })
+                        {/* tags */}
+                        <Text style = {styles.body_text_rent} textAlign="left">
+                            Tags (eg, iron, M7, delivery, etc) separated by commas
+                        </Text>
+                        <TextInput 
+                            onChangeText = {(value) => setTags(value)}
+                            style={styles.text_box_rent}/>
+
+                        {/* buttons */}
+                        <UrgentButton />
+                        <Text style = {styles.message}>
+                            Please recheck your post and its details before confirming. {'\n'}{'\n'}
+                            You will not be able to edit this post once it has been uploaded. {'\n'}{'\n'}
+                            In case of any changes, you will have to delete this post and re-post it with the changes. {'\n'}
+                        </Text>
+                        <TouchableOpacity style={styles.confirm_button} onPress={() => console.log("neow")}>
+                            <Text style={styles.confirm_button_text}>
+                                CONFIRM
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                             
+                </ScrollView>
+            </View>
+            <PostBottomNavBar />
+        </SafeAreaView>
+    )}
+    return (
+        <Text style={styles.body_text_rent}>
+            Connection bloopidititooed, try again?
+            {/* <PostBottomNavBar /> */}
+        </Text>
+    )
+}
+export default CreateANewListingForm
+
+const styles = StyleSheet.create({
+    overall: {
+        height: "100%",
+        backgroundColor: "#FFFFFF",
+    },
+    topNavBox: {
+        width: "100%",
+        height: 0.07*actual_height,
+        backgroundColor: "rgb(25, 62, 38)",
+        position: "absolute",
+        left: 0,
+        shadowOffset: {
+            width: 0,
+            height: 4
+        },
+        shadowColor: "rgba(0, 0, 0, 0.25)",
+        shadowRadius: 4,
+        borderBottomRightRadius: 100, 
+	},
+    rentSubTopNavBox: {
+        width: "100%",
+        height: 0.14*actual_height,
+        backgroundColor: "#670000",
+        position: "absolute",
+        left: 0,
+        shadowRadius: 4,
+        borderBottomRightRadius: 100, 
+	},
+    heading1: {
+        marginTop: 0.02*actual_height,
+        paddingHorizontal: "10%",
+        fontFamily: 'Montserrat_400Regular',
+        fontSize: 21,
+        letterSpacing: 0,
+        color: "#ffffff",
+        textAlign: 'left',
+    },
+    heading2: {
+        top: 0.085*actual_height,
+        paddingHorizontal: "10%",
+        fontFamily: 'Montserrat_400Regular',
+        fontSize: 21,
+        letterSpacing: 0,
+        color: "#ffffff",
+        textAlign: 'left',
+    },
+    formContainer: {
+        backgroundColor: "#fff",
+        height: "100%",
+        top: 0.15*actual_height,
+    },
+    formContainer2: {
+        paddingVertical: 20,
+        justifyContent: "space-between",
+        height: "100%",
+    },
+    body_text_rent: {
+        marginBottom: 18,
+        paddingHorizontal: "10%",
+        fontFamily: 'Montserrat_400Regular',
+        fontStyle: "normal",
+        fontWeight: "400",
+        // fontSize: 0.02 * actual_height,
+        fontSize: 14,
+        lineHeight: 17,
+        letterSpacing: 0.15,
+        color: "#670000",
+    },
+    message: {
+        marginBottom: 18,
+        paddingHorizontal: "15%",
+        fontFamily: 'Montserrat_400Regular',
+        fontStyle: "normal",
+        fontWeight: "400",
+        // fontSize: 0.02 * actual_height,
+        fontSize: 14,
+        lineHeight: 17,
+        letterSpacing: 0.15,
+        color: "#670000",
+        textAlign: "center",
+    },
+    text_box_rent: {
+        marginBottom: 40,
+        height: 0.05 * actual_height,
+        width: "80%",
+        backgroundColor: "rgb(240, 240, 240)",
+        borderBottomWidth: 1,
+        paddingHorizontal: "5%",
+        alignSelf: "center",
+        borderBottomColor: "#670000",
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+    },
+    text_box_desc_rent: {
+        marginBottom: 40,
+        height: 0.16 * actual_height,
+        width: "80%",
+        backgroundColor: "rgb(240, 240, 240)",
+        borderBottomWidth: 1,
+        padding: "5%",
+        alignSelf: "center",
+        borderBottomColor: "#670000",
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+    },
+    confirm_button: {
+        width: 0.5 * actual_width,
+        height: 0.055 * actual_height,
+        // width: 217,
+        // height: 45,
+        backgroundColor: "#588D60",
+        borderRadius: 20,
+        alignSelf: "center",
+        marginBottom: 200,
+    },
+    confirm_button_text: {
+        marginTop: 0.016*actual_height,
+        color: "#FFF",
+        alignSelf: "center",
+        fontFamily: 'OpenSans_400Regular',
+        fontSize: 0.016 * actual_height,
+        letterSpacing: 1.25,
+        textTransform: 'uppercase',
+    },
+})
