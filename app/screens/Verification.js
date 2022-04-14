@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
         color: "#193E26",
         alignSelf: "center",
         top: "25%",
+        fontFamily: "Montserrat_400Regular",
     },
     heading: {
         fontWeight: "500",
@@ -97,6 +98,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         letterSpacing: 0.15,
         color: "#193E26",
+        fontFamily: "Montserrat_400Regular",
     },
     body_text: {
         alignSelf: "center",
@@ -108,6 +110,7 @@ const styles = StyleSheet.create({
         lineHeight: 17,
         letterSpacing: 0.15,
         color: "#193E26",
+        fontFamily: "Montserrat_400Regular",
     },
     text_box: {
         height: 0.055*actual_height,

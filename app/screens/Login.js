@@ -3,7 +3,7 @@ import { View, SafeAreaView, Text, Image, Button, Dimensions, ScrollView, TextIn
 import { TouchableOpacity } from 'react-native';
 
 
-function Verification(props) {
+function Login(props) {
     const [id, setIdd] = useState("temp")
     const [password, setPassword] = useState("")
     return (
@@ -96,11 +96,13 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         top: 0.95*actual_height,
         alignSelf: "center",
+
     },
     comp_reg_text: {
         color: "#193E26",
         alignSelf: "center",
         top: "25%",
+        fontFamily: "Montserrat_400Regular",
     },
     heading: {
         top: "6%",
@@ -110,6 +112,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         letterSpacing: 0.15,
         color: "#193E26",
+        fontFamily: "Montserrat_400Regular",
     },
     body_text_one: {
         top: "16%",
@@ -120,6 +123,7 @@ const styles = StyleSheet.create({
         lineHeight: 17,
         letterSpacing: 0.15,
         color: "#193E26",
+        fontFamily: "Montserrat_400Regular",
     },
     body_text_two: {
         top: "26%",
@@ -130,6 +134,8 @@ const styles = StyleSheet.create({
         lineHeight: 17,
         letterSpacing: 0.15,
         color: "#193E26",
+        fontFamily: "Montserrat_400Regular",
+        
     },
     text_box_one: {
         height: 0.055*actual_height,
@@ -157,4 +163,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Verification;
+export default Login;

@@ -5,9 +5,10 @@ import {AntDesign} from "@expo/vector-icons";
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
 
-const Search_By_Categories  = ({navigation}) => {
+const HomeScreenSearchByCategory  = ({navigation}) => {
 	return (
         <SafeAreaView style={styles.overall}>
+            
             <View style={styles.greenbox}>
             </View>
             <View style={styles.darkgreenbox}>
@@ -15,7 +16,7 @@ const Search_By_Categories  = ({navigation}) => {
                     Search By Category
                 </Text>
             </View>
-            <ScrollView contentContainerStyle={{ flexGrow: 1, flex:1 }} style={{flex:1, flexGrow: 1}}>
+            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
             <View style={styles.spacing}>
                 <TouchableOpacity style={styles.category_box_one}
                 onPress={() => {console.log("downnn Rent an Item pressed!!!!")}}>
@@ -30,6 +31,7 @@ const Search_By_Categories  = ({navigation}) => {
                     </TouchableOpacity>
                     <AntDesign name="down" style={styles.downicon} size={0.05*actual_width}/>
                 </TouchableOpacity>
+                
                 
                 <TouchableOpacity style={styles.category_box_two}
                 onPress={() => {console.log("downnn buy an Item pressed!!!!")}}>
@@ -89,8 +91,9 @@ const Search_By_Categories  = ({navigation}) => {
                     </TouchableOpacity>
                     <AntDesign name="down" style={styles.downicon} size={0.05*actual_width}/>
                 </TouchableOpacity>
+                
             </View>
-            </ScrollView>
+        </ScrollView>
             <View style={styles.menu}>
                 <TouchableOpacity
                     onPress={() => {console.log("search pressed")}}>
@@ -134,22 +137,20 @@ const Search_By_Categories  = ({navigation}) => {
     
 
 )}
-export default Search_By_Categories
+
 
 const styles = StyleSheet.create({
     overall: {
-        marginTop: StatusBar.currentHeight,
+        // marginTop: StatusBar.currentHeight,
         width: Dimensions.get("window").width,
         minHeight: Dimensions.get("window").height,
         backgroundColor: "rgb(255, 255, 255)",
-        flex: 1,
-        flexGrow: 1,
     },
     scrollView: {
     },
     greenbox: {
         width: "100%",
-        height: 0.03*actual_height,
+        height: StatusBar.currentHeight,
         left: 0,
         top: 0,
         backgroundColor: "#588D60",
@@ -180,6 +181,7 @@ const styles = StyleSheet.create({
         fontSize: 21,
         lineHeight: 26,
         color: "#FFFFFF",
+        fontFamily: "Montserrat_400Regular",
     },
     category_box_one: {
         position: "relative",
@@ -230,12 +232,13 @@ const styles = StyleSheet.create({
         top: "35%",
         // fontFamily: 'Montserrat',
         fontWeight: "400",
-        fontSize: 0.08*actual_width,
+        fontSize: 0.07*actual_width,
         lineHeight: 35,
         textAlign: "center",
         alignSelf: "center",
         letterSpacing: 0.25,
         color: "#FFFFFF",
+        fontFamily: "Montserrat_400Regular",
     },
     cat_img: {
         height: "100%", 
@@ -256,7 +259,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         position: "absolute",
         bottom: 0,
-        height: 0.08*actual_height,
+        height: 0.05*actual_height,
         width: "100%",
         backgroundColor: "#FFFFFF",
         borderTopLeftRadius: 10,
@@ -270,6 +273,7 @@ const styles = StyleSheet.create({
     menu_text: {
         textAlign: "center",
         color: "#193E26",
+        fontFamily: "Montserrat_400Regular",
     },
     menu_icon: {
         height:50,
@@ -277,3 +281,5 @@ const styles = StyleSheet.create({
         alignSelf: "center",
     },
 })
+
+export default HomeScreenSearchByCategory;
