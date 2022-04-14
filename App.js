@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import CreateANewListingForm from './app/screens/CreateANewListingForm';
+import CreateANewListingForm from './app/screens/forms/CreateANewListingRent';
 
 export default function App() {
   return (

@@ -1,18 +1,26 @@
 import React, { useState, useRef, useEffect } from "react";
 import { View, Text, SafeAreaView, Picker, TouchableOpacity, StatusBar, Image, ScrollView, TextInput, StyleSheet, Animated, Dimensions, Vibration, Alert, KeyboardAvoidingView, Platform} from "react-native";
 import {AntDesign, MaterialCommunityIcons, Ionicons, SimpleLineIcons} from "@expo/vector-icons";
-import PostBottomNavBar from "./navbar/PostBottomNavBar";
+import PostBottomNavBar from "../navbar/PostBottomNavBar";
 import { Montserrat_400Regular, Montserrat_500Medium } from '@expo-google-fonts/montserrat';
 import { OpenSans_400Regular, OpenSans_700Bold } from '@expo-google-fonts/open-sans';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
-import UrgentButton from "../components/UrgentButton";
-// import UrgentButton from '../components/UrgentButton';
+import UrgentButton from "../../components/UrgentButton";
+import { SliderBox } from "react-native-image-slider-box";
 
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
 
 const CreateANewListingForm  = (props) => {
+
+    let app_images = [
+        require('../assets/upload_images_rent.png'),
+        require('../assets/upload_images_rent.png'),
+        require('../assets/upload_images_rent.png'),
+        require('../assets/upload_images_rent.png'),
+        require('../assets/upload_images_rent.png'),
+    ]
     
     // here are all the variables from the input fields
     const [title, setTitle] = useState('');
@@ -52,10 +60,28 @@ const CreateANewListingForm  = (props) => {
                 {/* the form */}
                 <ScrollView style = {styles.formContainer}> 
                     <View style = {styles.formContainer2}>
-                        <Text style = {styles.body_text_rent} textAlign="left">
+                        <Text style = {[styles.body_text_rent, StyleSheet.create({marginTop: 40})]} textAlign="left">
                             Upload Images of Your Item (up to 5)
                         </Text>
-                        
+                        <SliderBox
+                            style = {styles.slider_box}
+                            images = {app_images}
+                            dotColor = "#670000"
+                            inactiveDotColor = "#C4C4C4"
+                            dotStyle = {{
+                                width: 5,
+                                height: 5,
+                                borderRadius: 5,
+                                marginBottom: 30,
+                            }}
+                            sliderBoxHeight= "80%"
+                            // here, I think if you try to replace the images in the images array,
+                            // the images should be uploaded and displayed again.
+                            // please add a check for uploading only 5 images as well.
+                            onCurrentImagePressed={index => console.log(`image ${index} pressed`)}
+                            currentImageEmitter={index => console.log(`current pos is ${index}`)}
+                        />
+
 
                         {/* title */}
                         <Text
@@ -259,5 +285,26 @@ const styles = StyleSheet.create({
         fontSize: 0.016 * actual_height,
         letterSpacing: 1.25,
         textTransform: 'uppercase',
+    },
+    slider_box: {
+        alignSelf: "center",
+        padding: 20,
+        width: "80%",
+        height: 250,
+        marginBottom: 60,
+    },
+    upload_image_box: {
+        backgroundColor: '#D6482F',
+        alignSelf: "center",
+        padding: 20,
+        width: "80%",
+        height: 250,
+        marginBottom: 60,
+    },
+    icon: {
+        marginTop: 50,
+        alignSelf: "center",
+        width: "50%",
+        height: "50%",
     },
 })
