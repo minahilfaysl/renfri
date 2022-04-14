@@ -1,9 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
-import SignUp from './app/screens/SignUp';
+import CreateANewListingForm from './app/screens/CreateANewListingForm';
 
 export default function App() {
   return (
-    <SignUp />
+    <CreateANewListingForm category='rent' />
   );
 }
-
