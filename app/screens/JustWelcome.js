@@ -2,7 +2,7 @@ import React from 'react';
 import { ImageBackground} from 'react-native';
 import { View, Text, Button, TouchableHighlight, TouchableOpacity, Image, ScrollView, TextInput, StyleSheet, SafeAreaView, Animated, Dimensions, Vibration, Alert, KeyboardAvoidingView, Platform} from "react-native";
 import {Font} from 'expo'
-import AnimatedSplash from "react-native-animated-splash-screen";
+// import AnimatedSplash from "react-native-animated-splash-screen";
 
 function JustWelcome(props) {
 
