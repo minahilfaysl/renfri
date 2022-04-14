@@ -1,18 +1,25 @@
 import React, { useState, useRef, useEffect } from "react";
 import { View, Text, SafeAreaView, Picker, TouchableOpacity, StatusBar, Image, ScrollView, TextInput, StyleSheet, Animated, Dimensions, Vibration, Alert, KeyboardAvoidingView, Platform} from "react-native";
-import {AntDesign, MaterialCommunityIcons, Ionicons, SimpleLineIcons} from "@expo/vector-icons";
-import PostBottomNavBar from "./navbar/PostBottomNavBar";
+import PostBottomNavBar from "../navbar/PostBottomNavBar";
 import { Montserrat_400Regular, Montserrat_500Medium } from '@expo-google-fonts/montserrat';
 import { OpenSans_400Regular, OpenSans_700Bold } from '@expo-google-fonts/open-sans';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
-import UrgentButton from "../components/UrgentButton";
-// import UrgentButton from '../components/UrgentButton';
+import UrgentButton from "../../components/UrgentButton";
+import { SliderBox } from "react-native-image-slider-box";
 
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
 
-const CreateANewListingForm  = (props) => {
+export default function CreateANewListingBuy () {
+
+    let app_images = [
+        require('../../assets/upload_images_buy.png'),
+        require('../../assets/upload_images_buy.png'),
+        require('../../assets/upload_images_buy.png'),
+        require('../../assets/upload_images_buy.png'),
+        require('../../assets/upload_images_buy.png'),
+    ]
     
     // here are all the variables from the input fields
     const [title, setTitle] = useState('');
@@ -33,80 +40,97 @@ const CreateANewListingForm  = (props) => {
         return <AppLoading />;
     }
 
-    if (props.category == 'rent') {
 	return (
         <SafeAreaView style={styles.overall}>
             <View style = {styles.overall}>
                 {/* the top navbar */}
                 <StatusBar backgroundColor="#588D60" />
-                <View style={styles.rentSubTopNavBox}>
+                <View style={styles.subtop_nav_box}>
                     <Text style={styles.heading2}>
-                        Rent an Item
+                        Buy an Item
                     </Text>
                 </View>
-                <View style={styles.topNavBox}>
+                <View style={styles.top_nav_box}>
                     <Text style={styles.heading1}>
                         Create A Listing or Post
                     </Text>
                 </View>
                 {/* the form */}
-                <ScrollView style = {styles.formContainer}> 
-                    <View style = {styles.formContainer2}>
-                        <Text style = {styles.body_text_rent} textAlign="left">
+                <ScrollView style = {styles.form_container}> 
+                    <View style = {styles.form_container2}>
+                        <Text style = {[styles.body_text, StyleSheet.create({marginTop: 20})]} textAlign="left">
                             Upload Images of Your Item (up to 5)
                         </Text>
-                        
+                        <SliderBox
+                            style = {styles.slider_box}
+                            images = {app_images}
+                            dotColor = "#D6482F"
+                            inactiveDotColor = "#C4C4C4"
+                            dotStyle = {{
+                                width: 5,
+                                height: 5,
+                                borderRadius: 5,
+                                marginBottom: 30,
+                            }}
+                            sliderBoxHeight= "80%"
+                            // here, I think if you try to replace the images in the images array,
+                            // the images should be uploaded and displayed again.
+                            // please add a check for uploading only 5 images as well.
+                            onCurrentImagePressed={index => console.log(`image ${index} pressed`)}
+                            currentImageEmitter={index => console.log(`current pos is ${index}`)}
+                        />
+
 
                         {/* title */}
                         <Text
-                            style = {styles.body_text_rent} textAlign="left">
+                            style = {styles.body_text} textAlign="left">
                             Add Title For Your Item *
                         </Text>
                         <TextInput
                             onChangeText = {(value) => setTitle(value)}
-                            style={styles.text_box_rent}/>
+                            style={styles.text_box}/>
 
                         {/* description */}
-                        <Text style = {styles.body_text_rent} textAlign="left">
+                        <Text style = {styles.body_text} textAlign="left">
                             Add Item Description
                         </Text>
                         <TextInput
                             multiline
                             numberOfLines={4}
                             onChangeText = {(value) => setDesc(value)}
-                            style={styles.text_box_desc_rent}/>
+                            style={styles.text_box_desc}/>
 
                         {/* price */}
-                        <Text style = {styles.body_text_rent} textAlign="left">
+                        <Text style = {styles.body_text} textAlign="left">
                             Enter Price For Your Item in PKR *
                         </Text>
                         <TextInput
                             onChangeText = {(value) => setPrice(value)}
-                            style={styles.text_box_rent}/>
+                            style={styles.text_box}/>
 
-                        {/* duration of rent */}
-                        <Text style = {styles.body_text_rent} textAlign="left">
+                        {/* duration of rent
+                        <Text style = {styles.body_text} textAlign="left">
                             Duration of Rent
                         </Text>
                         <TextInput
                             onChangeText = {(value) => setDuration(value)}
-                            style={styles.text_box_rent}/>
+                            style={styles.text_box}/> */}
                         
-                        {/* insurance */}
-                        <Text style = {styles.body_text_rent} textAlign="left">
+                        {/* insurance 
+                        <Text style = {styles.body_text} textAlign="left">
                             Insurance (in case of damages) in PKR
                         </Text>
                         <TextInput 
                             onChangeText = {(value) => setInsurance(value)}
-                            style={styles.text_box_rent}/>
+                            style={styles.text_box}/> */}
 
                         {/* tags */}
-                        <Text style = {styles.body_text_rent} textAlign="left">
+                        <Text style = {styles.body_text} textAlign="left">
                             Tags (eg, iron, M7, delivery, etc) separated by commas
                         </Text>
                         <TextInput 
                             onChangeText = {(value) => setTags(value)}
-                            style={styles.text_box_rent}/>
+                            style={styles.text_box}/>
 
                         {/* buttons */}
                         <UrgentButton />
@@ -126,22 +150,15 @@ const CreateANewListingForm  = (props) => {
             </View>
             <PostBottomNavBar />
         </SafeAreaView>
-    )}
-    return (
-        <Text style={styles.body_text_rent}>
-            Connection bloopidititooed, try again?
-            {/* <PostBottomNavBar /> */}
-        </Text>
     )
 }
-export default CreateANewListingForm
 
 const styles = StyleSheet.create({
     overall: {
         height: "100%",
         backgroundColor: "#FFFFFF",
     },
-    topNavBox: {
+    top_nav_box: {
         width: "100%",
         height: 0.07*actual_height,
         backgroundColor: "rgb(25, 62, 38)",
@@ -155,10 +172,10 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         borderBottomRightRadius: 100, 
 	},
-    rentSubTopNavBox: {
+    subtop_nav_box: {
         width: "100%",
         height: 0.14*actual_height,
-        backgroundColor: "#670000",
+        backgroundColor: "#D6482F",
         position: "absolute",
         left: 0,
         shadowRadius: 4,
@@ -182,17 +199,17 @@ const styles = StyleSheet.create({
         color: "#ffffff",
         textAlign: 'left',
     },
-    formContainer: {
+    form_container: {
         backgroundColor: "#fff",
         height: "100%",
         top: 0.15*actual_height,
     },
-    formContainer2: {
+    form_container2: {
         paddingVertical: 20,
         justifyContent: "space-between",
         height: "100%",
     },
-    body_text_rent: {
+    body_text: {
         marginBottom: 18,
         paddingHorizontal: "10%",
         fontFamily: 'Montserrat_400Regular',
@@ -202,7 +219,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         lineHeight: 17,
         letterSpacing: 0.15,
-        color: "#670000",
+        color: "#D6482F",
     },
     message: {
         marginBottom: 18,
@@ -214,10 +231,10 @@ const styles = StyleSheet.create({
         fontSize: 14,
         lineHeight: 17,
         letterSpacing: 0.15,
-        color: "#670000",
+        color: "#D6482F",
         textAlign: "center",
     },
-    text_box_rent: {
+    text_box: {
         marginBottom: 40,
         height: 0.05 * actual_height,
         width: "80%",
@@ -225,11 +242,11 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         paddingHorizontal: "5%",
         alignSelf: "center",
-        borderBottomColor: "#670000",
+        borderBottomColor: "#D6482F",
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
     },
-    text_box_desc_rent: {
+    text_box_desc: {
         marginBottom: 40,
         height: 0.16 * actual_height,
         width: "80%",
@@ -237,7 +254,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         padding: "5%",
         alignSelf: "center",
-        borderBottomColor: "#670000",
+        borderBottomColor: "#D6482F",
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
     },
@@ -259,5 +276,27 @@ const styles = StyleSheet.create({
         fontSize: 0.016 * actual_height,
         letterSpacing: 1.25,
         textTransform: 'uppercase',
+    },
+    slider_box: {
+        alignSelf: "center",
+        padding: 20,
+        width: "80%",
+        height: 250,
+        marginBottom: 60,
+        borderRadius: 10,
+    },
+    upload_image_box: {
+        backgroundColor: '#D6482F',
+        alignSelf: "center",
+        padding: 20,
+        width: "80%",
+        height: 250,
+        marginBottom: 60,
+    },
+    icon: {
+        marginTop: 50,
+        alignSelf: "center",
+        width: "50%",
+        height: "50%",
     },
 })
