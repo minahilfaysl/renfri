@@ -11,14 +11,14 @@ import { SliderBox } from "react-native-image-slider-box";
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
 
-export default function CreateANewListingRent () {
+export default function CreateANewListingBuy () {
 
     let app_images = [
-        require('../../assets/upload_images_rent.png'),
-        require('../../assets/upload_images_rent.png'),
-        require('../../assets/upload_images_rent.png'),
-        require('../../assets/upload_images_rent.png'),
-        require('../../assets/upload_images_rent.png'),
+        require('../../assets/upload_images_buy.png'),
+        require('../../assets/upload_images_buy.png'),
+        require('../../assets/upload_images_buy.png'),
+        require('../../assets/upload_images_buy.png'),
+        require('../../assets/upload_images_buy.png'),
     ]
     
     // here are all the variables from the input fields
@@ -47,7 +47,7 @@ export default function CreateANewListingRent () {
                 <StatusBar backgroundColor="#588D60" />
                 <View style={styles.subtop_nav_box}>
                     <Text style={styles.heading2}>
-                        Rent an Item
+                        Buy an Item
                     </Text>
                 </View>
                 <View style={styles.top_nav_box}>
@@ -64,7 +64,7 @@ export default function CreateANewListingRent () {
                         <SliderBox
                             style = {styles.slider_box}
                             images = {app_images}
-                            dotColor = "#670000"
+                            dotColor = "#D6482F"
                             inactiveDotColor = "#C4C4C4"
                             dotStyle = {{
                                 width: 5,
@@ -108,21 +108,21 @@ export default function CreateANewListingRent () {
                             onChangeText = {(value) => setPrice(value)}
                             style={styles.text_box}/>
 
-                        {/* duration of rent */}
+                        {/* duration of rent
                         <Text style = {styles.body_text} textAlign="left">
                             Duration of Rent
                         </Text>
                         <TextInput
                             onChangeText = {(value) => setDuration(value)}
-                            style={styles.text_box}/>
+                            style={styles.text_box}/> */}
                         
-                        {/* insurance */}
+                        {/* insurance 
                         <Text style = {styles.body_text} textAlign="left">
                             Insurance (in case of damages) in PKR
                         </Text>
                         <TextInput 
                             onChangeText = {(value) => setInsurance(value)}
-                            style={styles.text_box}/>
+                            style={styles.text_box}/> */}
 
                         {/* tags */}
                         <Text style = {styles.body_text} textAlign="left">
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     subtop_nav_box: {
         width: "100%",
         height: 0.14*actual_height,
-        backgroundColor: "#670000",
+        backgroundColor: "#D6482F",
         position: "absolute",
         left: 0,
         shadowRadius: 4,
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         lineHeight: 17,
         letterSpacing: 0.15,
-        color: "#670000",
+        color: "#D6482F",
     },
     message: {
         marginBottom: 18,
@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         lineHeight: 17,
         letterSpacing: 0.15,
-        color: "#670000",
+        color: "#D6482F",
         textAlign: "center",
     },
     text_box: {
@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         paddingHorizontal: "5%",
         alignSelf: "center",
-        borderBottomColor: "#670000",
+        borderBottomColor: "#D6482F",
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
     },
@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         padding: "5%",
         alignSelf: "center",
-        borderBottomColor: "#670000",
+        borderBottomColor: "#D6482F",
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
     },

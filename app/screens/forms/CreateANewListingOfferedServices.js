@@ -11,14 +11,14 @@ import { SliderBox } from "react-native-image-slider-box";
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
 
-export default function CreateANewListingRent () {
+export default function CreateANewListingOfferedServices () {
 
     let app_images = [
-        require('../../assets/upload_images_rent.png'),
-        require('../../assets/upload_images_rent.png'),
-        require('../../assets/upload_images_rent.png'),
-        require('../../assets/upload_images_rent.png'),
-        require('../../assets/upload_images_rent.png'),
+        require('../../assets/upload_images_offered_services.png'),
+        require('../../assets/upload_images_offered_services.png'),
+        require('../../assets/upload_images_offered_services.png'),
+        require('../../assets/upload_images_offered_services.png'),
+        require('../../assets/upload_images_offered_services.png'),
     ]
     
     // here are all the variables from the input fields
@@ -47,7 +47,7 @@ export default function CreateANewListingRent () {
                 <StatusBar backgroundColor="#588D60" />
                 <View style={styles.subtop_nav_box}>
                     <Text style={styles.heading2}>
-                        Rent an Item
+                        Requested Services
                     </Text>
                 </View>
                 <View style={styles.top_nav_box}>
@@ -59,12 +59,12 @@ export default function CreateANewListingRent () {
                 <ScrollView style = {styles.form_container}> 
                     <View style = {styles.form_container2}>
                         <Text style = {[styles.body_text, StyleSheet.create({marginTop: 20})]} textAlign="left">
-                            Upload Images of Your Item (up to 5)
+                            Upload Images Relevant to Your Requested Services (up to 5)
                         </Text>
                         <SliderBox
                             style = {styles.slider_box}
                             images = {app_images}
-                            dotColor = "#670000"
+                            dotColor = "#193E26"
                             inactiveDotColor = "#C4C4C4"
                             dotStyle = {{
                                 width: 5,
@@ -84,7 +84,7 @@ export default function CreateANewListingRent () {
                         {/* title */}
                         <Text
                             style = {styles.body_text} textAlign="left">
-                            Add Title For Your Item *
+                            Add Title For Your Requested Service *
                         </Text>
                         <TextInput
                             onChangeText = {(value) => setTitle(value)}
@@ -92,7 +92,7 @@ export default function CreateANewListingRent () {
 
                         {/* description */}
                         <Text style = {styles.body_text} textAlign="left">
-                            Add Item Description
+                            Add Service Description
                         </Text>
                         <TextInput
                             multiline
@@ -102,27 +102,27 @@ export default function CreateANewListingRent () {
 
                         {/* price */}
                         <Text style = {styles.body_text} textAlign="left">
-                            Enter Price For Your Item in PKR *
+                            Enter the price that you can pay for your requested service in PKR *
                         </Text>
                         <TextInput
                             onChangeText = {(value) => setPrice(value)}
                             style={styles.text_box}/>
 
-                        {/* duration of rent */}
+                        {/* duration of rent 
                         <Text style = {styles.body_text} textAlign="left">
-                            Duration of Rent
+                            Estimated Time To Complete Required Services
                         </Text>
                         <TextInput
                             onChangeText = {(value) => setDuration(value)}
-                            style={styles.text_box}/>
+                            style={styles.text_box}/> */}
                         
-                        {/* insurance */}
+                        {/* insurance
                         <Text style = {styles.body_text} textAlign="left">
                             Insurance (in case of damages) in PKR
                         </Text>
                         <TextInput 
                             onChangeText = {(value) => setInsurance(value)}
-                            style={styles.text_box}/>
+                            style={styles.text_box}/> */}
 
                         {/* tags */}
                         <Text style = {styles.body_text} textAlign="left">
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     subtop_nav_box: {
         width: "100%",
         height: 0.14*actual_height,
-        backgroundColor: "#670000",
+        backgroundColor: "#C7C4AC",
         position: "absolute",
         left: 0,
         shadowRadius: 4,
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Montserrat_400Regular',
         fontSize: 21,
         letterSpacing: 0,
-        color: "#ffffff",
+        color: "#193E26",
         textAlign: 'left',
     },
     form_container: {
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         lineHeight: 17,
         letterSpacing: 0.15,
-        color: "#670000",
+        color: "#193E26",
     },
     message: {
         marginBottom: 18,
@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         lineHeight: 17,
         letterSpacing: 0.15,
-        color: "#670000",
+        color: "#193E26",
         textAlign: "center",
     },
     text_box: {
@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         paddingHorizontal: "5%",
         alignSelf: "center",
-        borderBottomColor: "#670000",
+        borderBottomColor: "#193E26",
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
     },
@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         padding: "5%",
         alignSelf: "center",
-        borderBottomColor: "#670000",
+        borderBottomColor: "#193E26",
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
     },

@@ -11,14 +11,14 @@ import { SliderBox } from "react-native-image-slider-box";
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
 
-export default function CreateANewListingRent () {
+export default function CreateANewListingRQItems () {
 
     let app_images = [
-        require('../../assets/upload_images_rent.png'),
-        require('../../assets/upload_images_rent.png'),
-        require('../../assets/upload_images_rent.png'),
-        require('../../assets/upload_images_rent.png'),
-        require('../../assets/upload_images_rent.png'),
+        require('../../assets/upload_images_rq_items.png'),
+        require('../../assets/upload_images_rq_items.png'),
+        require('../../assets/upload_images_rq_items.png'),
+        require('../../assets/upload_images_rq_items.png'),
+        require('../../assets/upload_images_rq_items.png'),
     ]
     
     // here are all the variables from the input fields
@@ -47,7 +47,7 @@ export default function CreateANewListingRent () {
                 <StatusBar backgroundColor="#588D60" />
                 <View style={styles.subtop_nav_box}>
                     <Text style={styles.heading2}>
-                        Rent an Item
+                        Requested Items
                     </Text>
                 </View>
                 <View style={styles.top_nav_box}>
@@ -102,7 +102,7 @@ export default function CreateANewListingRent () {
 
                         {/* price */}
                         <Text style = {styles.body_text} textAlign="left">
-                            Enter Price For Your Item in PKR *
+                            Enter the price that you can pay for your requested item in PKR *
                         </Text>
                         <TextInput
                             onChangeText = {(value) => setPrice(value)}
@@ -110,19 +110,19 @@ export default function CreateANewListingRent () {
 
                         {/* duration of rent */}
                         <Text style = {styles.body_text} textAlign="left">
-                            Duration of Rent
+                            Duration of Rent (if an item for rent is being requested)
                         </Text>
                         <TextInput
                             onChangeText = {(value) => setDuration(value)}
                             style={styles.text_box}/>
                         
-                        {/* insurance */}
+                        {/* insurance
                         <Text style = {styles.body_text} textAlign="left">
                             Insurance (in case of damages) in PKR
                         </Text>
                         <TextInput 
                             onChangeText = {(value) => setInsurance(value)}
-                            style={styles.text_box}/>
+                            style={styles.text_box}/> */}
 
                         {/* tags */}
                         <Text style = {styles.body_text} textAlign="left">
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     subtop_nav_box: {
         width: "100%",
         height: 0.14*actual_height,
-        backgroundColor: "#670000",
+        backgroundColor: "#FF886E",
         position: "absolute",
         left: 0,
         shadowRadius: 4,
