@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { View, Text, SafeAreaView, Picker, TouchableOpacity, StatusBar, Image, ScrollView, TextInput, StyleSheet, Animated, Dimensions, Vibration, Alert, KeyboardAvoidingView, Platform} from "react-native";
-import {AntDesign, MaterialCommunityIcons, Ionicons, SimpleLineIcons} from "@expo/vector-icons";
+import {AntDesign} from "@expo/vector-icons";
 
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
@@ -8,7 +8,6 @@ const actual_width = Dimensions.get("window").width
 const Search_By_Categories  = ({navigation}) => {
 	return (
         <SafeAreaView style={styles.overall}>
-            {/* <ScrollView> */}
             <View style={styles.greenbox}>
             </View>
             <View style={styles.darkgreenbox}>
@@ -16,6 +15,7 @@ const Search_By_Categories  = ({navigation}) => {
                     Search By Category
                 </Text>
             </View>
+            <ScrollView contentContainerStyle={{ flexGrow: 1, flex:1 }} style={{flex:1, flexGrow: 1}}>
             <View style={styles.spacing}>
                 <TouchableOpacity style={styles.category_box_one}
                 onPress={() => {console.log("downnn Rent an Item pressed!!!!")}}>
@@ -30,7 +30,6 @@ const Search_By_Categories  = ({navigation}) => {
                     </TouchableOpacity>
                     <AntDesign name="down" style={styles.downicon} size={0.05*actual_width}/>
                 </TouchableOpacity>
-                
                 
                 <TouchableOpacity style={styles.category_box_two}
                 onPress={() => {console.log("downnn buy an Item pressed!!!!")}}>
@@ -91,43 +90,45 @@ const Search_By_Categories  = ({navigation}) => {
                     <AntDesign name="down" style={styles.downicon} size={0.05*actual_width}/>
                 </TouchableOpacity>
             </View>
-
+            </ScrollView>
             <View style={styles.menu}>
-                <View style={styles.one_unit}>
-                    <MaterialCommunityIcons name="home-search-outline" size={0.1*actual_width} color="#193E26" style={styles.menu_icon}/>
-                    <Text style={styles.menu_text}>
-                        Search
-                    </Text>
-                </View>
-                <View style={styles.one_unit}>
-                    <Ionicons name="person-outline" size={0.1*actual_width} color="#193E26" style={styles.menu_icon}/>
-                    <Text style={styles.menu_text}>
-                        Profile
-                    </Text>
-                </View>
-                <View style={styles.one_unit}>
-                    <Ionicons name="add-circle-outline" size={0.1*actual_width} color="#193E26" style={styles.menu_icon}/>
-                    <Text style={styles.menu_text}>
-                        Post
-                    </Text>
-                </View>
-                <View style={styles.one_unit}> 
-                    <Ionicons name="notifications-outline" size={0.1*actual_width} color="#193E26" style={styles.menu_icon}/>
-                    <Text style={styles.menu_text}>
-                        Notifs
-                    </Text>
-                </View>
-                <View style={styles.one_unit}> 
-                    <SimpleLineIcons name="envelope" size={0.1*actual_width} color="#193E26" style={styles.menu_icon}/>
-                    <Text style={styles.menu_text}>
-                        Chat
-                    </Text>
-                </View>
+                <TouchableOpacity
+                    onPress={() => {console.log("search pressed")}}>
+                        <Image 
+                        style={styles.menu_icon} 
+                        size={12}
+                        source = {require("../assets/search.png")}/>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => {console.log("profile pressed")}}>
+                        <Image 
+                        style={styles.menu_icon} 
+                        size={12}
+                        source = {require("../assets/profile.png")}/>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => {console.log("post pressed")}}>
+                        <Image 
+                        style={styles.menu_icon} 
+                        size={12}
+                        source = {require("../assets/post.png")}/>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => {console.log("notif pressed")}}>
+                        <Image 
+                        style={styles.menu_icon} 
+                        size={12}
+                        source = {require("../assets/notif.png")}/>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => {console.log("chat pressed")}}>
+                        <Image 
+                        style={styles.menu_icon} 
+                        size={12}
+                        source = {require("../assets/chat.png")}/>
+                </TouchableOpacity>
             </View>
-
             
-
-            {/* </ScrollView> */}
         </SafeAreaView>
     
     
@@ -141,6 +142,8 @@ const styles = StyleSheet.create({
         width: Dimensions.get("window").width,
         minHeight: Dimensions.get("window").height,
         backgroundColor: "rgb(255, 255, 255)",
+        flex: 1,
+        flexGrow: 1,
     },
     scrollView: {
     },
@@ -268,14 +271,9 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: "#193E26",
     },
-    one_unit: {
-        width: 0.12*actual_width,
-        height: 0.08*actual_height,
-        flex: 1,
-        flexDirection: "column",
-        alignContent: "center",
-    },
     menu_icon: {
+        height:50,
+        width: 50,
         alignSelf: "center",
     },
 })

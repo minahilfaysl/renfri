@@ -1,9 +1,11 @@
-import React from 'react';
-import { View, SafeAreaView, Text, Image, Button, ScrollView, TextInput, StyleSheet} from "react-native";
+import React, { useState } from 'react';
+import { View, SafeAreaView, Text, Image, Button, Dimensions, ScrollView, TextInput, StyleSheet} from "react-native";
 import { TouchableOpacity } from 'react-native';
 
 
 function Verification(props) {
+    const [id, setIdd] = useState("temp")
+    const [password, setPassword] = useState("")
     return (
         <View>
             <View style = {styles.overall}>
@@ -19,14 +21,27 @@ function Verification(props) {
                     <Text style = {styles.body_text_one} textAlign="left">
                         Your LUMS Email ID
                     </Text>
-                    <TextInput style={styles.text_box_one}/>
+                    <TextInput 
+                    style={styles.text_box_one}
+                    onChangeText={(id) => setIdd(id)} //in case the user doesn't press enter
+                    onSubmitEditing={(id) => setIdd(id.nativeEvent.text)} //name gets updated here upon user pressing enter
+                    />
                     <Text style = {styles.body_text_two} textAlign="left">
                         Password
                     </Text>
                     
-                    <TextInput style={styles.text_box_two}/>
+                    <TextInput 
+                    style={styles.text_box_two}
+                    secureTextEntry={true}
+                    onChangeText={(password) => setPassword(password)}
+                    onSubmitEditing={(password) => setPassword(password.nativeEvent.text)} //name gets updated here upon user pressing enter
+                    />
 			    </View>
-                <TouchableOpacity style={styles.comp_reg_box} onPress={() => console.log("neow")}>
+                <TouchableOpacity style={styles.comp_reg_box} 
+                onPress={() => {
+                    console.log(id, password)
+                    }
+                }>
                     <Text style={styles.comp_reg_text}>
                         LOGIN
                     </Text>
@@ -36,6 +51,9 @@ function Verification(props) {
         
     );
 }
+
+const actual_height = Dimensions.get("window").height;
+const actual_width = Dimensions.get("window").width;
 
 
 const styles = StyleSheet.create({
@@ -76,7 +94,7 @@ const styles = StyleSheet.create({
         borderStyle: "solid",
         borderColor: "#193E26",
         borderRadius: 20,
-        top: "87.7%",
+        top: 0.95*actual_height,
         alignSelf: "center",
     },
     comp_reg_text: {
@@ -114,8 +132,8 @@ const styles = StyleSheet.create({
         color: "#193E26",
     },
     text_box_one: {
-        height: "12%",
-        width: "80%",
+        height: 0.055*actual_height,
+        width: 0.8*actual_width,
         top: "18%",
         backgroundColor: "rgb(240, 240, 240)",
         borderBottomWidth: 1,
@@ -126,8 +144,8 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 10,
     },
     text_box_two: {
-        height: "12%",
-        width: "80%",
+        height: 0.055*actual_height,
+        width: 0.8*actual_width,
         top: "28%",
         backgroundColor: "rgb(240, 240, 240)",
         borderBottomWidth: 1,

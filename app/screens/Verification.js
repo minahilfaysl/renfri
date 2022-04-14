@@ -1,9 +1,11 @@
-import React from 'react';
-import { View, SafeAreaView, Text, Image, Button, ScrollView, TextInput, StyleSheet} from "react-native";
+import React, { useState } from 'react';
+import { View, SafeAreaView, Text, Image, Button, Dimensions, ScrollView, TextInput, StyleSheet} from "react-native";
 import { TouchableOpacity } from 'react-native';
 
 
+
 function Verification(props) {
+    const [name, setName] = useState(""); //okay so, name is the input
     return (
         <View>
             <View style = {styles.overall}>
@@ -19,9 +21,16 @@ function Verification(props) {
                     <Text style = {styles.heading}>
                         LUMS User Verification
                     </Text>
-                    <TextInput style={styles.text_box}/>
+                    <TextInput 
+                        style={styles.text_box} 
+                        onSubmitEditing={(value) => setName(value.nativeEvent.text)} //name gets updated here upon user pressing enter
+                    >
+                    </TextInput>
 			    </View>
-                <TouchableOpacity style={styles.comp_reg_box} onPress={() => console.log("neow")}>
+                <TouchableOpacity 
+                style={styles.comp_reg_box} 
+                onPress={() => console.log(name) //the name gets printed when user presses button
+                }>
                     <Text style={styles.comp_reg_text}>
                         COMPLETE REGISTRATION
                     </Text>
@@ -31,6 +40,9 @@ function Verification(props) {
         
     );
 }
+
+const actual_height = Dimensions.get("window").height;
+const actual_width = Dimensions.get("window").width;
 
 
 const styles = StyleSheet.create({
@@ -63,7 +75,6 @@ const styles = StyleSheet.create({
         width: 217,
         height: 45,
         backgroundColor: "#FFFFFF",
-        position: "absolute",
         borderTopWidth: 1,
         borderRightWidth: 1,
         borderBottomWidth: 1,
@@ -71,7 +82,7 @@ const styles = StyleSheet.create({
         borderStyle: "solid",
         borderColor: "#193E26",
         borderRadius: 20,
-        top: "87.7%",
+        top: 0.95*actual_height,
         alignSelf: "center",
     },
     comp_reg_text: {
@@ -99,8 +110,8 @@ const styles = StyleSheet.create({
         color: "#193E26",
     },
     text_box: {
-        height: "15%",
-        width: "80%",
+        height: 0.055*actual_height,
+        width: 0.8*actual_width,
         top: "30%",
         backgroundColor: "rgb(240, 240, 240)",
         borderBottomWidth: 1,
