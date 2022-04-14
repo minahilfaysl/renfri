@@ -61,7 +61,7 @@ export const GlobalStyles = StyleSheet.create({
 
     subtitle2: {
         fontFamily: 'Montserrat_500Medium',
-        fontSize: 0.015*actual_height,
+        fontSize: 0.015*actual_height, // 13
         letterSpacing: 0.1,
     },
 

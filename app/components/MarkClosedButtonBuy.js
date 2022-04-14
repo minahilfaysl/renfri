@@ -8,26 +8,28 @@ import AppLoading from 'expo-app-loading';;
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
 
-export default function UrgentButton(props) {
+export default function MarkClosedButtonBuy(props) {
 
     if (!props) {
         props.state = false;
     }
-    const [urgentClicked, setUrgentClicked] = useState(props.state);
-    const [urgentText, setUrgentText] = useState("MARK AS URGENT")
+    const [clicked, setClicked] = useState(props.state);
+    const [text, setText] = useState("MARK CLOSED")
 
-    const urgentButtonClicked = {
+    const buttonClicked = {
         onPress: () => { 
-            if (urgentClicked) {
-                setUrgentClicked(false),
-                setUrgentText("MARK AS URGENT")
+            if (clicked) {
+                setClicked(false),
+                setText("MARK CLOSED")
+                console.log("no wait, i didnt mean that, open it again")
             }
             else {
-                setUrgentClicked(true),
-                setUrgentText("MARKED URGENT")
+                setClicked(true),
+                setText("MARK AS OPEN")
+                console.log("hello mark my post as closed")
             }
         },
-        style: urgentClicked ? styles.urgent_box_clicked : styles.urgent_box,
+        style: clicked ? styles.box_clicked : styles.box,
     }
 
     let [fontsLoaded] = useFonts({
@@ -42,23 +44,23 @@ export default function UrgentButton(props) {
     }
 
     return (
-        <TouchableOpacity {...urgentButtonClicked}> 
-        <Image 
-            style={styles.icon} 
-            source = {urgentClicked ? require("../assets/Alarm_fill_active.png") : require("../assets/Alarm_fill.png")}/>
-        <Text style= {urgentClicked ? styles.urgent_text_clicked : styles.urgent_text}>
-            { urgentText }
-        </Text>
+        <TouchableOpacity {...buttonClicked}> 
+            <Image 
+                style={styles.icon} 
+                source = {clicked ? require("../assets/Book_check_fill_lred.png") : require("../assets/Book_check_fill_lred.png")}/>
+            <Text style= {clicked ? styles.text_clicked : styles.text}>
+                { text }
+            </Text>
         </TouchableOpacity>
     );
 }
 
 const styles = StyleSheet.create({
-    urgent_box: {
+    box: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
-        width: 0.5 * actual_width,
+        width: 0.35 * actual_width,
         height: 0.04 * actual_height,
         paddingHorizontal: "5%",
         alignItems: "center",
@@ -67,10 +69,9 @@ const styles = StyleSheet.create({
         borderStyle: "solid",
         borderColor: "#D6482F",
         borderRadius: 20,
-        alignSelf: "center",
         marginBottom: 40,
     },
-    urgent_text: {
+    text: {
         // marginTop: 0.015*actual_height,
         color: "#D6482F",
         alignSelf: "center",
@@ -79,25 +80,24 @@ const styles = StyleSheet.create({
         letterSpacing: 1.25,
         textTransform: 'uppercase',
     },
-    urgent_box_clicked: {
+    box_clicked: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
-        width: 0.5 * actual_width,
+        width: 0.35 * actual_width,
         height: 0.04 * actual_height,
         paddingHorizontal: "5%",
         alignItems: "center",
-        backgroundColor: "#D6482F",
+        backgroundColor: "#FF886E",
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: "#670000",
+        borderColor: "#D6482F",
         borderRadius: 20,
-        alignSelf: "center",
         marginBottom: 40,
     },
-    urgent_text_clicked: {
+    text_clicked: {
         // marginTop: 0.015*actual_height,
-        color: "#670000",
+        color: "#D6482F",
         alignSelf: "center",
         fontFamily: 'OpenSans_400Regular',
         fontSize: 0.016 * actual_height,
