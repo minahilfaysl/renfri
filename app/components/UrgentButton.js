@@ -10,11 +10,11 @@ const actual_width = Dimensions.get("window").width
 
 export default function UrgentButton(props) {
 
-    if (!props) {
+    if (!props.state) {
         props.state = false;
     }
     const [urgentClicked, setUrgentClicked] = useState(props.state);
-    const [urgentText, setUrgentText] = useState("MARK AS URGENT")
+    const [urgentText, setUrgentText] = useState(props.state ? "MARKED URGENT" : "MARK AS URGENT")
 
     const urgentButtonClicked = {
         onPress: () => { 
@@ -55,7 +55,7 @@ export default function UrgentButton(props) {
 
 const styles = StyleSheet.create({
     urgent_box: {
-        flex: 1,
+        // flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         width: 0.5 * actual_width,
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase',
     },
     urgent_box_clicked: {
-        flex: 1,
+        // flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         width: 0.5 * actual_width,

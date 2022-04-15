@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, Text, SafeAreaView, Picker, TouchableOpacity, closedBar, Image, ScrollView, TextInput, StyleSheet, Animated, Dimensions, Vibration, Alert, KeyboardAvoidingView, Platform} from "react-native";
+import { View, Text, SafeAreaView, Picker, TouchableOpacity, StatusBar, Image, ScrollView, TextInput, StyleSheet, Animated, Dimensions, Vibration, Alert, KeyboardAvoidingView, Platform} from "react-native";
 import PostBottomNavBar from "../navbar/PostBottomNavBar";
 import { Montserrat_400Regular, Montserrat_500Medium } from '@expo-google-fonts/montserrat';
 import { OpenSans_400Regular, OpenSans_700Bold } from '@expo-google-fonts/open-sans';
@@ -7,8 +7,8 @@ import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import UrgentButton from "../../components/UrgentButton";
 import { SliderBox } from "react-native-image-slider-box";
-import { Touchable } from "react-native-web";
-import MarkClosedButtonBuy from "../../components/MarkClosedButtonBuy";
+import SavedButtonLRed from "../../components/SavedButtonLRed";
+import { Col, Row, Grid } from 'react-native-easy-grid';
 
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
@@ -64,52 +64,142 @@ function Description (data) {
     return null
 }
 
-function Table (data) {
+function TableColA (data) {
     // return the price
     if (data.price) {
         return (
-            <View style = {styles.table_box}>
-                <Text style = {styles.body_text} textAlign="left">
-                    Price:                       PKR {data.price}
-                </Text>
-            </View>
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>Price:</Text>
+            </Row>
         )
     }
-
     // return the status
-    if (data.closed == false) {
+    if (data.closed) {
         return (
-            <View style = {styles.table_box}>
-                <Text style = {styles.body_text} textAlign="left">
-                    Status:                     Open
-                </Text>
-            </View>
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>Status:</Text>
+            </Row>
         )
     }
-    else if (data.closed == true) {
-        return (
-            <View style = {styles.table_box}>
-                <Text style = {styles.body_text} textAlign="left">
-                    Status:                  Closed
-                </Text>
-            </View>
-        )
-    }
-
-
     // return the tags
     if (data.tags) {
         return (
-            <View style = {styles.table_box}>
-                <Text style = {styles.body_text} textAlign="left">
-                    Tags:                        {data.tags}
-                </Text>
-            </View>
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>Tags:</Text>
+            </Row>
+        )
+    }
+    // return the duration
+    if (data.duration) {
+        return (
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>Duration of Rent:</Text>
+            </Row>
         )
     }
 
-    return null
+    // return the insurance
+    if (data.insurance) {
+        return (
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>Insurance:</Text>
+            </Row>
+        )
+    }
+    if (data.lister) {
 
+        let lister = data.lister
+
+        if (lister.email.includes('@')) {
+            let arr = lister.email.split('@');
+            lister.email = arr[0]
+        }
+
+        return (
+            <>
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>Posted by:</Text>
+            </Row>
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>User Ratings:</Text>
+            </Row>
+            </>
+        )
+    }
+    return null
+}
+
+function TableColB (data) {
+    // return the price
+    if (data.price) {
+        return (
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>PKR {data.price}</Text>
+            </Row>
+        )
+    }
+    // return the status
+    if (data.closed == true) {
+        return (
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>Closed</Text>
+            </Row>
+        )
+    }
+    if (data.closed == false) {
+        return (
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>Open</Text>
+            </Row>
+        )
+    }
+    // return the tags
+    if (data.tags) {
+        return (
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>{data.tags}</Text>
+            </Row>
+        )
+    }
+    // return the duration
+    if (data.duration) {
+        return (
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>{data.duration}</Text>
+            </Row>
+        )
+    }
+
+    // return the insurance
+    if (data.insurance) {
+        return (
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>PKR {data.insurance}</Text>
+            </Row>
+        )
+    }
+    // lister
+    if (data.lister) {
+
+        let lister = data.lister
+
+        if (lister.email.includes('@')) {
+            let arr = lister.email.split('@');
+            lister.email = arr[0]
+        }
+
+        return (
+            <>
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>{lister.name}</Text>
+            </Row>
+            <Row style={styles.stars_cell}>
+                <ShowRatingStars num = {lister.rating} />
+            </Row>
+            </>
+        )
+    }
+    return null
 }
 
 function ShowRatingStars (data) {
@@ -132,11 +222,6 @@ function ShowRatingStars (data) {
                 <Image 
                     style={styles.icon} 
                     source = {require("../../assets/stars/Star_light_lred.png")}/>
-                <TouchableOpacity onPress={() => console.log("send a message, pew pew")}>
-                    <Image 
-                        style={[styles.message_icon]} 
-                        source = {require("../../assets/Send_fill_lightred.png")}/>
-                </TouchableOpacity>
             </View>
         )
     }
@@ -159,11 +244,6 @@ function ShowRatingStars (data) {
                 <Image 
                     style={styles.icon} 
                     source = {require("../../assets/stars/Star_light_lred.png")}/>
-                <TouchableOpacity onPress={() => console.log("send a message, pew pew")}>
-                    <Image 
-                        style={[styles.message_icon]} 
-                        source = {require("../../assets/Send_fill_lightred.png")}/>
-                </TouchableOpacity>
             </View>
         )
     }
@@ -186,18 +266,13 @@ function ShowRatingStars (data) {
                 <Image 
                     style={styles.icon} 
                     source = {require("../../assets/stars/Star_light_lred.png")}/>
-                <TouchableOpacity onPress={() => console.log("send a message, pew pew")}>
-                    <Image 
-                        style={[styles.message_icon]} 
-                        source = {require("../../assets/Send_fill_lightred.png")}/>
-                </TouchableOpacity>
             </View>
         )
     }
 
     if (num <= 4 && num > 3) {
         return (
-            <View style = {styles.stars}>
+            <>
                 <Image 
                     style={styles.icon} 
                     source = {require("../../assets/stars/Star_fill_lred.png")}/>
@@ -213,12 +288,7 @@ function ShowRatingStars (data) {
                 <Image 
                     style={styles.icon} 
                     source = {require("../../assets/stars/Star_light_lred.png")}/>
-                <TouchableOpacity onPress={() => console.log("send a message, pew pew")}>
-                    <Image 
-                        style={[styles.message_icon]} 
-                        source = {require("../../assets/Send_fill_lightred.png")}/>
-                </TouchableOpacity>
-            </View>
+            </>
         )
     }
 
@@ -240,11 +310,6 @@ function ShowRatingStars (data) {
                 <Image 
                     style={styles.icon} 
                     source = {require("../../assets/stars/Star_fill_lred.png")}/>
-                <TouchableOpacity onPress={() => console.log("send a message, pew pew")}>
-                    <Image 
-                        style={[styles.message_icon]} 
-                        source = {require("../../assets/Send_fill_lightred.png")}/>
-                </TouchableOpacity>
             </View>
         )
     }
@@ -266,53 +331,26 @@ function ShowRatingStars (data) {
             <Image 
                 style={styles.icon} 
                 source = {require("../../assets/stars/Star_light_lred.png")}/>
-            <TouchableOpacity onPress={() => console.log("send a message, pew pew")}>
-                <Image 
-                    style={[styles.message_icon]} 
-                    source = {require("../../assets/Send_fill_lightred.png")}/>
-            </TouchableOpacity>
         </View>
     )
 }
 
-function PrintUsersList (data) {
-
-    if (data.list) {
-
-        let users = data.list
-
-        for (const user of users) {
-            if (user.email.includes('@')) {
-                let arr = user.email.split('@');
-                user.email = arr[0]
-            }
-        }
-
+function DisplayUrgent (data) {
+    if (data.state == true) {
         return (
-            users.map((user) => (
-                <View style = {styles.users_table_box} key={user.email}>
-                    <View style = {styles.users_subtable1}>
-                        <Text style = {styles.body_text_table}> {user.name} ({user.email}) </Text>
-                    </View>
-                    <View style = {styles.users_subtable2}>
-                        <Text style = {styles.stars}> <ShowRatingStars num = {user.rating} /> </Text>
-                    </View>
-                    
-                </View>
-            ))
+            <View style={styles.urgent_alert}>
+                <Image 
+                    style={styles.icon} 
+                    source = {require("../../assets/Alarm_fill_active.png")}/>
+                <Text style={styles.urgent_text}>URGENT</Text>
+            </View>
         )
     }
-    return (
-        <Text style = {styles.body_text} textAlign="right">
-            Whoops, no interested users yet! Check back later?
-        </Text>
-    )
+    return null
 }
 
 
-
-
-export default function ViewYourListingsBuy (props) {
+export default function ViewASearchListingBuy (props) {
 
     // const [heading2Text, setHeading2Text] = useState(false);
 
@@ -355,38 +393,47 @@ export default function ViewYourListingsBuy (props) {
                         <Description desc={props.data.desc} />
 
                         {/* the urgent button */}
-                        <UrgentButton state={props.data.urgent}/>
+                        <DisplayUrgent state={props.data.urgent}/>
 
-                        {/* table for price, tags, duration, status*/}
-                        <Table price={props.data.price}/>
-                        <Table closed={props.data.closed} />
-                        <Table tags={props.data.tags}/>
-
-                        <View style = {styles.table_box}>
-                            <Text style = {styles.body_text} textAlign="left">
-                                Post created on:    {props.data.date}
-                            </Text>
+                        <View style={styles.container}>
+                            <Grid>
+                                <Col size={40}>
+                                    <TableColA price={props.data.price} />
+                                    {/* <TableColA duration={props.data.duration} />
+                                    <TableColA insurance={props.data.insurance}/> */}
+                                    <TableColA closed={props.data.closed} />
+                                    <TableColA tags={props.data.tags} />
+                                    <TableColA lister={props.data.lister_id} />
+                                    <Row style={styles.cell}>
+                                        <Text style = {styles.body_text}>Post created on:</Text>
+                                    </Row>
+                                </Col>
+                                <Col size={50}>
+                                    <TableColB price={props.data.price} />
+                                    {/* <TableColB duration={props.data.duration} />
+                                    <TableColB insurance={props.data.insurance}/> */}
+                                    <TableColB closed={props.data.closed} />
+                                    <TableColB tags={props.data.tags} />
+                                    <TableColB lister={props.data.lister_id} />
+                                    <Row style={styles.cell}>
+                                        <Text style = {styles.body_text}>{props.data.date}</Text>
+                                    </Row>
+                                </Col>
+                            </Grid>
                         </View>
-
-                        {/* interested users */}
-                        
-                        <Text style = {styles.int_users_heading} textAlign="left">
-                            List of Interested Users
-                        </Text>
-                        <PrintUsersList list={props.data.interested_users} />
 
                         {/* buttons */}
                         <View style={styles.button_container}>
                             <View>
-                                <MarkClosedButtonBuy state={props.data.closed}/>
+                                <SavedButtonLRed state={props.data.saved_post}/>
                             </View>
                             <View style={styles.button_subcontainer}>
-                                <TouchableOpacity style={styles.delete_button} onPress={() => console.log("yeet this post to the trash")}>
-                                <Image 
+                                <TouchableOpacity style={styles.message_button} onPress={() => console.log("i want to talk to your manager, riGHT NOW")}>
+                                    <Image 
                                     style={styles.icon} 
-                                    source = {require("../../assets/Trash_lred.png")}/>
-                                    <Text style={styles.delete_button_text}>
-                                        DELETE
+                                    source = {require("../../assets/Send_fill_lightred.png")}/>
+                                    <Text style={styles.message_button_text}>
+                                        MESSAGE
                                     </Text>
                                 </TouchableOpacity>
                             </View>
@@ -446,7 +493,7 @@ const styles = StyleSheet.create({
         color: "#ffffff",
         textAlign: 'left',
     },
-    int_users_heading: {
+    int_listers_heading: {
         marginTop: 20,
         marginBottom: 18,
         paddingHorizontal: "10%",
@@ -496,16 +543,15 @@ const styles = StyleSheet.create({
     stars: {
         flex: 1,
         flexDirection: "row",
-        justifyContent: "space-between",
     },
-    users_table_box: {
+    listers_table_box: {
         width: "100%",
         flex: 1,
         flexDirection: "row",
         justifyContent: "space-between",
         textAlignVertical: "center",
     },
-    users_subtable1: {
+    listers_subtable1: {
         width: "50%",
         paddingLeft: "10%",
         textAlignVertical: "center",
@@ -519,11 +565,8 @@ const styles = StyleSheet.create({
         letterSpacing: 0.1,
         color: "#D6482F",
     },
-    users_subtable2: {
+    listers_subtable2: {
         width: "50%",
-        // flex: 1,
-        // flexDirection: "row",
-        // justifyContent: "space-between",
         paddingRight: "10%",
     },
     table_text: {
@@ -570,7 +613,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
     },
-    delete_button: {
+    message_button: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
@@ -584,7 +627,7 @@ const styles = StyleSheet.create({
         borderColor: "#D6482F",
         borderRadius: 20,
     },
-    delete_button_text: {
+    message_button_text: {
         color: "#D6482F",
         alignSelf: "center",
         fontFamily: 'OpenSans_400Regular',
@@ -620,9 +663,8 @@ const styles = StyleSheet.create({
         height: 24,
     },
     button_container: {
-        marginTop: 30,
+        marginTop: 40,
         alignSelf: "center",
-        flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: "80%",
@@ -631,5 +673,34 @@ const styles = StyleSheet.create({
     button_subcontainer: {
         width: 0.35 * actual_width,
         height: 0.04 * actual_height,
+    },
+    container: {
+        alignSelf: "center",
+        width: '80%',
+        // height: "20%",
+        backgroundColor: '#fff',
+        // marginBottom: 40,
+    },
+    cell: {
+        flex: 1, 
+        textAlignVertical: "center",
+    },
+    stars_cell: {
+        top: -5,
+        flex: 1, 
+        paddingVertical: 7,
+        paddingHorizontal: 12,
+    },
+    urgent_alert: {
+        flexDirection: "row",
+        marginBottom: 18,
+        paddingHorizontal: "10%",
+        color: "#670000",
+    },
+    urgent_text: {
+        fontFamily: 'Montserrat_500Medium',
+        fontSize: 16,
+        letterSpacing: 0.1,
+        color: "#670000",
     }
 })

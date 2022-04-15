@@ -76,25 +76,24 @@ function Table (data) {
     }
 
     // return the status
-    if (data.status == "open") {
+    if (data.closed == false) {
         return (
             <View style = {styles.table_box}>
                 <Text style = {styles.body_text} textAlign="left">
-                    Status:                       Open
+                    Status:                     Open
                 </Text>
             </View>
         )
     }
-    else if (data.status == "closed") {
+    else if (data.closed == true) {
         return (
             <View style = {styles.table_box}>
                 <Text style = {styles.body_text} textAlign="left">
-                    Status:                    Closed
+                    Status:                  Closed
                 </Text>
             </View>
         )
     }
-
 
     // return the tags
     if (data.tags) {
@@ -380,7 +379,7 @@ export default function ViewYourListingsRQServices (props) {
 
                         {/* table for price, tags, duration, status*/}
                         <Table price={props.data.price}/>
-                        <Table status={props.data.status} />
+                        <Table closed={props.data.closed} />
                         <Table tags={props.data.tags}/>
 
                         <View style = {styles.table_box}>
@@ -399,7 +398,7 @@ export default function ViewYourListingsRQServices (props) {
                         {/* buttons */}
                         <View style={styles.button_container}>
                             <View>
-                                <MarkClosedButtonRQServices />
+                                <MarkClosedButtonRQServices state={props.data.closed}/>
                             </View>
                             <View style={styles.button_subcontainer}>
                                 <TouchableOpacity style={styles.delete_button} onPress={() => console.log("yeet this post to the trash")}>

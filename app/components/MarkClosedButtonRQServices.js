@@ -10,11 +10,12 @@ const actual_width = Dimensions.get("window").width
 
 export default function MarkClosedButtonDarkGreen(props) {
 
-    if (!props) {
+    if (!props.state) {
         props.state = false;
     }
+
     const [clicked, setClicked] = useState(props.state);
-    const [text, setText] = useState("MARK CLOSED")
+    const [text, setText] = useState(props.state ? "MARK AS OPEN" : "MARK CLOSED")
 
     const buttonClicked = {
         onPress: () => { 
@@ -57,7 +58,7 @@ export default function MarkClosedButtonDarkGreen(props) {
 
 const styles = StyleSheet.create({
     box: {
-        flex: 1,
+        // flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         width: 0.35 * actual_width,
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase',
     },
     box_clicked: {
-        flex: 1,
+        // flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         width: 0.35 * actual_width,

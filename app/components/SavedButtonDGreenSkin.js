@@ -8,26 +8,25 @@ import AppLoading from 'expo-app-loading';;
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
 
-export default function MarkClosedButtonRent(props) {
+export default function SavedButtonDGreenSkin(props) {
 
     if (!props.state) {
         props.state = false;
     }
-
     const [clicked, setClicked] = useState(props.state);
-    const [text, setText] = useState(props.state ? "MARK AS OPEN" : "MARK CLOSED")
+    const [text, setText] = useState(props.state ? "SAVED ITEM" : "SAVE ITEM")
 
     const buttonClicked = {
         onPress: () => { 
             if (clicked) {
                 setClicked(false),
-                setText("MARK CLOSED")
-                console.log("no wait, i didnt mean that, open it again")
+                setText("SAVE ITEM")
+                console.log("no wait, dont save it")
             }
             else {
                 setClicked(true),
-                setText("MARK AS OPEN")
-                console.log("hello mark my post as closed")
+                setText("SAVED ITEM")
+                console.log("hello save this post for me pls")
             }
         },
         style: clicked ? styles.box_clicked : styles.box,
@@ -48,7 +47,7 @@ export default function MarkClosedButtonRent(props) {
         <TouchableOpacity {...buttonClicked}> 
             <Image 
                 style={styles.icon} 
-                source = {clicked ? require("../assets/Book_check_fill_dred.png") : require("../assets/Book_check_fill_dred.png")}/>
+                source = {clicked ? require("../assets/Bookmark_fill_dgreen.png") : require("../assets/Bookmark_fill_dgreen.png")}/>
             <Text style= {clicked ? styles.text_clicked : styles.text}>
                 { text }
             </Text>
@@ -68,13 +67,13 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFFFFF",
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: "#670000",
+        borderColor: "#193E26",
         borderRadius: 20,
         marginBottom: 40,
     },
     text: {
         // marginTop: 0.015*actual_height,
-        color: "#670000",
+        color: "#193E26",
         alignSelf: "center",
         fontFamily: 'OpenSans_400Regular',
         fontSize: 0.016 * actual_height,
@@ -89,16 +88,16 @@ const styles = StyleSheet.create({
         height: 0.04 * actual_height,
         paddingHorizontal: "5%",
         alignItems: "center",
-        backgroundColor: "#FF886E",
+        backgroundColor: "#C7C4AC",
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: "#670000",
+        borderColor: "#193E26",
         borderRadius: 20,
         marginBottom: 40,
     },
     text_clicked: {
         // marginTop: 0.015*actual_height,
-        color: "#670000",
+        color: "#193E26",
         alignSelf: "center",
         fontFamily: 'OpenSans_400Regular',
         fontSize: 0.016 * actual_height,
