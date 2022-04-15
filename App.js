@@ -1,18 +1,18 @@
 import React, { useState, useRef, useEffect } from "react";
-import ViewYourListingsDetails from './app/screens/ViewYourListingsDetails';
+import ViewYourListingsOfferedServices from './app/screens/views/ViewYourListingsOfferedServices';
 
 let app_images = [
-    require('../renfri/app/assets/upload_images_buy.png'),
-    require('../renfri/app/assets/upload_images_buy.png'),
-    require('../renfri/app/assets/upload_images_buy.png'),
-    require('../renfri/app/assets/upload_images_buy.png'),
-    require('../renfri/app/assets/upload_images_buy.png'),
+    require('../renfri/app/assets/upload_images_offered_services.png'),
+    require('../renfri/app/assets/upload_images_rq_items.png'),
+    require('../renfri/app/assets/upload_images_rq_items.png'),
+    require('../renfri/app/assets/upload_images_rq_items.png'),
+    require('../renfri/app/assets/upload_images_rq_items.png'),
 ]
 
 var data = {
-    category: "buy",
+    category: "rent",
     title: "This is my listing",
-    desc: "Alone with you, That's all that it takes, I'm home with you, No matter the place, I've grown with you, Yet our love stays the same, Alone with you, (Why don't we? Why don't we? Why don't we?), Why don't we?",
+    desc: "Description description description description description description description description description description description description description description description description description",
     price: 3000,
     duration: "1-2 hours",
     insurance: 2000,
@@ -30,6 +30,6 @@ var data = {
 
 export default function App() {
     return (
-        <ViewYourListingsDetails data={data}/>
+        <ViewYourListingsOfferedServices data={data}/>
     );
 }

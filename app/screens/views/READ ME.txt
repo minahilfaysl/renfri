@@ -1,0 +1,39 @@
+!!!!!!!!!! To test these screens use the following code in App.js
+ALSO this is how you can use the screens and what data its accepting.
+Agar koi masla hua tou bata dena, I'll fix it with the data it's actually
+getting if its different.
+
+
+import React, { useState, useRef, useEffect } from "react";
+import ViewYourListingsDetails from './app/screens/views/ViewYourListingsBuy';
+
+let app_images = [
+    require('../renfri/app/assets/upload_images_buy.png'),
+    require('../renfri/app/assets/upload_images_buy.png'),
+    require('../renfri/app/assets/upload_images_buy.png'),
+    require('../renfri/app/assets/upload_images_buy.png'),
+    require('../renfri/app/assets/upload_images_buy.png'),
+]
+
+var data = {
+    category: "buy",
+    title: "This is my listing",
+    desc: "Description description description description description description description description description description description description description description description.",
+    price: 3000,
+    duration: "1-2 hours",
+    insurance: 2000,
+    tags: "M7, iron",
+    images: app_images,
+    urgent: true,
+    status: "open",
+    date: "14/04/2022, 3:45PM",
+    interested_users: [{id: 0, name: "Minahil Faisal", email: "23100063@lums.edu.pk", rating: 2},
+                    {id: 1, name: "Fatima Sohail", email: "23100065@lums.edu.pk", rating: 3},
+                    {id: 2, name: "Ajwa Shahid", email: "23100066@lums.edu.pk", rating: 4}],
+};
+
+export default function App() {
+    return (
+        <ViewYourListingsDetails data={data}/>
+    );
+}

@@ -1,14 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { View, Text, SafeAreaView, Picker, TouchableOpacity, StatusBar, Image, ScrollView, TextInput, StyleSheet, Animated, Dimensions, Vibration, Alert, KeyboardAvoidingView, Platform} from "react-native";
-import PostBottomNavBar from "./navbar/PostBottomNavBar";
+import PostBottomNavBar from "../navbar/PostBottomNavBar";
 import { Montserrat_400Regular, Montserrat_500Medium } from '@expo-google-fonts/montserrat';
 import { OpenSans_400Regular, OpenSans_700Bold } from '@expo-google-fonts/open-sans';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
-import UrgentButton from "../components/UrgentButton";
+import UrgentButton from "../../components/UrgentButton";
 import { SliderBox } from "react-native-image-slider-box";
-import { Touchable } from "react-native-web";
-import MarkClosedButtonBuy from "../components/MarkClosedButtonBuy";
+import MarkClosedButtonRQServices from "../../components/MarkClosedButtonRQServices";
 
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
@@ -22,7 +21,7 @@ function LoadImages (data) {
             <SliderBox
                 style = {styles.slider_box}
                 images = {data.images}
-                dotColor = "#D6482F"
+                dotColor = "#193E26"
                 inactiveDotColor = "#C4C4C4"
                 dotStyle = {{
                     width: 5,
@@ -70,7 +69,7 @@ function Table (data) {
         return (
             <View style = {styles.table_box}>
                 <Text style = {styles.body_text} textAlign="left">
-                    Price:                       PKR {data.price}
+                    Price:                         PKR {data.price}
                 </Text>
             </View>
         )
@@ -81,7 +80,7 @@ function Table (data) {
         return (
             <View style = {styles.table_box}>
                 <Text style = {styles.body_text} textAlign="left">
-                    Status:                     Open
+                    Status:                       Open
                 </Text>
             </View>
         )
@@ -90,7 +89,7 @@ function Table (data) {
         return (
             <View style = {styles.table_box}>
                 <Text style = {styles.body_text} textAlign="left">
-                    Status:                  Closed
+                    Status:                    Closed
                 </Text>
             </View>
         )
@@ -102,7 +101,29 @@ function Table (data) {
         return (
             <View style = {styles.table_box}>
                 <Text style = {styles.body_text} textAlign="left">
-                    Tags:                        {data.tags}
+                    Tags:                          {data.tags}
+                </Text>
+            </View>
+        )
+    }
+
+    // return the duration
+    if (data.duration) {
+        return (
+            <View style = {styles.table_box}>
+                <Text style = {styles.body_text} textAlign="left">
+                    Duration of Rent:   {data.duration}
+                </Text>
+            </View>
+        )
+    }
+
+    // return the insurance
+    if (data.insurance) {
+        return (
+            <View style = {styles.table_box}>
+                <Text style = {styles.body_text} textAlign="left">
+                    Insurance:                PKR {data.insurance}
                 </Text>
             </View>
         )
@@ -119,23 +140,23 @@ function ShowRatingStars (data) {
             <View style = {styles.stars}>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../assets/Star_fill_lred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_dgreen.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../assets/Star_light_lred.png")}/>
+                    source = {require("../../assets/stars/Star_light_dgreen.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../assets/Star_light_lred.png")}/>
+                    source = {require("../../assets/stars/Star_light_dgreen.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../assets/Star_light_lred.png")}/>
+                    source = {require("../../assets/stars/Star_light_dgreen.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../assets/Star_light_lred.png")}/>
+                    source = {require("../../assets/stars/Star_light_dgreen.png")}/>
                 <TouchableOpacity onPress={() => console.log("send a message, pew pew")}>
                     <Image 
                         style={[styles.message_icon]} 
-                        source = {require("../assets/Send_fill_lightred.png")}/>
+                        source = {require("../../assets/Send_fill_dgreen.png")}/>
                 </TouchableOpacity>
             </View>
         )
@@ -146,23 +167,23 @@ function ShowRatingStars (data) {
             <View style = {styles.stars}>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../assets/Star_fill_lred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_dgreen.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../assets/Star_fill_lred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_dgreen.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../assets/Star_light_lred.png")}/>
+                    source = {require("../../assets/stars/Star_light_dgreen.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../assets/Star_light_lred.png")}/>
+                    source = {require("../../assets/stars/Star_light_dgreen.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../assets/Star_light_lred.png")}/>
+                    source = {require("../../assets/stars/Star_light_dgreen.png")}/>
                 <TouchableOpacity onPress={() => console.log("send a message, pew pew")}>
                     <Image 
                         style={[styles.message_icon]} 
-                        source = {require("../assets/Send_fill_lightred.png")}/>
+                        source = {require("../../assets/Send_fill_dgreen.png")}/>
                 </TouchableOpacity>
             </View>
         )
@@ -173,23 +194,23 @@ function ShowRatingStars (data) {
             <View style = {styles.stars}>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../assets/Star_fill_lred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_dgreen.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../assets/Star_fill_lred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_dgreen.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../assets/Star_fill_lred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_dgreen.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../assets/Star_light_lred.png")}/>
+                    source = {require("../../assets/stars/Star_light_dgreen.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../assets/Star_light_lred.png")}/>
+                    source = {require("../../assets/stars/Star_light_dgreen.png")}/>
                 <TouchableOpacity onPress={() => console.log("send a message, pew pew")}>
                     <Image 
                         style={[styles.message_icon]} 
-                        source = {require("../assets/Send_fill_lightred.png")}/>
+                        source = {require("../../assets/Send_fill_dgreen.png")}/>
                 </TouchableOpacity>
             </View>
         )
@@ -200,23 +221,23 @@ function ShowRatingStars (data) {
             <View style = {styles.stars}>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../assets/Star_fill_lred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_dgreen.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../assets/Star_fill_lred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_dgreen.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../assets/Star_fill_lred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_dgreen.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../assets/Star_fill_lred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_dgreen.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../assets/Star_light_lred.png")}/>
+                    source = {require("../../assets/stars/Star_light_dgreen.png")}/>
                 <TouchableOpacity onPress={() => console.log("send a message, pew pew")}>
                     <Image 
                         style={[styles.message_icon]} 
-                        source = {require("../assets/Send_fill_lightred.png")}/>
+                        source = {require("../../assets/Send_fill_dgreen.png")}/>
                 </TouchableOpacity>
             </View>
         )
@@ -227,23 +248,23 @@ function ShowRatingStars (data) {
             <View style = {styles.stars}>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../assets/Star_fill_lred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_dgreen.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../assets/Star_fill_lred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_dgreen.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../assets/Star_fill_lred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_dgreen.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../assets/Star_fill_lred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_dgreen.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../assets/Star_fill_lred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_dgreen.png")}/>
                 <TouchableOpacity onPress={() => console.log("send a message, pew pew")}>
                     <Image 
                         style={[styles.message_icon]} 
-                        source = {require("../assets/Send_fill_lightred.png")}/>
+                        source = {require("../../assets/Send_fill_dgreen.png")}/>
                 </TouchableOpacity>
             </View>
         )
@@ -253,23 +274,23 @@ function ShowRatingStars (data) {
         <View style = {styles.stars}>
             <Image 
                 style={styles.icon} 
-                source = {require("../assets/Star_light_lred.png")}/>
+                source = {require("../../assets/stars/Star_light_dgreen.png")}/>
+            <Image 
+                style={styles.icon}
+                source = {require("../../assets/stars/Star_light_dgreen.png")}/>
             <Image 
                 style={styles.icon} 
-                source = {require("../assets/Star_light_lred.png")}/>
+                source = {require("../../assets/stars/Star_light_dgreen.png")}/>
             <Image 
                 style={styles.icon} 
-                source = {require("../assets/Star_light_lred.png")}/>
+                source = {require("../../assets/stars/Star_light_dgreen.png")}/>
             <Image 
                 style={styles.icon} 
-                source = {require("../assets/Star_light_lred.png")}/>
-            <Image 
-                style={styles.icon} 
-                source = {require("../assets/Star_light_lred.png")}/>
+                source = {require("../../assets/stars/Star_light_dgreen.png")}/>
             <TouchableOpacity onPress={() => console.log("send a message, pew pew")}>
                 <Image 
                     style={[styles.message_icon]} 
-                    source = {require("../assets/Send_fill_lightred.png")}/>
+                    source = {require("../../assets/Send_fill_dgreen.png")}/>
             </TouchableOpacity>
         </View>
     )
@@ -312,7 +333,7 @@ function PrintUsersList (data) {
 
 
 
-export default function ViewYourListingsDetails (props) {
+export default function ViewYourListingsRQServices (props) {
 
     // const [heading2Text, setHeading2Text] = useState(false);
 
@@ -334,12 +355,12 @@ export default function ViewYourListingsDetails (props) {
                 <StatusBar backgroundColor="#588D60" />
                 <View style={styles.subtop_nav_box}>
                     <Text style={styles.heading2}>
-                        Buy an Item
+                        Requested Services
                     </Text>
                 </View>
                 <View style={styles.top_nav_box}>
                     <Text style={styles.heading1}>
-                        View Your Listings
+                        Your Listings
                     </Text>
                 </View>
                 {/* the form */}
@@ -364,7 +385,7 @@ export default function ViewYourListingsDetails (props) {
 
                         <View style = {styles.table_box}>
                             <Text style = {styles.body_text} textAlign="left">
-                                Post created on:    {props.data.date}
+                                Post created on:     {props.data.date}
                             </Text>
                         </View>
 
@@ -378,13 +399,13 @@ export default function ViewYourListingsDetails (props) {
                         {/* buttons */}
                         <View style={styles.button_container}>
                             <View>
-                                <MarkClosedButtonBuy />
+                                <MarkClosedButtonRQServices />
                             </View>
                             <View style={styles.button_subcontainer}>
                                 <TouchableOpacity style={styles.delete_button} onPress={() => console.log("yeet this post to the trash")}>
                                 <Image 
                                     style={styles.icon} 
-                                    source = {require("../assets/Trash_lred.png")}/>
+                                    source = {require("../../assets/Trash_dgreen.png")}/>
                                     <Text style={styles.delete_button_text}>
                                         DELETE
                                     </Text>
@@ -422,7 +443,7 @@ const styles = StyleSheet.create({
     subtop_nav_box: {
         width: "100%",
         height: 0.14*actual_height,
-        backgroundColor: "#D6482F",
+        backgroundColor: "#588D60",
         position: "absolute",
         left: 0,
         shadowRadius: 4,
@@ -453,7 +474,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Montserrat_400Regular',
         fontSize: 0.02*actual_height,
         letterSpacing: 0.15,
-        color: "#D6482F",
+        color: "#193E26",
     },
     form_container: {
         backgroundColor: "#fff",
@@ -471,7 +492,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Montserrat_400Regular',
         fontSize: 0.026*actual_height,
         letterSpacing: 0,
-        color: "#D6482F",
+        color: "#193E26",
     },
     body_text_desc: {
         marginBottom: 30,
@@ -479,7 +500,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Montserrat_400Regular',
         fontSize: 14,
         letterSpacing: 0.15,
-        color: "#D6482F",
+        color: "#193E26",
     },
     body_text: {
         marginBottom: 18,
@@ -487,7 +508,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Montserrat_500Medium',
         fontSize: 13,
         letterSpacing: 0.1,
-        color: "#D6482F",
+        color: "#193E26",
     },
     table_box: {
         flex: 1,
@@ -517,7 +538,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Montserrat_500Medium',
         fontSize: 13,
         letterSpacing: 0.1,
-        color: "#D6482F",
+        color: "#193E26",
     },
     users_subtable2: {
         width: "50%",
@@ -532,7 +553,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Montserrat_400Regular',
         fontSize: 14,
         letterSpacing: 0.15,
-        color: "#D6482F",
+        color: "#193E26",
     },
     message: {
         marginBottom: 18,
@@ -543,7 +564,7 @@ const styles = StyleSheet.create({
         // fontSize: 0.02 * actual_height,
         fontSize: 14,
         letterSpacing: 0.15,
-        color: "#D6482F",
+        color: "#193E26",
         textAlign: "center",
     },
     text_box: {
@@ -554,7 +575,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         paddingHorizontal: "5%",
         alignSelf: "center",
-        borderBottomColor: "#D6482F",
+        borderBottomColor: "#193E26",
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
     },
@@ -566,7 +587,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         padding: "5%",
         alignSelf: "center",
-        borderBottomColor: "#D6482F",
+        borderBottomColor: "#193E26",
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
     },
@@ -581,11 +602,11 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFFFFF",
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: "#D6482F",
+        borderColor: "#193E26",
         borderRadius: 20,
     },
     delete_button_text: {
-        color: "#D6482F",
+        color: "#193E26",
         alignSelf: "center",
         fontFamily: 'OpenSans_400Regular',
         fontSize: 0.016 * actual_height,
@@ -601,7 +622,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     upload_image_box: {
-        backgroundColor: '#D6482F',
+        backgroundColor: '#193E26',
         alignSelf: "center",
         padding: 20,
         width: "80%",

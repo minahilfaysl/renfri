@@ -2,7 +2,6 @@ import React from 'react';
 import { View, SafeAreaView, Text, Image, Button, ScrollView, TextInput, StyleSheet} from "react-native";
 import { TouchableOpacity } from 'react-native';
 
-
 function Verification(props) {
     return (
         <View>
