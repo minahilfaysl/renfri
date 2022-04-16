@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { View, Text, SafeAreaView, Picker, TouchableOpacity, StatusBar, Image, ScrollView, TextInput, StyleSheet, Animated, Dimensions, Vibration, Alert, KeyboardAvoidingView, Platform} from "react-native";
-import PostBottomNavBar from "../navbar/PostBottomNavBar";
+import ProfileBottomNavBar from "../navbar/ProfileBottomNavBar";
 import { Montserrat_400Regular, Montserrat_500Medium } from '@expo-google-fonts/montserrat';
 import { OpenSans_400Regular, OpenSans_700Bold } from '@expo-google-fonts/open-sans';
 import { useFonts } from 'expo-font';
@@ -459,7 +459,7 @@ export default function ViewYourListingsRQItems (props) {
                              
                 </ScrollView>
             </View>
-            <PostBottomNavBar />
+            <ProfileBottomNavBar />
         </SafeAreaView>
     )
 }

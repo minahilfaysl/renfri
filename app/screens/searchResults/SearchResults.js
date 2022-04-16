@@ -1,13 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { View, Text, SafeAreaView, Picker, TouchableOpacity, StatusBar, Image, ScrollView, TextInput, StyleSheet, Animated, Dimensions, Vibration, Alert, KeyboardAvoidingView, Platform} from "react-native";
-import ProfileBottomNavBar from "../navbar/ProfileBottomNavBar";
+import SearchBottomNavBar from "../navbar/SearchBottomNavBar";
 import { Montserrat_400Regular, Montserrat_500Medium } from '@expo-google-fonts/montserrat';
 import { OpenSans_400Regular, OpenSans_700Bold } from '@expo-google-fonts/open-sans';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import UrgentButton from "../../components/UrgentButton";
 import { SliderBox } from "react-native-image-slider-box";
-import MarkClosedButtonRent from "../../components/MarkClosedButtonRent";
+import SavedButtonLRed from "../../components/SavedButtonLRed";
 import { Col, Row, Grid } from 'react-native-easy-grid';
 
 const actual_height = Dimensions.get("window").height
@@ -22,7 +22,7 @@ function LoadImages (data) {
             <SliderBox
                 style = {styles.slider_box}
                 images = {data.images}
-                dotColor = "#670000"
+                dotColor = "#D6482F"
                 inactiveDotColor = "#C4C4C4"
                 dotStyle = {{
                     width: 5,
@@ -106,6 +106,26 @@ function TableColA (data) {
             </Row>
         )
     }
+    if (data.lister) {
+
+        let lister = data.lister
+
+        if (lister.email.includes('@')) {
+            let arr = lister.email.split('@');
+            lister.email = arr[0]
+        }
+
+        return (
+            <>
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>Posted by:</Text>
+            </Row>
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>User Ratings:</Text>
+            </Row>
+            </>
+        )
+    }
     return null
 }
 
@@ -158,6 +178,27 @@ function TableColB (data) {
             </Row>
         )
     }
+    // lister
+    if (data.lister) {
+
+        let lister = data.lister
+
+        if (lister.email.includes('@')) {
+            let arr = lister.email.split('@');
+            lister.email = arr[0]
+        }
+
+        return (
+            <>
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>{lister.name}</Text>
+            </Row>
+            <Row style={styles.stars_cell}>
+                <ShowRatingStars num = {lister.rating} />
+            </Row>
+            </>
+        )
+    }
     return null
 }
 
@@ -168,24 +209,19 @@ function ShowRatingStars (data) {
             <View style = {styles.stars}>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../../assets/stars/Star_fill_dred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_lred.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../../assets/stars/Star_light_dred.png")}/>
+                    source = {require("../../assets/stars/Star_light_lred.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../../assets/stars/Star_light_dred.png")}/>
+                    source = {require("../../assets/stars/Star_light_lred.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../../assets/stars/Star_light_dred.png")}/>
+                    source = {require("../../assets/stars/Star_light_lred.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../../assets/stars/Star_light_dred.png")}/>
-                <TouchableOpacity onPress={() => console.log("send a message, pew pew")}>
-                    <Image 
-                        style={[styles.message_icon]} 
-                        source = {require("../../assets/Send_fill_dred.png")}/>
-                </TouchableOpacity>
+                    source = {require("../../assets/stars/Star_light_lred.png")}/>
             </View>
         )
     }
@@ -195,24 +231,19 @@ function ShowRatingStars (data) {
             <View style = {styles.stars}>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../../assets/stars/Star_fill_dred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_lred.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../../assets/stars/Star_fill_dred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_lred.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../../assets/stars/Star_light_dred.png")}/>
+                    source = {require("../../assets/stars/Star_light_lred.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../../assets/stars/Star_light_dred.png")}/>
+                    source = {require("../../assets/stars/Star_light_lred.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../../assets/stars/Star_light_dred.png")}/>
-                <TouchableOpacity onPress={() => console.log("send a message, pew pew")}>
-                    <Image 
-                        style={[styles.message_icon]} 
-                        source = {require("../../assets/Send_fill_dred.png")}/>
-                </TouchableOpacity>
+                    source = {require("../../assets/stars/Star_light_lred.png")}/>
             </View>
         )
     }
@@ -222,52 +253,42 @@ function ShowRatingStars (data) {
             <View style = {styles.stars}>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../../assets/stars/Star_fill_dred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_lred.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../../assets/stars/Star_fill_dred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_lred.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../../assets/stars/Star_fill_dred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_lred.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../../assets/stars/Star_light_dred.png")}/>
+                    source = {require("../../assets/stars/Star_light_lred.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../../assets/stars/Star_light_dred.png")}/>
-                <TouchableOpacity onPress={() => console.log("send a message, pew pew")}>
-                    <Image 
-                        style={[styles.message_icon]} 
-                        source = {require("../../assets/Send_fill_dred.png")}/>
-                </TouchableOpacity>
+                    source = {require("../../assets/stars/Star_light_lred.png")}/>
             </View>
         )
     }
 
     if (num <= 4 && num > 3) {
         return (
-            <View style = {styles.stars}>
+            <>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../../assets/stars/Star_fill_dred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_lred.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../../assets/stars/Star_fill_dred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_lred.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../../assets/stars/Star_fill_dred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_lred.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../../assets/stars/Star_fill_dred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_lred.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../../assets/stars/Star_light_dred.png")}/>
-                <TouchableOpacity onPress={() => console.log("send a message, pew pew")}>
-                    <Image 
-                        style={[styles.message_icon]} 
-                        source = {require("../../assets/Send_fill_dred.png")}/>
-                </TouchableOpacity>
-            </View>
+                    source = {require("../../assets/stars/Star_light_lred.png")}/>
+            </>
         )
     }
 
@@ -276,24 +297,19 @@ function ShowRatingStars (data) {
             <View style = {styles.stars}>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../../assets/stars/Star_fill_dred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_lred.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../../assets/stars/Star_fill_dred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_lred.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../../assets/stars/Star_fill_dred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_lred.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../../assets/stars/Star_fill_dred.png")}/>
+                    source = {require("../../assets/stars/Star_fill_lred.png")}/>
                 <Image 
                     style={styles.icon} 
-                    source = {require("../../assets/stars/Star_fill_dred.png")}/>
-                <TouchableOpacity onPress={() => console.log("send a message, pew pew")}>
-                    <Image 
-                        style={[styles.message_icon]} 
-                        source = {require("../../assets/Send_fill_dred.png")}/>
-                </TouchableOpacity>
+                    source = {require("../../assets/stars/Star_fill_lred.png")}/>
             </View>
         )
     }
@@ -302,66 +318,39 @@ function ShowRatingStars (data) {
         <View style = {styles.stars}>
             <Image 
                 style={styles.icon} 
-                source = {require("../../assets/stars/Star_light_dred.png")}/>
+                source = {require("../../assets/stars/Star_light_lred.png")}/>
             <Image 
                 style={styles.icon}
-                source = {require("../../assets/stars/Star_light_dred.png")}/>
+                source = {require("../../assets/stars/Star_light_lred.png")}/>
             <Image 
                 style={styles.icon} 
-                source = {require("../../assets/stars/Star_light_dred.png")}/>
+                source = {require("../../assets/stars/Star_light_lred.png")}/>
             <Image 
                 style={styles.icon} 
-                source = {require("../../assets/stars/Star_light_dred.png")}/>
+                source = {require("../../assets/stars/Star_light_lred.png")}/>
             <Image 
                 style={styles.icon} 
-                source = {require("../../assets/stars/Star_light_dred.png")}/>
-            <TouchableOpacity onPress={() => console.log("send a message, pew pew")}>
-                <Image 
-                    style={[styles.message_icon]} 
-                    source = {require("../../assets/Send_fill_dred.png")}/>
-            </TouchableOpacity>
+                source = {require("../../assets/stars/Star_light_lred.png")}/>
         </View>
     )
 }
 
-function PrintUsersList (data) {
-
-    if (data.list) {
-
-        let users = data.list
-
-        for (const user of users) {
-            if (user.email.includes('@')) {
-                let arr = user.email.split('@');
-                user.email = arr[0]
-            }
-        }
-
+function DisplayUrgent (data) {
+    if (data.state == true) {
         return (
-            users.map((user) => (
-                <View style = {styles.users_table_box} key={user.email}>
-                    <View style = {styles.users_subtable1}>
-                        <Text style = {styles.body_text_table}> {user.name} ({user.email}) </Text>
-                    </View>
-                    <View style = {styles.users_subtable2}>
-                        <Text style = {styles.stars}> <ShowRatingStars num = {user.rating} /> </Text>
-                    </View>
-                    
-                </View>
-            ))
+            <View style={styles.urgent_alert}>
+                <Image 
+                    style={styles.icon} 
+                    source = {require("../../assets/Alarm_fill_active.png")}/>
+                <Text style={styles.urgent_text}>URGENT</Text>
+            </View>
         )
     }
-    return (
-        <Text style = {styles.body_text} textAlign="right">
-            Whoops, no interested users yet! Check back later?
-        </Text>
-    )
+    return null
 }
 
 
-
-
-export default function ViewYourListingsRent (props) {
+export default function SearchResults (props) {
 
     // const [heading2Text, setHeading2Text] = useState(false);
 
@@ -383,12 +372,12 @@ export default function ViewYourListingsRent (props) {
                 <StatusBar backgroundColor="#588D60" />
                 <View style={styles.subtop_nav_box}>
                     <Text style={styles.heading2}>
-                        Rent an Item
+                        Buy an Item
                     </Text>
                 </View>
                 <View style={styles.top_nav_box}>
                     <Text style={styles.heading1}>
-                        Your Listings
+                        Search By Category
                     </Text>
                 </View>
                 {/* the form */}
@@ -404,27 +393,28 @@ export default function ViewYourListingsRent (props) {
                         <Description desc={props.data.desc} />
 
                         {/* the urgent button */}
-                        <UrgentButton state={props.data.urgent}/>
+                        <DisplayUrgent state={props.data.urgent}/>
 
-                        {/* table for price, tags, duration, status*/}
                         <View style={styles.container}>
                             <Grid>
                                 <Col size={40}>
                                     <TableColA price={props.data.price} />
-                                    <TableColA duration={props.data.duration} />
-                                    <TableColA insurance={props.data.insurance}/>
+                                    {/* <TableColA duration={props.data.duration} />
+                                    <TableColA insurance={props.data.insurance}/> */}
                                     <TableColA closed={props.data.closed} />
                                     <TableColA tags={props.data.tags} />
+                                    <TableColA lister={props.data.lister_id} />
                                     <Row style={styles.cell}>
                                         <Text style = {styles.body_text}>Post created on:</Text>
                                     </Row>
                                 </Col>
                                 <Col size={50}>
                                     <TableColB price={props.data.price} />
-                                    <TableColB duration={props.data.duration} />
-                                    <TableColB insurance={props.data.insurance}/>
+                                    {/* <TableColB duration={props.data.duration} />
+                                    <TableColB insurance={props.data.insurance}/> */}
                                     <TableColB closed={props.data.closed} />
                                     <TableColB tags={props.data.tags} />
+                                    <TableColB lister={props.data.lister_id} />
                                     <Row style={styles.cell}>
                                         <Text style = {styles.body_text}>{props.data.date}</Text>
                                     </Row>
@@ -432,25 +422,18 @@ export default function ViewYourListingsRent (props) {
                             </Grid>
                         </View>
 
-                        {/* interested users */}
-                        
-                        <Text style = {styles.int_users_heading} textAlign="left">
-                            List of Interested Users
-                        </Text>
-                        <PrintUsersList list={props.data.interested_users} />
-
                         {/* buttons */}
                         <View style={styles.button_container}>
                             <View>
-                                <MarkClosedButtonRent state={props.data.closed} />
+                                <SavedButtonLRed state={props.data.saved_post}/>
                             </View>
                             <View style={styles.button_subcontainer}>
-                                <TouchableOpacity style={styles.delete_button} onPress={() => console.log("yeet this post to the trash")}>
-                                <Image 
+                                <TouchableOpacity style={styles.message_button} onPress={() => console.log("i want to talk to your manager, riGHT NOW")}>
+                                    <Image 
                                     style={styles.icon} 
-                                    source = {require("../../assets/Trash_dred.png")}/>
-                                    <Text style={styles.delete_button_text}>
-                                        DELETE
+                                    source = {require("../../assets/Send_fill_lightred.png")}/>
+                                    <Text style={styles.message_button_text}>
+                                        MESSAGE
                                     </Text>
                                 </TouchableOpacity>
                             </View>
@@ -459,7 +442,7 @@ export default function ViewYourListingsRent (props) {
                              
                 </ScrollView>
             </View>
-            <ProfileBottomNavBar />
+            <SearchBottomNavBar />
         </SafeAreaView>
     )
 }
@@ -486,7 +469,7 @@ const styles = StyleSheet.create({
     subtop_nav_box: {
         width: "100%",
         height: 0.14*actual_height,
-        backgroundColor: "#670000",
+        backgroundColor: "#D6482F",
         position: "absolute",
         left: 0,
         shadowRadius: 4,
@@ -510,15 +493,6 @@ const styles = StyleSheet.create({
         color: "#ffffff",
         textAlign: 'left',
     },
-    int_users_heading: {
-        marginTop: 20,
-        marginBottom: 18,
-        paddingHorizontal: "10%",
-        fontFamily: 'Montserrat_400Regular',
-        fontSize: 0.02*actual_height,
-        letterSpacing: 0.15,
-        color: "#670000",
-    },
     form_container: {
         backgroundColor: "#fff",
         height: "100%",
@@ -535,7 +509,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Montserrat_400Regular',
         fontSize: 0.026*actual_height,
         letterSpacing: 0,
-        color: "#670000",
+        color: "#D6482F",
     },
     body_text_desc: {
         marginBottom: 30,
@@ -543,7 +517,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Montserrat_400Regular',
         fontSize: 14,
         letterSpacing: 0.15,
-        color: "#670000",
+        color: "#D6482F",
     },
     body_text: {
         marginBottom: 18,
@@ -551,39 +525,13 @@ const styles = StyleSheet.create({
         fontFamily: 'Montserrat_500Medium',
         fontSize: 13,
         letterSpacing: 0.1,
-        color: "#670000",
+        color: "#D6482F",
     },
     stars: {
         flex: 1,
         flexDirection: "row",
-        justifyContent: "space-between",
     },
-    users_table_box: {
-        width: "100%",
-        flex: 1,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        textAlignVertical: "center",
-    },
-    users_subtable1: {
-        width: "50%",
-        paddingLeft: "10%",
-        textAlignVertical: "center",
-    },
-    body_text_table: {
-        textAlignVertical: "center",
-        marginTop: 1,
-        marginBottom: 18,
-        fontFamily: 'Montserrat_500Medium',
-        fontSize: 13,
-        letterSpacing: 0.1,
-        color: "#670000",
-    },
-    users_subtable2: {
-        width: "50%",
-        paddingRight: "10%",
-    },
-    delete_button: {
+    message_button: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
@@ -594,11 +542,11 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFFFFF",
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: "#670000",
+        borderColor: "#D6482F",
         borderRadius: 20,
     },
-    delete_button_text: {
-        color: "#670000",
+    message_button_text: {
+        color: "#D6482F",
         alignSelf: "center",
         fontFamily: 'OpenSans_400Regular',
         fontSize: 0.016 * actual_height,
@@ -625,9 +573,8 @@ const styles = StyleSheet.create({
         height: 24,
     },
     button_container: {
-        marginTop: 30,
+        marginTop: 40,
         alignSelf: "center",
-        flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: "80%",
@@ -645,4 +592,20 @@ const styles = StyleSheet.create({
         flex: 1, 
         textAlignVertical: "center",
     },
+    stars_cell: {
+        top: -5, 
+        paddingVertical: 7,
+    },
+    urgent_alert: {
+        flexDirection: "row",
+        marginBottom: 18,
+        paddingHorizontal: "10%",
+        color: "#670000",
+    },
+    urgent_text: {
+        fontFamily: 'Montserrat_500Medium',
+        fontSize: 16,
+        letterSpacing: 0.1,
+        color: "#670000",
+    }
 })

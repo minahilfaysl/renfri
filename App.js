@@ -1,15 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import ViewYourListingsBuy from "./app/screens/views/ViewYourListingsBuy";
-import ViewYourListingsRent from "./app/screens/views/ViewYourListingsRent";
-import ViewYourListingsRQItems from "./app/screens/views/ViewYourListingsRQItems";
-import ViewYourListingsRQServices from "./app/screens/views/ViewYourListingsRQServices";
-import ViewYourListingsOfferedServices from "./app/screens/views/ViewYourListingsOfferedServices";
+import SearchResults from "./app/screens/searchResults/SearchResults";
 
-import ViewASearchListingRent from "./app/screens/views/ViewASearchListingRent";
-import ViewASearchListingBuy from "./app/screens/views/ViewASearchListingBuy";
-import ViewASearchListingRQItems from "./app/screens/views/ViewASearchListingRQItems";
-import ViewASearchListingRQServices from "./app/screens/views/ViewASearchListingRQServices";
-import ViewASearchListingOfferedServices from "./app/screens/views/ViewASearchListingOfferedServices";
 
 let app_images = [
     require('../renfri/app/assets/upload_images_buy.png'),
@@ -40,17 +31,6 @@ var data = {
 
 export default function App() {
     return (
-        // <ViewYourListingsBuy data = {data} />
-        // <ViewYourListingsRent data = {data} />
-        // <ViewYourListingsRQItems data = {data} />
-        // <ViewYourListingsRQServices data = {data} />
-        // <ViewYourListingsOfferedServices data = {data} />
-
-        // <ViewASearchListingBuy data = {data} />
-        // <ViewASearchListingRent data = {data} />
-        // <ViewASearchListingRQItems data = {data} />
-        // <ViewASearchListingRQServices data = {data} />
-        <ViewASearchListingOfferedServices data = {data} />
-
+        <SearchResults />
     );
 }
