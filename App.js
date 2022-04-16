@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import ViewSavedListings from "./app/screens/views/ViewSavedListings";
-import ViewYourOwnListings from "./app/screens/views/ViewYourOwnListings";
+import Card from "./app/components/Card";
 
 let app_images = [
     require('../renfri/app/assets/upload_images_buy.png'),
@@ -115,6 +115,6 @@ var array = [data, data2, data3, data4, data5];
 export default function App() {
     return (
         // <ViewSavedListings data = {array}/>
-        <ViewYourOwnListings data = {array} />
+        <Card data = {data} />
     );
 }
