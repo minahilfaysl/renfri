@@ -377,7 +377,7 @@ export default function ViewASearchListingBuy (props) {
                 </View>
                 <View style={styles.top_nav_box}>
                     <Text style={styles.heading1}>
-                        Your Listings
+                        Search By Category
                     </Text>
                 </View>
                 {/* the form */}
@@ -493,15 +493,6 @@ const styles = StyleSheet.create({
         color: "#ffffff",
         textAlign: 'left',
     },
-    int_listers_heading: {
-        marginTop: 20,
-        marginBottom: 18,
-        paddingHorizontal: "10%",
-        fontFamily: 'Montserrat_400Regular',
-        fontSize: 0.02*actual_height,
-        letterSpacing: 0.15,
-        color: "#D6482F",
-    },
     form_container: {
         backgroundColor: "#fff",
         height: "100%",
@@ -530,88 +521,15 @@ const styles = StyleSheet.create({
     },
     body_text: {
         marginBottom: 18,
-        paddingHorizontal: "10%",
+        // paddingHorizontal: "10%",
         fontFamily: 'Montserrat_500Medium',
         fontSize: 13,
         letterSpacing: 0.1,
         color: "#D6482F",
-    },
-    table_box: {
-        flex: 1,
-        flexDirection: "row",
     },
     stars: {
         flex: 1,
         flexDirection: "row",
-    },
-    listers_table_box: {
-        width: "100%",
-        flex: 1,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        textAlignVertical: "center",
-    },
-    listers_subtable1: {
-        width: "50%",
-        paddingLeft: "10%",
-        textAlignVertical: "center",
-    },
-    body_text_table: {
-        textAlignVertical: "center",
-        marginTop: 1,
-        marginBottom: 18,
-        fontFamily: 'Montserrat_500Medium',
-        fontSize: 13,
-        letterSpacing: 0.1,
-        color: "#D6482F",
-    },
-    listers_subtable2: {
-        width: "50%",
-        paddingRight: "10%",
-    },
-    table_text: {
-        marginBottom: 18,
-        marginHorizontal: "10%",
-        fontFamily: 'Montserrat_400Regular',
-        fontSize: 14,
-        letterSpacing: 0.15,
-        color: "#D6482F",
-    },
-    message: {
-        marginBottom: 18,
-        paddingHorizontal: "15%",
-        fontFamily: 'Montserrat_400Regular',
-        fontStyle: "normal",
-        fontWeight: "400",
-        // fontSize: 0.02 * actual_height,
-        fontSize: 14,
-        letterSpacing: 0.15,
-        color: "#D6482F",
-        textAlign: "center",
-    },
-    text_box: {
-        marginBottom: 40,
-        height: 0.05 * actual_height,
-        width: "80%",
-        backgroundColor: "rgb(240, 240, 240)",
-        borderBottomWidth: 1,
-        paddingHorizontal: "5%",
-        alignSelf: "center",
-        borderBottomColor: "#D6482F",
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
-    },
-    text_box_desc: {
-        marginBottom: 40,
-        height: 0.16 * actual_height,
-        width: "80%",
-        backgroundColor: "rgb(240, 240, 240)",
-        borderBottomWidth: 1,
-        padding: "5%",
-        alignSelf: "center",
-        borderBottomColor: "#D6482F",
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
     },
     message_button: {
         flex: 1,
@@ -643,14 +561,6 @@ const styles = StyleSheet.create({
         marginBottom: 60,
         borderRadius: 10,
     },
-    upload_image_box: {
-        backgroundColor: '#D6482F',
-        alignSelf: "center",
-        padding: 20,
-        width: "80%",
-        height: 250,
-        marginBottom: 60,
-    },
     icon: {
         marginTop: -3,
         width: 24,
@@ -677,19 +587,14 @@ const styles = StyleSheet.create({
     container: {
         alignSelf: "center",
         width: '80%',
-        // height: "20%",
-        backgroundColor: '#fff',
-        // marginBottom: 40,
     },
     cell: {
         flex: 1, 
         textAlignVertical: "center",
     },
     stars_cell: {
-        top: -5,
-        flex: 1, 
+        top: -5, 
         paddingVertical: 7,
-        paddingHorizontal: 12,
     },
     urgent_alert: {
         flexDirection: "row",

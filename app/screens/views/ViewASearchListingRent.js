@@ -376,7 +376,7 @@ export default function ViewASearchListingRent (props) {
                 </View>
                 <View style={styles.top_nav_box}>
                     <Text style={styles.heading1}>
-                        Your Listings
+                        Search By Category
                     </Text>
                 </View>
                 {/* the form */}
@@ -520,7 +520,7 @@ const styles = StyleSheet.create({
     },
     body_text: {
         marginBottom: 18,
-        paddingHorizontal: "10%",
+        // paddingHorizontal: "10%",
         fontFamily: 'Montserrat_500Medium',
         fontSize: 13,
         letterSpacing: 0.1,
@@ -529,18 +529,6 @@ const styles = StyleSheet.create({
     stars: {
         flex: 1,
         flexDirection: "row",
-    },
-    message: {
-        marginBottom: 18,
-        paddingHorizontal: "15%",
-        fontFamily: 'Montserrat_400Regular',
-        fontStyle: "normal",
-        fontWeight: "400",
-        // fontSize: 0.02 * actual_height,
-        fontSize: 14,
-        letterSpacing: 0.15,
-        color: "#670000",
-        textAlign: "center",
     },
     message_button: {
         flex: 1,
@@ -598,19 +586,15 @@ const styles = StyleSheet.create({
     container: {
         alignSelf: "center",
         width: '80%',
-        // height: "20%",
-        backgroundColor: '#fff',
-        // marginBottom: 40,
+        // backgroundColor: '#c44',
     },
     cell: {
         flex: 1, 
         textAlignVertical: "center",
     },
     stars_cell: {
-        top: -5,
-        flex: 1, 
+        top: -5, 
         paddingVertical: 7,
-        paddingHorizontal: 12,
     },
     urgent_alert: {
         flexDirection: "row",

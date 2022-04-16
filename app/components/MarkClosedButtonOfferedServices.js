@@ -8,7 +8,7 @@ import AppLoading from 'expo-app-loading';;
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
 
-export default function MarkClosedButtonRqServices(props) {
+export default function MarkClosedButtonOfferedServices(props) {
 
     if (!props.state) {
         props.state = false;
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
         height: 0.04 * actual_height,
         paddingHorizontal: "5%",
         alignItems: "center",
-        backgroundColor: "#588D60",
+        backgroundColor: "#C7C4AC",
         borderWidth: 1,
         borderStyle: "solid",
         borderColor: "#193E26",

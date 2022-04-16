@@ -3,16 +3,26 @@ ALSO this is how you can use the screens and what data its accepting.
 Agar koi masla hua tou bata dena, I'll fix it with the data it's actually
 getting if its different.
 
-
 import React, { useState, useRef, useEffect } from "react";
-import ViewYourListingsDetails from './app/screens/views/ViewYourListingsBuy';
+import ViewYourListingsBuy from "./app/screens/views/ViewYourListingsBuy";
+import ViewYourListingsRent from "./app/screens/views/ViewYourListingsRent";
+import ViewYourListingsRQItems from "./app/screens/views/ViewYourListingsRQItems";
+import ViewYourListingsRQServices from "./app/screens/views/ViewYourListingsRQServices";
+import ViewYourListingsOfferedServices from "./app/screens/views/ViewYourListingsOfferedServices";
+
+import ViewASearchListingRent from "./app/screens/views/ViewASearchListingRent";
+import ViewASearchListingBuy from "./app/screens/views/ViewASearchListingBuy";
+import ViewASearchListingRQItems from "./app/screens/views/ViewASearchListingRQItems";
+import ViewASearchListingRQServices from "./app/screens/views/ViewASearchListingRQServices";
+import ViewASearchListingOfferedServices from "./app/screens/views/ViewASearchListingOfferedServices";
+
 
 let app_images = [
     require('../renfri/app/assets/upload_images_buy.png'),
-    require('../renfri/app/assets/upload_images_buy.png'),
-    require('../renfri/app/assets/upload_images_buy.png'),
-    require('../renfri/app/assets/upload_images_buy.png'),
-    require('../renfri/app/assets/upload_images_buy.png'),
+    require('../renfri/app/assets/upload_images_rq_items.png'),
+    require('../renfri/app/assets/upload_images_rq_items.png'),
+    require('../renfri/app/assets/upload_images_rq_items.png'),
+    require('../renfri/app/assets/upload_images_rq_items.png'),
 ]
 
 var data = {
@@ -36,6 +46,17 @@ var data = {
 
 export default function App() {
     return (
-        <ViewYourListingsDetails data={data}/>
+        <ViewYourListingsBuy data = {data} />
+        // <ViewYourListingsRent data = {data} />
+        // <ViewYourListingsRQItems data = {data} />
+        // <ViewYourListingsRQServices data = {data} />
+        // <ViewYourListingsOfferedServices data = {data} />
+
+        // <ViewASearchListingBuy data = {data} />
+        // <ViewASearchListingRent data = {data} />
+        // <ViewASearchListingRQItems data = {data} />
+        // <ViewASearchListingRQServices data = {data} />
+        // <ViewASearchListingOfferedServices data = {data} />
+
     );
 }

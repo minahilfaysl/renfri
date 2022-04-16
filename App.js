@@ -1,7 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
+import ViewYourListingsBuy from "./app/screens/views/ViewYourListingsBuy";
+import ViewYourListingsRent from "./app/screens/views/ViewYourListingsRent";
+import ViewYourListingsRQItems from "./app/screens/views/ViewYourListingsRQItems";
+import ViewYourListingsRQServices from "./app/screens/views/ViewYourListingsRQServices";
+import ViewYourListingsOfferedServices from "./app/screens/views/ViewYourListingsOfferedServices";
+
 import ViewASearchListingRent from "./app/screens/views/ViewASearchListingRent";
-import ViewASearchListingsRQItems from "./app/screens/views/ViewASearchListingRQItems";
-import ViewASearchListingsOfferedServices from "./app/screens/views/ViewASearchListingOfferedServices";
+import ViewASearchListingBuy from "./app/screens/views/ViewASearchListingBuy";
+import ViewASearchListingRQItems from "./app/screens/views/ViewASearchListingRQItems";
+import ViewASearchListingRQServices from "./app/screens/views/ViewASearchListingRQServices";
+import ViewASearchListingOfferedServices from "./app/screens/views/ViewASearchListingOfferedServices";
 
 let app_images = [
     require('../renfri/app/assets/upload_images_buy.png'),
@@ -30,12 +38,19 @@ var data = {
                     {name: "Ajwa Shahid", email: "23100066@lums.edu.pk", rating: 4}],
 };
 
-// console.log(data.title)
-
 export default function App() {
     return (
-        <ViewASearchListingsOfferedServices data={data}/>
-        // <ViewASearchListingRent data = {data}/>
+        // <ViewYourListingsBuy data = {data} />
+        // <ViewYourListingsRent data = {data} />
+        // <ViewYourListingsRQItems data = {data} />
+        // <ViewYourListingsRQServices data = {data} />
+        // <ViewYourListingsOfferedServices data = {data} />
+
+        // <ViewASearchListingBuy data = {data} />
+        // <ViewASearchListingRent data = {data} />
+        // <ViewASearchListingRQItems data = {data} />
+        // <ViewASearchListingRQServices data = {data} />
+        <ViewASearchListingOfferedServices data = {data} />
 
     );
 }

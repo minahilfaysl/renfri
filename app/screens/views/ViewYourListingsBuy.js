@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, Text, SafeAreaView, Picker, TouchableOpacity, closedBar, Image, ScrollView, TextInput, StyleSheet, Animated, Dimensions, Vibration, Alert, KeyboardAvoidingView, Platform} from "react-native";
+import { View, Text, SafeAreaView, Picker, TouchableOpacity, StatusBar, Image, ScrollView, TextInput, StyleSheet, Animated, Dimensions, Vibration, Alert, KeyboardAvoidingView, Platform} from "react-native";
 import PostBottomNavBar from "../navbar/PostBottomNavBar";
 import { Montserrat_400Regular, Montserrat_500Medium } from '@expo-google-fonts/montserrat';
 import { OpenSans_400Regular, OpenSans_700Bold } from '@expo-google-fonts/open-sans';
@@ -9,6 +9,7 @@ import UrgentButton from "../../components/UrgentButton";
 import { SliderBox } from "react-native-image-slider-box";
 import { Touchable } from "react-native-web";
 import MarkClosedButtonBuy from "../../components/MarkClosedButtonBuy";
+import { Col, Row, Grid } from 'react-native-easy-grid';
 
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
@@ -64,52 +65,101 @@ function Description (data) {
     return null
 }
 
-function Table (data) {
+function TableColA (data) {
     // return the price
     if (data.price) {
         return (
-            <View style = {styles.table_box}>
-                <Text style = {styles.body_text} textAlign="left">
-                    Price:                       PKR {data.price}
-                </Text>
-            </View>
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>Price:</Text>
+            </Row>
         )
     }
-
     // return the status
-    if (data.closed == false) {
+    if (data.closed) {
         return (
-            <View style = {styles.table_box}>
-                <Text style = {styles.body_text} textAlign="left">
-                    Status:                     Open
-                </Text>
-            </View>
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>Status:</Text>
+            </Row>
         )
     }
-    else if (data.closed == true) {
-        return (
-            <View style = {styles.table_box}>
-                <Text style = {styles.body_text} textAlign="left">
-                    Status:                  Closed
-                </Text>
-            </View>
-        )
-    }
-
-
     // return the tags
     if (data.tags) {
         return (
-            <View style = {styles.table_box}>
-                <Text style = {styles.body_text} textAlign="left">
-                    Tags:                        {data.tags}
-                </Text>
-            </View>
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>Tags:</Text>
+            </Row>
+        )
+    }
+    // return the duration
+    if (data.duration) {
+        return (
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>Duration of Rent:</Text>
+            </Row>
         )
     }
 
+    // return the insurance
+    if (data.insurance) {
+        return (
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>Insurance:</Text>
+            </Row>
+        )
+    }
     return null
+}
 
+function TableColB (data) {
+    // return the price
+    if (data.price) {
+        return (
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>PKR {data.price}</Text>
+            </Row>
+        )
+    }
+    // return the status
+    if (data.closed == true) {
+        return (
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>Closed</Text>
+            </Row>
+        )
+    }
+    if (data.closed == false) {
+        return (
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>Open</Text>
+            </Row>
+        )
+    }
+    // return the tags
+    if (data.tags) {
+        return (
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>{data.tags}</Text>
+            </Row>
+        )
+    }
+    // return the duration
+    if (data.duration) {
+        return (
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>{data.duration}</Text>
+            </Row>
+        )
+    }
+
+    // return the insurance
+    if (data.insurance) {
+        return (
+            <Row style={styles.cell}>
+                <Text style = {styles.body_text}>PKR {data.insurance}</Text>
+            </Row>
+        )
+    }
+    return null
 }
 
 function ShowRatingStars (data) {
@@ -358,14 +408,29 @@ export default function ViewYourListingsBuy (props) {
                         <UrgentButton state={props.data.urgent}/>
 
                         {/* table for price, tags, duration, status*/}
-                        <Table price={props.data.price}/>
-                        <Table closed={props.data.closed} />
-                        <Table tags={props.data.tags}/>
-
-                        <View style = {styles.table_box}>
-                            <Text style = {styles.body_text} textAlign="left">
-                                Post created on:    {props.data.date}
-                            </Text>
+                        <View style={styles.container}>
+                            <Grid>
+                                <Col size={40}>
+                                    <TableColA price={props.data.price} />
+                                    {/* <TableColA duration={props.data.duration} />
+                                    <TableColA insurance={props.data.insurance}/> */}
+                                    <TableColA closed={props.data.closed} />
+                                    <TableColA tags={props.data.tags} />
+                                    <Row style={styles.cell}>
+                                        <Text style = {styles.body_text}>Post created on:</Text>
+                                    </Row>
+                                </Col>
+                                <Col size={50}>
+                                    <TableColB price={props.data.price} />
+                                    {/* <TableColB duration={props.data.duration} />
+                                    <TableColB insurance={props.data.insurance}/> */}
+                                    <TableColB closed={props.data.closed} />
+                                    <TableColB tags={props.data.tags} />
+                                    <Row style={styles.cell}>
+                                        <Text style = {styles.body_text}>{props.data.date}</Text>
+                                    </Row>
+                                </Col>
+                            </Grid>
                         </View>
 
                         {/* interested users */}
@@ -483,15 +548,11 @@ const styles = StyleSheet.create({
     },
     body_text: {
         marginBottom: 18,
-        paddingHorizontal: "10%",
+        // paddingHorizontal: "10%",
         fontFamily: 'Montserrat_500Medium',
         fontSize: 13,
         letterSpacing: 0.1,
         color: "#D6482F",
-    },
-    table_box: {
-        flex: 1,
-        flexDirection: "row",
     },
     stars: {
         flex: 1,
@@ -521,54 +582,7 @@ const styles = StyleSheet.create({
     },
     users_subtable2: {
         width: "50%",
-        // flex: 1,
-        // flexDirection: "row",
-        // justifyContent: "space-between",
         paddingRight: "10%",
-    },
-    table_text: {
-        marginBottom: 18,
-        marginHorizontal: "10%",
-        fontFamily: 'Montserrat_400Regular',
-        fontSize: 14,
-        letterSpacing: 0.15,
-        color: "#D6482F",
-    },
-    message: {
-        marginBottom: 18,
-        paddingHorizontal: "15%",
-        fontFamily: 'Montserrat_400Regular',
-        fontStyle: "normal",
-        fontWeight: "400",
-        // fontSize: 0.02 * actual_height,
-        fontSize: 14,
-        letterSpacing: 0.15,
-        color: "#D6482F",
-        textAlign: "center",
-    },
-    text_box: {
-        marginBottom: 40,
-        height: 0.05 * actual_height,
-        width: "80%",
-        backgroundColor: "rgb(240, 240, 240)",
-        borderBottomWidth: 1,
-        paddingHorizontal: "5%",
-        alignSelf: "center",
-        borderBottomColor: "#D6482F",
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
-    },
-    text_box_desc: {
-        marginBottom: 40,
-        height: 0.16 * actual_height,
-        width: "80%",
-        backgroundColor: "rgb(240, 240, 240)",
-        borderBottomWidth: 1,
-        padding: "5%",
-        alignSelf: "center",
-        borderBottomColor: "#D6482F",
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
     },
     delete_button: {
         flex: 1,
@@ -600,14 +614,6 @@ const styles = StyleSheet.create({
         marginBottom: 60,
         borderRadius: 10,
     },
-    upload_image_box: {
-        backgroundColor: '#D6482F',
-        alignSelf: "center",
-        padding: 20,
-        width: "80%",
-        height: 250,
-        marginBottom: 60,
-    },
     icon: {
         marginTop: -3,
         width: 24,
@@ -631,5 +637,13 @@ const styles = StyleSheet.create({
     button_subcontainer: {
         width: 0.35 * actual_width,
         height: 0.04 * actual_height,
-    }
+    },
+    container: {
+        alignSelf: "center",
+        width: '80%',
+    },
+    cell: {
+        flex: 1, 
+        textAlignVertical: "center",
+    },
 })
