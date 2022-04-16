@@ -3,11 +3,24 @@ import CreateANewListingOfferedServices from './app/screens/forms/CreateANewList
 import CreateANewListingRent from './app/screens/forms/CreateANewListingRent';
 import CreateANewListingRQItems from './app/screens/forms/CreateANewListingRQItems';
 import CreateANewListingRQServices from './app/screens/forms/CreateANewListingRQServices';
+import SignUp from './app/screens/SignUp';
+import WelcomeScreen from './app/screens/WelcomeScreen';
+import AppLoading from 'expo-app-loading';
+import JustWelcome from './app/screens/JustWelcome';
+import Login from './app/screens/Login';
+import Verification from './app/screens/Verification';
+import HomeScreenSearchByCategory from './app/screens/HomeScreenSearchByCategory';
+import AddPostByCategory from './app/screens/AddPostByCategory';
+import TrackingSystem from './app/screens/TrackingSystem';
 
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView, Image,  TouchableWithoutFeedback, Button } from 'react-native';
-import SignUp from './app/screens/SignUp';
-import WelcomeScreen from './app/screens/WelcomeScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useFonts } from 'expo-font';
+import { useAuthentication } from './utils/hooks/useAuthentication';
+import AuthScreens from './AuthScreens';
+import UserScreens from './UserScreens';
 
 import { 
   Montserrat_100Thin,
@@ -32,14 +45,6 @@ import {
 
 import { OpenSans_400Regular, OpenSans_700Bold } from '@expo-google-fonts/open-sans';
 
-import { useFonts } from 'expo-font';
-import AppLoading from 'expo-app-loading';
-import JustWelcome from './app/screens/JustWelcome';
-import Login from './app/screens/Login';
-import Verification from './app/screens/Verification';
-import HomeScreenSearchByCategory from './app/screens/HomeScreenSearchByCategory';
-import AddPostByCategory from './app/screens/AddPostByCategory';
-import TrackingSystem from './app/screens/TrackingSystem';
 
 export default function App() {
 
@@ -68,11 +73,11 @@ export default function App() {
 
 });
 
-if (!fontsLoaded) {
-    return <AppLoading />
-}
+// if (!fontsLoaded) {
+//     return <AppLoading />
+// }
 
-  return (
-    <CreateANewListingOfferedServices />
-  );
+const Stack = createNativeStackNavigator();
+const { user } = useAuthentication();
+  return user ? <UserScreens /> : <AuthScreens/>;
 }
