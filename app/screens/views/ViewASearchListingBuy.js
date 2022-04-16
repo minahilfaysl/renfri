@@ -191,7 +191,7 @@ function TableColB (data) {
         return (
             <>
             <Row style={styles.cell}>
-                <Text style = {styles.body_text}>{lister.name}</Text>
+                <Text style = {styles.body_text}>{lister.name} ({lister.email})</Text>
             </Row>
             <Row style={styles.stars_cell}>
                 <ShowRatingStars num = {lister.rating} />
