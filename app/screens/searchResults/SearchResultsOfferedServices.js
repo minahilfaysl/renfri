@@ -6,7 +6,7 @@ import { OpenSans_400Regular, OpenSans_700Bold } from '@expo-google-fonts/open-s
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { Col, Row, Grid } from 'react-native-easy-grid';
-import SavedIconButtonDRed from "../../components/SavedIconButtonDRed";
+import SavedIconButtonDGreen from "../../components/SavedIconButtonDGreen";
 
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
@@ -25,7 +25,7 @@ function GetRollNumber (data) {
             <View style={styles.roll_number}>
             <Image 
                 style={styles.icon} 
-                source = {require("../../assets/User_box_light_dred.png")}/>
+                source = {require("../../assets/User_box_light_dgreen.png")}/>
             <Text style = {styles.body_text}>{lister.email}</Text>
             </View>
         )
@@ -115,7 +115,7 @@ function ShowResultCards (props) {
                         <Col size={10}>
                             <Row style={styles.cell}>
                             <View style={styles.save_icon}>
-                                <SavedIconButtonDRed state={post.saved_post}/>
+                                <SavedIconButtonDGreen state={post.saved_post}/>
                             </View>
                             </Row>
                         </Col>
@@ -127,7 +127,7 @@ function ShowResultCards (props) {
     return null
 }
 
-export default function SearchResultsRent (props) {
+export default function SearchResultsOfferedServices (props) {
 
     // const [heading2Text, setHeading2Text] = useState(false);
 
@@ -149,7 +149,7 @@ export default function SearchResultsRent (props) {
                 <StatusBar backgroundColor="#588D60" />
                 <View style={styles.subtop_nav_box}>
                     <Text style={styles.heading2}>
-                        Rent An Item
+                        Offered Services
                     </Text>
                 </View>
                 <View style={styles.top_nav_box}>
@@ -162,17 +162,17 @@ export default function SearchResultsRent (props) {
                     <TextInput
                     onChangeText = {(value) => setTitle(value)}
                     placeholder = "Search For A Listing Here"
-                    placeholderTextColor={'#D6482F'}
+                    placeholderTextColor={'#193E26'}
                     style={styles.search_bar}/>
                     <TouchableOpacity style={styles.search_icon} onPress = {() => console.log("LETS SEARCH AAAAAAAAAAAAAA")}>
                         <Image
                         style={styles.search_icon} 
-                        source = {require('../../assets/Search_alt_dred.png')}/>
+                        source = {require('../../assets/Search_alt_dgreen.png')}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.search_icon} onPress = {() => console.log("open an alert, pick how to sort results and then sort")}>
                         <Image
                         style={styles.search_icon} 
-                        source = {require('../../assets/Sort_list_dred.png')}/>
+                        source = {require('../../assets/Sort_list_dgreen.png')}/>
                     </TouchableOpacity>
                 </View>
 
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     subtop_nav_box: {
         width: "100%",
         height: 0.14*actual_height,
-        backgroundColor: "#670000",
+        backgroundColor: "#C7C4AC",
         position: "absolute",
         left: 0,
         shadowRadius: 4,
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Montserrat_400Regular',
         fontSize: 21,
         letterSpacing: 0,
-        color: "#ffffff",
+        color: "#193E26",
         textAlign: 'left',
     },
     form_container: {
@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingTop: 5,
         paddingBottom: 3,
-        color: "#670000",
+        color: "#193E26",
     },
     price_text: {
         paddingHorizontal: 10,
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Montserrat_500Medium',
         fontSize: 12,
         letterSpacing: 0.1,
-        color: "#670000",
+        color: "#193E26",
     },
     urgent_text: {
         paddingHorizontal: 10,
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
         fontSize: 0.015*actual_height, // 13
         letterSpacing: 0.1,
         textTransform: 'uppercase',
-        color: "#588D60",
+        color: "#D6482F",
     },
     not_urgent_text: {
         paddingHorizontal: 10,
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
         fontSize: 13,
         letterSpacing: 0.1,
         marginTop: -5,
-        color: "#670000",
+        color: "#193E26",
     },
     roll_number: {
         // flex: 1,
@@ -304,11 +304,11 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFFFFF",
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: "#670000",
+        borderColor: "#193E26",
         borderRadius: 20,
     },
     message_button_text: {
-        color: "#670000",
+        color: "#193E26",
         alignSelf: "center",
         fontFamily: 'OpenSans_400Regular',
         fontSize: 0.016 * actual_height,
@@ -344,7 +344,7 @@ const styles = StyleSheet.create({
         width: '80%',
         borderWidth: 1,
         borderRadius: 10,
-        borderColor: "#670000",
+        borderColor: "#193E26",
         marginBottom: 25,
     },
     cell: {
@@ -367,7 +367,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         paddingHorizontal: "5%",
         alignSelf: "center",
-        borderBottomColor: "#670000",
+        borderBottomColor: "#193E26",
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
         fontFamily: 'Montserrat_400Regular',

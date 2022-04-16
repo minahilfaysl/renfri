@@ -127,7 +127,7 @@ function ShowResultCards (props) {
     return null
 }
 
-export default function SearchResultsRent (props) {
+export default function SearchResultsRQItems (props) {
 
     // const [heading2Text, setHeading2Text] = useState(false);
 
@@ -149,7 +149,7 @@ export default function SearchResultsRent (props) {
                 <StatusBar backgroundColor="#588D60" />
                 <View style={styles.subtop_nav_box}>
                     <Text style={styles.heading2}>
-                        Rent An Item
+                        Requested Items
                     </Text>
                 </View>
                 <View style={styles.top_nav_box}>
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     subtop_nav_box: {
         width: "100%",
         height: 0.14*actual_height,
-        backgroundColor: "#670000",
+        backgroundColor: "#FF886E",
         position: "absolute",
         left: 0,
         shadowRadius: 4,

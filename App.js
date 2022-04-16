@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
-import MarkAsOpenButton from "./app/components/MarkAsOpenButton";
-import SearchResultsRent from "./app/screens/searchResults/extra";
+import SearchResultsBuy from "./app/screens/searchResults/SearchResultsBuy";
+import SearchResultsOfferedServices from "./app/screens/searchResults/SearchResultsOfferedServices";
+import SearchResultsRent from "./app/screens/searchResults/SearchResultsRent";
+import SearchResultsRQItems from "./app/screens/searchResults/SearchResultsRQItems";
+import SearchResultsRQServices from "./app/screens/searchResults/SearchResultsRQServices";
 
 
 let app_images = [
@@ -75,7 +78,10 @@ var array = [data, data2, data3];
 
 export default function App() {
     return (
-        <SearchResultsRent data = {array}/>
-        // <MarkAsOpenButton state = {true}/>
+        // <SearchResultsRent data = {array}/>
+        // <SearchResultsBuy data = {array} />
+        // <SearchResultsRQItems data = {array} />
+        // <SearchResultsRQServices data = {array} />
+        <SearchResultsOfferedServices data = {array} />
     );
 }

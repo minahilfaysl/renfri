@@ -4,7 +4,7 @@ import { Text, TouchableOpacity, Image, StyleSheet, Dimensions } from "react-nat
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
 
-export default function SavedButtonDRed(props) {
+export default function SavedButtonDGreen(props) {
 
     if (!props.state) {
         props.state = false;
@@ -29,7 +29,7 @@ export default function SavedButtonDRed(props) {
         <TouchableOpacity {...buttonClicked}> 
             <Image 
                 style={styles.icon} 
-                source = {clicked ? require("../assets/Bookmark_fill_dred.png") : require("../assets/Bookmark_light_dred.png")}/>
+                source = {clicked ? require("../assets/Bookmark_fill_dgreen.png") : require("../assets/Bookmark_light_dgreen.png")}/>
         </TouchableOpacity>
     );
 }
