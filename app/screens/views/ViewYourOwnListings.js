@@ -6,11 +6,6 @@ import { OpenSans_400Regular, OpenSans_700Bold } from '@expo-google-fonts/open-s
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { Col, Row, Grid } from 'react-native-easy-grid';
-import SavedIconButtonDGreen from "../../components/SavedIconButtonDGreen";
-import SavedIconButtonDRed from "../../components/SavedIconButtonDRed";
-import SavedIconButtonLRed from "../../components/SavedIconButtonLRed";
-import SavedIconButtonLGreen from "../../components/SavedIconButtonLGreen";
-import SavedIconButtonPeach from "../../components/SavedIconButtonPeach";
 
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
@@ -348,7 +343,7 @@ function ShowCoverImageOffServices (data) {
 }
 // ---------------------
 
-function ShowResultCardsPending (props) {
+function ShowResultCardsOpen (props) {
 
     if (props.data) {
 
@@ -374,9 +369,6 @@ function ShowResultCardsPending (props) {
                         
                         <Col size={10}>
                             <Row style={styles.cell}>
-                            <View style={styles.save_icon}>
-                                <SavedIconButtonDRed state={post.saved_post}/>
-                            </View>
                             </Row>
                         </Col>
                     </Grid>
@@ -396,9 +388,6 @@ function ShowResultCardsPending (props) {
                         
                         <Col size={10}>
                             <Row style={styles.cell}>
-                            <View style={styles.save_icon}>
-                                <SavedIconButtonLRed state={post.saved_post}/>
-                            </View>
                             </Row>
                         </Col>
                     </Grid>
@@ -418,9 +407,6 @@ function ShowResultCardsPending (props) {
                         
                         <Col size={10}>
                             <Row style={styles.cell}>
-                            <View style={styles.save_icon}>
-                                <SavedIconButtonPeach state={post.saved_post}/>
-                            </View>
                             </Row>
                         </Col>
                     </Grid>
@@ -440,9 +426,6 @@ function ShowResultCardsPending (props) {
                         
                         <Col size={10}>
                             <Row style={styles.cell}>
-                            <View style={styles.save_icon}>
-                                <SavedIconButtonLGreen state={post.saved_post}/>
-                            </View>
                             </Row>
                         </Col>
                     </Grid>
@@ -462,9 +445,6 @@ function ShowResultCardsPending (props) {
                         
                         <Col size={10}>
                             <Row style={styles.cell}>
-                            <View style={styles.save_icon}>
-                                <SavedIconButtonDGreen state={post.saved_post}/>
-                            </View>
                             </Row>
                         </Col>
                     </Grid>
@@ -476,7 +456,7 @@ function ShowResultCardsPending (props) {
     return null
 }
 
-function ShowResultCardsCompleted (props) {
+function ShowResultCardsClosed (props) {
 
     if (props.data) {
 
@@ -502,9 +482,6 @@ function ShowResultCardsCompleted (props) {
                         
                         <Col size={10}>
                             <Row style={styles.cell}>
-                            <View style={styles.save_icon}>
-                                <SavedIconButtonDRed state={post.saved_post}/>
-                            </View>
                             </Row>
                         </Col>
                     </Grid>
@@ -524,9 +501,6 @@ function ShowResultCardsCompleted (props) {
                         
                         <Col size={10}>
                             <Row style={styles.cell}>
-                            <View style={styles.save_icon}>
-                                <SavedIconButtonLRed state={post.saved_post}/>
-                            </View>
                             </Row>
                         </Col>
                     </Grid>
@@ -546,9 +520,6 @@ function ShowResultCardsCompleted (props) {
                         
                         <Col size={10}>
                             <Row style={styles.cell}>
-                            <View style={styles.save_icon}>
-                                <SavedIconButtonPeach state={post.saved_post}/>
-                            </View>
                             </Row>
                         </Col>
                     </Grid>
@@ -568,9 +539,6 @@ function ShowResultCardsCompleted (props) {
                         
                         <Col size={10}>
                             <Row style={styles.cell}>
-                            <View style={styles.save_icon}>
-                                <SavedIconButtonLGreen state={post.saved_post}/>
-                            </View>
                             </Row>
                         </Col>
                     </Grid>
@@ -590,9 +558,6 @@ function ShowResultCardsCompleted (props) {
                         
                         <Col size={10}>
                             <Row style={styles.cell}>
-                            <View style={styles.save_icon}>
-                                <SavedIconButtonDGreen state={post.saved_post}/>
-                            </View>
                             </Row>
                         </Col>
                     </Grid>
@@ -604,7 +569,7 @@ function ShowResultCardsCompleted (props) {
     return null
 }
 
-export default function ViewSavedListings (props) {
+export default function ViewYourOwnListings (props) {
 
     // const [heading2Text, setHeading2Text] = useState(false);
 
@@ -626,7 +591,7 @@ export default function ViewSavedListings (props) {
                 <StatusBar backgroundColor="#588D60" />
                 <View style={styles.top_nav_box}>
                     <Text style={styles.heading1}>
-                        Your Saved Listings
+                        Your Listings
                     </Text>
                 </View>
 
@@ -634,18 +599,17 @@ export default function ViewSavedListings (props) {
                 <ScrollView style = {styles.form_container}> 
                     <View style = {styles.form_container2}>
                         <Text style={styles.heading2}>
-                            Pending Listings
+                            Open Listings
                         </Text>
-                        <ShowResultCardsPending data = {props.data} />
-                        
+                        <ShowResultCardsOpen data = {props.data} />
+
                         <Text style={styles.heading3}>
-                            Completed Listings
+                            Closed Listings
                         </Text>
-                        <ShowResultCardsCompleted data = {props.data} />
+                        <ShowResultCardsClosed data = {props.data} />
                         <View style = {styles.end_box}></View> 
                     </View>
                 </ScrollView>
-                
             </View>
             <SearchBottomNavBar />
         </SafeAreaView>
