@@ -64,7 +64,7 @@ export default function MyTabs() {
         )}}
         />
 
-      <Tab.Screen name="Notif" component={HomeScreenSearchByCategory} options={{
+      <Tab.Screen name="Notif" component={ProfileNav} options={{
         headerShown:false,
         tabBarIcon: ({focused})=>(
           <View style={styles.one_unit}>

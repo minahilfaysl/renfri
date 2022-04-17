@@ -84,39 +84,41 @@ const HomeScreenSearchByCategory  = ({navigation}) => {
 
         // first get data for type
 
-        fetchPosts(type).then(
-            // generateData().then(
-                console.log("Final array:", dataArray)
-            // )
-        )  
+        setArray([])
 
+        fetchPosts(type)
+        
         if (type === "rent"){
 
-            navigation.navigate('SearchResultsRent', {params:{data:dataArray}})
+            navigation.navigate('SearchResultsRent', {data:[]})
         }
 
         else if(type === "buy"){
 
-            navigation.navigate('SearchResultsBuy', {params:{data:dataArray}})
+            navigation.navigate('SearchResultsBuy', {data:[]})
         }
 
         else if (type === "off_services"){
 
-            navigation.navigate('SearchResultsOfferedServices', {params:{data:dataArray}})
+            navigation.navigate('SearchResultsOfferedServices', {data:[]})
         }
 
         else if (type === "rq_services"){
 
-            navigation.navigate('SearchResultsRQServices', {params:{data:dataArray}})
+            navigation.navigate('SearchResultsRQServices', {data:[]})
         }
 
         else if (type === "rq_items"){
 
-            navigation.navigate('SearchResultsRQItems', {params:{data:dataArray}})
+            navigation.navigate('SearchResultsRQItems', {data:[]})
         }
+
+        console.log("Final array:", dataArray)
+            // ))
+            // return dataArray;})        
     }
     
-    async function fetchPosts(queryFor){
+    function fetchPosts(queryFor){
         
         const Ref = collection(db, "post");
     
@@ -136,6 +138,10 @@ const HomeScreenSearchByCategory  = ({navigation}) => {
             }); 
 
         }).catch(err=>console.log(err))
+
+        // return new Promise((resolve, reject) => {
+        //     setTimeout(() => console.log("done"), 200)
+        // })
     }
 
 	return (
@@ -183,7 +189,7 @@ const HomeScreenSearchByCategory  = ({navigation}) => {
                 <TouchableOpacity style={styles.category_box_three}
                 onPress={() => {console.log("downnn requested items pressed!!!!")}}>
                     <TouchableOpacity
-                    onPress={() => {console.log("Requested Items pressed"), navigation.navigate('SearchResultsRQItems')}}>
+                    onPress={() => {console.log("Requested Items pressed"), goTo("rq_items")}}>
                         <Image 
                         style={styles.cat_img} 
                         source = {require("../assets/category.png")}/>
@@ -198,7 +204,7 @@ const HomeScreenSearchByCategory  = ({navigation}) => {
                 <TouchableOpacity style={styles.category_box_four}
                 onPress={() => {console.log("downnn offered services pressed!!!!")}}>
                     <TouchableOpacity
-                    onPress={() => {console.log("Offered Services pressed"), navigation.navigate('SearchResultsOfferedServices')}}>
+                    onPress={() => {console.log("Offered Services pressed"), goTo("off_services")}}>
                         <Image 
                         style={styles.cat_img} 
                         source = {require("../assets/category.png")}/>
@@ -213,7 +219,7 @@ const HomeScreenSearchByCategory  = ({navigation}) => {
                 <TouchableOpacity style={styles.category_box_five}
                 onPress={() => {console.log("downnn requested services pressed!!!!")}}>
                     <TouchableOpacity
-                    onPress={() => {console.log("Requested Services pressed"), navigation.navigate('SearchResultsRQServices')}}>
+                    onPress={() => {console.log("Requested Services pressed"), goTo("rq_services")}}>
                         <Image 
                         style={styles.cat_img} 
                         source = {require("../assets/category.png")}/>

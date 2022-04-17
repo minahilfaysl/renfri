@@ -5,46 +5,14 @@ import { OpenSans_400Regular, OpenSans_700Bold } from '@expo-google-fonts/open-s
 import { useFonts } from 'expo-font';
 import { Avatar, Bubble, GiftedChat, InputToolbar, Send } from 'react-native-gifted-chat'
 import AppLoading from 'expo-app-loading';
-import app from '../../firebase'
-import { getFirestore, collection, query, where, getDocs, setDoc } from "firebase/firestore";
-import { getAuth, signOut } from "firebase/auth";
+import {AntDesign} from "@expo/vector-icons";
 
-const auth = getAuth();
-
-const db = getFirestore(app);
 
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
-
+const user_name = "Ajwa Shahid (23100067)"
 
 export default function ChatRoom() {
-
-    const [doc1, setDoc1] = useState("")
-    const user_name = "Ajwa Shahid (23100067)"
-
-    useEffect(()=>{
-        const getUser = async() => {
-
-            const user1 = auth.currentUser;
-        
-            const Ref = collection(db, "user");
-        
-            // Create a query against the collection.
-            const q = query(Ref, where("email", "==", user1.email));
-        
-            getDocs(q).then((querySnapshot)=>{
-                querySnapshot.forEach((doc) => {
-                const doc1 = doc.data()
-                // doc.data() is never undefined for query doc snapshots
-                console.log(doc.id, " => ", doc.data());
-                setDoc1(doc1)
-                console.log("Doc2:", doc1)
-                });
-                
-            }).catch(err=>console.log(err))
-        }
-        getUser();
-     },[])
 
     let [fontsLoaded] = useFonts({
         Montserrat_400Regular,
@@ -55,35 +23,22 @@ export default function ChatRoom() {
 
   const [messages, setMessages] = useState([]);
 
-
 //THE FUNCTION THAT GETS MESSAGES FROM DB
-    // useEffect(() => {
-    //   const stored_messages = db.collection('chats').orderBy('createdAt', 'desc').onSnapshot(snapshot=>setMessages(
-    //       snapshot.docs.map(doc=>({
-    //         _id: doc.data().id, //TAKING ID FROM DB
-    //         createdAt: doc.data().createdAt.toDate(), //TIME
-    //         text: doc.data().text, //TEXT MESSAGE CONTENT
-    //         user: doc.data().user, //USER NAME
-    //       }))
-    //   ))
-    //   return stored_messages;
-    // }, [])
+useLayoutEffect(() => {
+    const stored_messages = db.collection('chats').orderBy('createdAt', 'desc').onSnapshot(snapshot=>setMessages(
+        snapshot.docs.map(doc=>({
+          _id: doc.data().id, //TAKING ID FROM DB
+          createdAt: doc.data().createdAt.toDate(), //TIME
+          text: doc.data().text, //TEXT MESSAGE CONTENT
+          user: doc.data().user, //USER NAME
+        }))
+    ))
+    return stored_messages;
+  }, [])
 
+  //User cant send anything from this screen so this function is of no use but let it stay here anyway
   const onSend = useCallback((messages = []) => {
-    setMessages(previousMessages => 
-        GiftedChat.append(previousMessages, messages))
-        const {
-            _id,
-            createdAt,
-            text,
-            user,
-        } = messages[0]
-        db.collection('chats').add({ //THIS STORES THE MESSAGE SENT, ID AND STUFF
-            _id,
-            createdAt,
-            text,
-            user,
-        })
+    setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
   }, [])
 
   const renderBubble = (props) => {
@@ -124,40 +79,13 @@ export default function ChatRoom() {
 
   const renderSend = (props) => {
       return (
-          <Send {...props}>
-              <View>
-              <Image 
-                    style={styles.icon_send} 
-                    source = {require("../assets/Send_fill.png")}/>
-              </View>
-          </Send>
+          null
       )
   }
 
   const renderInputToolbar = (props) => {
       return (
-          <InputToolbar {...props} containerStyle={styles.text_box_one}>
-
-          </InputToolbar>
-      )
-  }
-
-  const renderChatEmpty = (props) => {
-      return(
-          <View style={styles.text_box}>          
-          <Text style={styles.text_empty}>
-              To complete a transaction, mark your listing or post as closed, or fill in the form once you get a notifaction for the transaction being completed.
-          </Text>
-          <Text style={styles.text_empty}>
-              The chat relating to a post will be marked closed once a transaction regarding the post has been completed. 
-          </Text>
-          <Text style={styles.text_empty}>
-              Messages once sent cannot be edited or deleted.
-          </Text>
-          <Text style={styles.text_empty}>
-              Welcome to RENFRI’s chat system. Messages sent to this chat are private but visible to the moderators of the application.
-          </Text>
-          </View>
+          null
       )
   }
 
@@ -166,9 +94,8 @@ export default function ChatRoom() {
       <View style={{flex: 1}}>
           <StatusBar backgroundColor="#588D60" />
                 <View style={styles.subtop_nav_box}>
-                    <Text style={styles.heading2}> 
-                        {doc1.name}
-                        {/* ^replace user_name with actual username plus id */}
+                    <Text style={styles.heading2}>
+                        {user_name}
                     </Text>
                 </View>
                 <View style={styles.top_nav_box}>
@@ -176,6 +103,8 @@ export default function ChatRoom() {
                         Chats
                     </Text>
                 </View>
+                
+
             <View style={{
                 flex: 1,
                 marginTop: 0.15*actual_height,
@@ -183,7 +112,7 @@ export default function ChatRoom() {
                 
                 <GiftedChat
                 messages={messages}
-                onSend={messages => onSend(messages)}
+                onSend={messages => onSend(messages)} //send will not be functional here. there is no input space
                 user={{ //GETTING THE USER ID AND NAME
                     _id: auth?.currentUser?.email, //CHECK THIS
                     name: auth?.currentUser?.displayName, //CHECK THIS
@@ -195,9 +124,13 @@ export default function ChatRoom() {
                 renderSend={renderSend}
                 renderInputToolbar={renderInputToolbar}
                 alignTop
-                renderChatEmpty={renderChatEmpty}
                 /> 
 
+            </View>
+            <View style={styles.closed}>
+                <Text style={styles.closed_text}>
+                    This chat is closed.
+                </Text>
             </View>    
         
         </View>
@@ -253,14 +186,22 @@ const styles = StyleSheet.create({
         color: "#ffffff",
         textAlign: 'left',
     },
-    text_box_one: {
-        backgroundColor: "rgb(240, 240, 240)",
-        borderBottomWidth: 2,
-        marginLeft: 0.02*actual_width,
-        marginRight: 0.02*actual_width,
-        borderBottomColor: "#193E26",
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
+    closed: {
+        backgroundColor: "#FFFFFF",
+        height: "8%",
+        borderTopColor: "#193E26",
+        borderTopWidth: 2,
+        borderRightWidth: 1,
+        borderLeftWidth: 1,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+    },
+    closed_text: {
+        fontFamily: 'Montserrat_400Regular',
+        fontSize: 0.04*actual_width,
+        alignSelf: "center",
+        marginTop: "5%",
+        color: "#193E26",
     },
     icon_send: {
         height: 40,
@@ -274,15 +215,10 @@ const styles = StyleSheet.create({
         right: "4%",
         backgroundColor: "transparent",
     },
-    text_empty: {
-        fontFamily: 'Montserrat_400Regular',
-        fontSize: 0.04*actual_width,
-        color: "#193E26",
-        transform: [{rotateX: '180deg'}],
-        lineHeight: 20,
-        paddingVertical: 5,
-    },
-    text_box: {
-        padding: 20,
+    downicon: {
+        position: "absolute",
+        bottom: 0.005*actual_height,
+        color: "#000000",
+        left: "92%",
     },
 })

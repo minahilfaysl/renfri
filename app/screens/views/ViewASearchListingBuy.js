@@ -350,9 +350,8 @@ function DisplayUrgent (data) {
 }
 
 
-export default function ViewASearchListingBuy ({ route, navigation }) {
+export default function ViewASearchListingBuy (props) {
 
-    const { data } = route.params;
     // const [heading2Text, setHeading2Text] = useState(false);
 
     let [fontsLoaded] = useFonts({

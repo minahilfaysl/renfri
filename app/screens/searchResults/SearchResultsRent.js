@@ -7,15 +7,23 @@ import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import SavedIconButtonDRed from "../../components/SavedIconButtonDRed";
+// import { getAdditionalUserInfo } from "firebase/auth";
+import app from '../../../firebase'
+import { getFirestore, collection, query, where, getDocs, setDoc } from "firebase/firestore";
+import { getAuth, signOut } from "firebase/auth";
+
+const auth = getAuth();
+
+const db = getFirestore(app);
 
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
 
 // make functions for all display fields
 function GetRollNumber (data) {
-    if (data.lister) {
+    if (data.lister_id) {
 
-        let lister = data.lister
+        let lister = data.lister_id
 
         if (lister.email.includes('@')) {
             let arr = lister.email.split('@');
@@ -65,7 +73,7 @@ function ShowCoverImage (data) {
                     <ShowUrgent urgent = {data.urgent} />
                 </Row>
                 <Row style={styles.cell}>
-                    <GetRollNumber lister={data.lister_id}/>
+                    <GetRollNumber lister={getUser(data.lister_id)}/>
                 </Row>
             </Col>
             </>
@@ -83,17 +91,35 @@ function ShowCoverImage (data) {
                 <ShowUrgent urgent = {data.urgent} />
             </Row>
             <Row style={styles.cell}>
-                <GetRollNumber lister={data.lister_id}/>
+                <GetRollNumber lister={getUser(data.lister_id)}/>
             </Row>
         </Col>
     )
 }
 
-function ShowResultCards (props) {
+const getUser = async(email) => {
 
-    if (props.data) {
+    // Create a query against the collection.
+    const q = query(Ref, where("email", "==", email));
 
-        let posts = props.data;
+    getDocs(q).then((querySnapshot)=>{
+        querySnapshot.forEach((doc) => {
+        const doc1 = doc.data()
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+        return doc1
+        });
+        
+    }).catch(err=>console.log(err))
+}
+
+function ShowResultCards (prop) {
+
+    const data = prop.data
+
+    if (data) {
+
+        let posts = data;
 
         // *********** IMPORTANT *****************
         // need to sort this array in such a way that urgent walay posts show up first
@@ -110,7 +136,7 @@ function ShowResultCards (props) {
                             title = {post.title}
                             price = {post.price}
                             urgent = {post.urgent}
-                            lister_id = {post.lister_id}/>
+                            lister_id = {getUser(post.lister_id)}/>
                         
                         <Col size={10}>
                             <Row style={styles.cell}>
@@ -127,7 +153,11 @@ function ShowResultCards (props) {
     return null
 }
 
-export default function SearchResultsRent (props) {
+export default function SearchResultsRent ({ route, navigation }) {
+
+    const { data } = route.params;
+
+    console.log("Data on other page:", data)
 
     // const [heading2Text, setHeading2Text] = useState(false);
 
@@ -179,7 +209,7 @@ export default function SearchResultsRent (props) {
                 {/* the form */}
                 <ScrollView style = {styles.form_container}> 
                     <View style = {styles.form_container2}>
-                        <ShowResultCards data = {props.data} />
+                        <ShowResultCards data = {data} />
                         <View style = {styles.end_box}></View>
                     </View> 
                 </ScrollView>
