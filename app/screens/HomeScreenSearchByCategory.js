@@ -92,27 +92,27 @@ const HomeScreenSearchByCategory  = ({navigation}) => {
 
         if (type === "rent"){
 
-            navigation.navigate('ViewASearchListingRQItems')
+            navigation.navigate('SearchResultsRent', {params:{data:dataArray}})
         }
 
         else if(type === "buy"){
 
-            navigation.navigate('ViewASearchListingRQItems')
+            navigation.navigate('SearchResultsBuy', {params:{data:dataArray}})
         }
 
-        else if (type == "off_services"){
+        else if (type === "off_services"){
 
-            navigation.navigate('ViewASearchListingRQItems')
+            navigation.navigate('SearchResultsOfferedServices', {params:{data:dataArray}})
         }
 
-        else if (type == "rq_services"){
+        else if (type === "rq_services"){
 
-            navigation.navigate('ViewASearchListingRQItems')
+            navigation.navigate('SearchResultsRQServices', {params:{data:dataArray}})
         }
 
-        else if (type == "rq_items"){
+        else if (type === "rq_items"){
 
-            navigation.navigate('ViewASearchListingRQItems')
+            navigation.navigate('SearchResultsRQItems', {params:{data:dataArray}})
         }
     }
     
@@ -183,7 +183,7 @@ const HomeScreenSearchByCategory  = ({navigation}) => {
                 <TouchableOpacity style={styles.category_box_three}
                 onPress={() => {console.log("downnn requested items pressed!!!!")}}>
                     <TouchableOpacity
-                    onPress={() => {console.log("Requested Items pressed"), navigation.navigate('ViewASearchListingRQItems')}}>
+                    onPress={() => {console.log("Requested Items pressed"), navigation.navigate('SearchResultsRQItems')}}>
                         <Image 
                         style={styles.cat_img} 
                         source = {require("../assets/category.png")}/>
@@ -198,7 +198,7 @@ const HomeScreenSearchByCategory  = ({navigation}) => {
                 <TouchableOpacity style={styles.category_box_four}
                 onPress={() => {console.log("downnn offered services pressed!!!!")}}>
                     <TouchableOpacity
-                    onPress={() => {console.log("Offered Services pressed"), navigation.navigate('ViewASearchListingOfferedServices')}}>
+                    onPress={() => {console.log("Offered Services pressed"), navigation.navigate('SearchResultsOfferedServices')}}>
                         <Image 
                         style={styles.cat_img} 
                         source = {require("../assets/category.png")}/>
@@ -213,7 +213,7 @@ const HomeScreenSearchByCategory  = ({navigation}) => {
                 <TouchableOpacity style={styles.category_box_five}
                 onPress={() => {console.log("downnn requested services pressed!!!!")}}>
                     <TouchableOpacity
-                    onPress={() => {console.log("Requested Services pressed"), navigation.navigate('ViewASearchListingRQServices')}}>
+                    onPress={() => {console.log("Requested Services pressed"), navigation.navigate('SearchResultsRQServices')}}>
                         <Image 
                         style={styles.cat_img} 
                         source = {require("../assets/category.png")}/>
