@@ -89,7 +89,7 @@ export default function CreateANewListingRent ({navigation}) {
         for (let i = 0; i < postWords.length; i++) {
             
             // check if word present in list
-            if (wordList.includes(postWords[i].toLoerCase())) {
+            if (wordList.includes(postWords[i].toLowerCase())) {
                 return true
             }
         }
@@ -186,20 +186,26 @@ export default function CreateANewListingRent ({navigation}) {
                     navigation.navigate('AddPostByCategory')
     
                 }catch (error) {
-                 console.log(error) 
-                }      
-
-            } catch (error) {
-                console.log(error)
-            }   
-            
-            Alert.alert(
-                "Upload Failed",
-                "Our Team is Looking into this",
-                [
-                  { text: "OK", onPress: () => console.log("OK Pressed") }
-                ]
-              );
+                    console.log(error) 
+                    Alert.alert(
+                       "Upload Failed",
+                       "Our Team is Looking into this",
+                       [
+                         { text: "OK", onPress: () => console.log("OK Pressed") }
+                       ]
+                     );
+                   }      
+   
+               } catch (error) {
+                   console.log(error)
+                   Alert.alert(
+                       "Upload Failed",
+                       "Our Team is Looking into this",
+                       [
+                         { text: "OK", onPress: () => console.log("OK Pressed") }
+                       ]
+                     );
+               }
         } 
     }
 
