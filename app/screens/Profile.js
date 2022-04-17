@@ -10,6 +10,7 @@ import app from '../../firebase'
 // import useAuthentication from '../../useAuthentication'
 import { getFirestore, collection, query, where, getDocs, setDoc } from "firebase/firestore";
 import { getAuth, signOut } from "firebase/auth";
+import ProfileNav from './navbar/ProfileNav';
 
 const auth = getAuth();
 
@@ -19,8 +20,10 @@ const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
 
 function ShowRatingStars (data) {
-    const num = data;
+    console.log(num)
+    const num = data.num;
     if (num <= 1 && num > 0) {
+        console.log("NUM1:",num)
         return (
             <View style = {styles.stars}>
                 <Image 
@@ -42,7 +45,8 @@ function ShowRatingStars (data) {
         )
     }
 
-    if (num <= 2 && num > 1) {
+    else if (num <= 2 && num > 1) {
+        console.log("NUM2:",num)
         return (
             <View style = {styles.stars}>
                 <Image 
@@ -64,7 +68,8 @@ function ShowRatingStars (data) {
         )
     }
 
-    if (num <= 3 && num > 2) {
+    else if (num <= 3 && num > 2) {
+        console.log("NUM3:",num)
         return (
             <View style = {styles.stars}>
                 <Image 
@@ -86,7 +91,8 @@ function ShowRatingStars (data) {
         )
     }
 
-    if (num <= 4 && num > 3) {
+    else if (num <= 4 && num > 3) {
+        console.log("NUM4:",num)
         return (
             <View style = {styles.stars}>
                 <Image 
@@ -108,7 +114,8 @@ function ShowRatingStars (data) {
         )
     }
 
-    if (num <= 5 && num > 4) {
+    else if (num <= 5 && num > 4) {
+        console.log("NUM5:",num)
         return (
             <View style = {styles.stars}>
                 <Image 
@@ -129,8 +136,9 @@ function ShowRatingStars (data) {
             </View>
         )
     }
-
-    return (
+    else{
+        console.log("NUM6:",num)
+        return (
         <View style = {styles.stars}>
             <Image 
                 style={styles.icon} 
@@ -148,7 +156,9 @@ function ShowRatingStars (data) {
                 style={styles.icon} 
                 source = {require("../assets/Star_light.png")}/>
         </View>
-    )
+        )
+    }
+    
 }
 
 const rating = 4;
@@ -244,14 +254,14 @@ export default function Profile ({navigation}) {
                     </Text>
                     <View style={styles.info_box}>
                         <View style = {styles.stars}> 
-                            <ShowRatingStars data={doc1.avg_rating} /> 
+                            {doc1 === "" ? <ShowRatingStars num={0} /> : <ShowRatingStars num={doc1.avg_rating} />} 
                         </View>
                     </View>
                     <Text style={styles.message}>
                         Your Activity
                     </Text>
                     <TouchableOpacity style={styles.info_box_two}
-                    onPress={() => {console.log("view your listing pressed")}}>
+                    onPress={() => {console.log("view your listing pressed"), navigation.navigate('ViewYourOwnListings')}}>
                         <View style={styles.text_with_image}>  
                             <Image 
                                 style={styles.icon_eye} 
@@ -262,7 +272,7 @@ export default function Profile ({navigation}) {
                         </View> 
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.info_box_two}
-                    onPress={() => {console.log("view your saved listing pressed")}}>
+                    onPress={() => {console.log("view your saved listing pressed"), navigation.navigate('ViewSavedListings')}}>
                         <View style={styles.text_with_image}>
                             <Image 
                                 style={styles.icon_save} 
@@ -284,7 +294,7 @@ export default function Profile ({navigation}) {
                 </View>
                 
             </View>
-            <ProfileBottomNavBar />
+            {/* <ProfileBottomNavBar /> */}
         </SafeAreaView>
     )
 }

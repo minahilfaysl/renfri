@@ -8,6 +8,10 @@ import { useFonts } from 'expo-font';
 import HomeScreenSearchByCategory from '../HomeScreenSearchByCategory';
 import AddPostByCategory from '../AddPostByCategory';
 import Profile from '../Profile';
+import ProfileNav from './ProfileNav';
+import PostNav from './PostNav';
+import SearchNav from './SearchNav';
+import ChatRoom from '../ChatRoom'
 
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
@@ -19,7 +23,7 @@ export default function MyTabs() {
   return (
     <Tab.Navigator tabBarOptions={{showLabel:false}} screenOptions={{
       tabBarStyle: { ...styles.menu }}}>
-      <Tab.Screen name="Search" component={HomeScreenSearchByCategory} options={{
+      <Tab.Screen name="Search" component={SearchNav} options={{
         headerShown:false,
         tabBarIcon: ({focused})=>(
           <View style={styles.one_unit}>
@@ -32,7 +36,7 @@ export default function MyTabs() {
           </View>
         )}}
         />
-      <Tab.Screen name="Profile" component={Profile} options={{
+      <Tab.Screen name="Profile" component={ProfileNav} options={{
         headerShown:false,
         tabBarIcon: ({focused})=>(
           <View style={styles.one_unit}>
@@ -46,7 +50,7 @@ export default function MyTabs() {
         )}}
         />
 
-      <Tab.Screen name="Post" component={AddPostByCategory} options={{
+      <Tab.Screen name="Post" component={PostNav} options={{
         headerShown:false,
         tabBarIcon: ({focused})=>(
           <View style={styles.one_unit}>
@@ -74,7 +78,7 @@ export default function MyTabs() {
         )}}
         />
 
-      <Tab.Screen name="Chat" component={HomeScreenSearchByCategory} options={{
+      <Tab.Screen name="Chat" component={ChatRoom} options={{
         headerShown:false,
         tabBarIcon: ({focused})=>(
           <View style={styles.one_unit}>

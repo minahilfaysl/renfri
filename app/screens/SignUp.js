@@ -63,9 +63,9 @@ function SignUp({navigation}) {
                 // await sendEmailVerification(userCredential.user);
 
                 const docRef = await addDoc(collection(db, "user"), {
-                    avg_rating: 0,
+                    rating: 0,
                     email:id,
-                    full_name:name,
+                    name:name,
                     num_ratings: 0 });
                 console.log("Document written with ID: ", docRef.id);
 

@@ -19,7 +19,7 @@ const db = getFirestore(app);
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
 
-export default function CreateANewListingRent () {
+export default function CreateANewListingRent ({navigation}) {
 
     const [image, setImage] = useState();
     const [numUploaded, setNum] = useState(0);
@@ -65,15 +65,37 @@ export default function CreateANewListingRent () {
     };
     
     // here are all the variables from the input fields
-    const [title, setTitle] = useState('');
-    const [desc, setDesc] = useState('');
-    const [price, setPrice] = useState('');
-    const [duration, setDuration] = useState('');
-    const [insurance, setInsurance] = useState('');    
+    const [title, setTitle] = useState("");
+    const [desc, setDesc] = useState(null);
+    const [price, setPrice] = useState("");
+    const [duration, setDuration] = useState(null);
+    const [insurance, setInsurance] = useState(null);    
     const [urgent, setUrgent] = useState(false)
-    const [tags, setTags] = useState('');
-    const [docId, setDocId] = useState('')
+    const [tags, setTags] = useState(null);
+    const [docId, setDocId] = useState(null);
     const [newArr, setNewArr] = useState([])
+
+    function isIllegal(text){
+
+        if(text===""){
+
+            return false
+        }
+
+        const wordList = ["alcohol", "lsd", "ecstacy", "weed", "roofies", "heroin", "cocaine", "crack", "marijuana", "mdma", "molly", "codeine", "fentanyl", "demerol", "morphine", "oxy", "oxycodone", "oxymorphine", "tramadol", "meth", "amphetamine", "antidepressants", "steroids", "booze", "benzos", "stimulants", "methamphetamine", "flakka", "krokodil", "cannabis", "dope", "hash", "inhalants", "ketamine", "ghb", "hallucinogens", "drugs", "dugs"]
+    
+        const postWords = text.split(" ");
+
+        for (let i = 0; i < postWords.length; i++) {
+            
+            // check if word present in list
+            if (wordList.includes(postWords[i].toLoerCase())) {
+                return true
+            }
+        }
+
+        return false
+    }
 
     async function uploadPost(){
         if(title === "" || price === "" ){
@@ -86,41 +108,45 @@ export default function CreateANewListingRent () {
               );
         }
 
+        else if (title!="" && isIllegal(title)){
+            Alert.alert(
+                "Illegal Post",
+                "Your Post Violates Community Guides",
+                [
+                  { text: "OK", onPress: () => console.log("OK Pressed") }
+                ]
+              );
+        }
+
+        else if (desc && isIllegal(desc)){
+            Alert.alert(
+                "Illegal Post",
+                "Your Post Violates Community Guides",
+                [
+                  { text: "OK", onPress: () => console.log("OK Pressed") }
+                ]
+              );
+        }
+
         else{
-
-            if(desc === ""){
-                setDesc(null)
-            }
-
-            if(duration === ""){
-                setDuration(null)
-            }
-
-            if(insurance === ""){
-                setInsurance(null)
-            }
-
-            if(tags === ""){
-                setTags(null)
-            }
 
             const user1 = auth.currentUser;
             const userid = user1.email
-            category = 'rent'
-            date = new Date().toLocaleString()
+            const category = 'rent'
+            const date = new Date().toLocaleString()
 
             try {
 
                 const docRef = await addDoc(collection(db, "post"), {
                     category: category,
                     date: date,
-                    description: desc,
+                    desc: desc,
                     duration: duration,
                     insurance: insurance,
                     interested_user: [], 
-                    poster: userid,
+                    lister_id: userid,
                     price: price,
-                    status: 'open',
+                    closed: false,
                     tags: tags,
                     title: title,
                     urgent:urgent
@@ -128,35 +154,52 @@ export default function CreateANewListingRent () {
 
                 console.log("Document written with ID: ", docRef.id);
                 setDocId(docRef.id)
+                try{
+
+                    for(let i=0;i<5; i++){
+                        const arr = newArr
+                        if(src_paths[i]!=""){
+                            arr.push(src_paths[i])
+                        }
+    
+                        setArray([...arr])
+                    }
+    
+    
+                    const imgRef = await addDoc(collection(db, "images"), {
+    
+                        doc_ref:docRef.id,
+                        img_array: newArr.length === 0? null : newArr
+    
+                    });
+    
+                    console.log("Document written with ID: ", imgRef.id);
+
+                    Alert.alert(
+                        "Success",
+                        "Uploaded",
+                        [
+                          { text: "OK", onPress: () => console.log("OK Pressed") }
+                        ]
+                      );
+
+                    navigation.navigate('AddPostByCategory')
+    
+                }catch (error) {
+                 console.log(error) 
+                }      
 
             } catch (error) {
                 console.log(error)
-            }
-
-            try{
-
-                for(i=0;i<5; i++){
-                    const arr = newArr
-                    if(src_paths[i]!=""){
-                        arr.push(src_paths[i])
-                    }
-
-                    setArray([...arr])
-                }
-
-
-                const imgRef = await addDoc(collection(db, "images"), {
-
-                    doc_ref:docId,
-                    img_array: newArr.length === 0? null : newArr
-
-                });
-
-                console.log("Document written with ID: ", imgRef.id);
-
-            }catch (error) {
-             console.log(error) 
-            }               
+            }   
+            
+            Alert.alert(
+                "Upload Failed",
+                "Our Team is Looking into this",
+                [
+                  { text: "OK", onPress: () => console.log("OK Pressed") }
+                ]
+              );
         } 
     }
 
