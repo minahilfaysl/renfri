@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import ViewSavedListings from "./app/screens/views/ViewSavedListings";
-import Card from "./app/components/Card";
+import ChatHomepage from "./app/screens/ChatHomepage";
 
 let app_images = [
     require('../renfri/app/assets/upload_images_buy.png'),
@@ -11,6 +10,11 @@ let app_images = [
 ]
 
 var data = {
+    // ---for chat---
+    new_msg: true,
+    msgs: ["Hello", "hi", "here", "hey", "there"],
+    user_id: {name: "Minahil Faisal", email: "23100063@lums.edu.pk", rating: 4},
+    // --------
     post_id: 1,
     category: "rent",
     title: "This is my listing and i am a lister",
@@ -31,6 +35,11 @@ var data = {
 };
 
 var data2 = {
+    // ---for chat---
+    new_msg: true,
+    msgs: ["Hello", "hi", "here", "hey", "there"],
+    user_id: {name: "Minahil Faisal", email: "23100063@lums.edu.pk", rating: 4},
+    // ----------
     post_id: 2,
     category: "buy",
     title: "This is my listing and i am a lister",
@@ -51,6 +60,11 @@ var data2 = {
 };
 
 var data3 = {
+    // ---for chat---
+    new_msg: false,
+    msgs: ["Hello", "hi", "here", "hey", "there"],
+    user_id: {name: "Minahil Faisal", email: "23100063@lums.edu.pk", rating: 4},
+    // ----------
     post_id: 3,
     category: "rq_items",
     title: "This is my listing and i am a lister",
@@ -61,7 +75,7 @@ var data3 = {
     tags: "M7, iron",
     images: null,
     urgent: true,
-    closed: true,
+    closed: false,
     saved_post: true,
     date: "14/04/2022, 3:45PM",
     lister_id: {name: "Minahil Faisal", email: "23100063@lums.edu.pk", rating: 4},
@@ -71,6 +85,11 @@ var data3 = {
 };
 
 var data4 = {
+    // ---for chat---
+    new_msg: false,
+    msgs: ["Hello", "hi", "here", "hey", "there"],
+    user_id: {name: "Minahil Faisal", email: "23100063@lums.edu.pk", rating: 4},
+    // ----------
     post_id: 4,
     category: "rq_services",
     title: "This is my listing and i am a lister",
@@ -91,6 +110,11 @@ var data4 = {
 };
 
 var data5 = {
+    // ---for chat---
+    new_msg: false,
+    msgs: ["Hello", "hi", "here", "hey", "there"],
+    user_id: {name: "Minahil Faisal", email: "23100063@lums.edu.pk", rating: 4},
+    // ----------
     post_id: 5,
     category: "off_services",
     title: "This is my listing and i am a lister",
@@ -115,6 +139,6 @@ var array = [data, data2, data3, data4, data5];
 export default function App() {
     return (
         // <ViewSavedListings data = {array}/>
-        <Card data = {data} />
+        <ChatHomepage data = {array} />
     );
 }

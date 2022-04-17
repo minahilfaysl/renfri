@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { View, Text, SafeAreaView, Picker, TouchableOpacity, StatusBar, Image, ScrollView, TextInput, StyleSheet, Animated, Dimensions, Vibration, Alert, KeyboardAvoidingView, Platform} from "react-native";
-import SearchBottomNavBar from "../navbar/SearchBottomNavBar";
+import ProfileBottomNavBar from "../navbar/ProfileBottomNavBar";
 import { Montserrat_400Regular, Montserrat_500Medium } from '@expo-google-fonts/montserrat';
 import { OpenSans_400Regular, OpenSans_700Bold } from '@expo-google-fonts/open-sans';
 import { useFonts } from 'expo-font';
@@ -77,7 +77,7 @@ function ShowUrgentRent (data) {
         )
     }
     return (
-        <Text style = {[styles.urgent_text, styles.rent]}>.</Text>
+        <Text style = {[styles.not_urgent_text, styles.rent]}>.</Text>
     )
 }
 function ShowUrgentBuy (data) {
@@ -87,7 +87,7 @@ function ShowUrgentBuy (data) {
         )
     }
     return (
-        <Text style = {[styles.urgent_text, styles.buy]}>.</Text>
+        <Text style = {[styles.not_urgent_text, styles.buy]}>.</Text>
     )
 }
 function ShowUrgentRQItems (data) {
@@ -97,7 +97,7 @@ function ShowUrgentRQItems (data) {
         )
     }
     return (
-        <Text style = {[styles.urgent_text, styles.rq_items]}>.</Text>
+        <Text style = {[styles.not_urgent_text, styles.rq_items]}>.</Text>
     )
 }
 function ShowUrgentRQServices (data) {
@@ -107,7 +107,7 @@ function ShowUrgentRQServices (data) {
         )
     }
     return (
-        <Text style = {[styles.urgent_text, styles.rq_services]}>.</Text>
+        <Text style = {[styles.not_urgent_text, styles.rq_services]}>.</Text>
     )
 }
 function ShowUrgentOffServices (data) {
@@ -117,7 +117,7 @@ function ShowUrgentOffServices (data) {
         )
     }
     return (
-        <Text style = {[styles.urgent_text, styles.off_services]}>.</Text>
+        <Text style = {[styles.not_urgent_text, styles.off_services]}>.</Text>
     )
 }
 // --------------------
@@ -611,7 +611,7 @@ export default function ViewYourOwnListings (props) {
                     </View>
                 </ScrollView>
             </View>
-            <SearchBottomNavBar />
+            <ProfileBottomNavBar />
         </SafeAreaView>
     )
 }
