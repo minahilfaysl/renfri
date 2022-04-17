@@ -695,8 +695,6 @@ function ShowPreviousMessages (props) {
 
 export default function ChatHomepage (props) {
 
-    const [countNew, setcountNew] = useState(0);
-    const [countOld, setcountOld] = useState(0);
     const [refreshPage, setRefreshPage] = useState(false);
 
     let [fontsLoaded] = useFonts({

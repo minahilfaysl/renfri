@@ -1,5 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
-import ChatHomepage from "./app/screens/ChatHomepage";
+import Notifications from "./app/screens/Notifications";
+
+/* For notifications store all alerts, and saves that other people do with 
+the listers id, we'll have an alag table for lister and their notifcations.
+*/
+
+// 1. Upon a saved post being closed -> redirects to the saved post and shows it as closed
+// 2. Upon a saved post being re-opened -> redirects to re-opened post
+// 4. When a transaction is completed -> redirects to post jis k saath transaction thi
+
+/* 5. when a person enters details of the person they did the transaction with into the tracking system, the can see that posts card and when they click on that card, the relevant tracking form opens up*/
 
 let app_images = [
     require('../renfri/app/assets/upload_images_buy.png'),
@@ -14,6 +24,13 @@ var data = {
     new_msg: true,
     msgs: ["Hello", "hi", "here", "hey", "there"],
     user_id: {name: "Minahil Faisal", email: "23100063@lums.edu.pk", rating: 4},
+    // --- for notifications ---
+    /* notifs array structure:
+    lister_id: 
+    pending_forms: [{}]
+    notifs: [{}]
+    the following data for all forms and notifcations:
+    */
     // --------
     post_id: 1,
     category: "rent",
@@ -134,11 +151,11 @@ var data5 = {
                     {name: "Ajwa Shahid", email: "23100066@lums.edu.pk", rating: 4}],
 };
 
-var array = [data, data2, data3, data4, data5];
+var array = [data, data2, data3, data4, data5]
 
 export default function App() {
     return (
         // <ViewSavedListings data = {array}/>
-        <ChatHomepage data = {array} />
+        <Notifications data = {array} />
     );
 }
