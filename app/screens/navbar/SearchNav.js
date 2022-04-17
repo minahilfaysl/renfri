@@ -9,6 +9,12 @@ import SearchResultsOfferedServices from '../searchResults/SearchResultsOfferedS
 import SearchResultsRQItems from '../searchResults/SearchResultsRQItems';
 import SearchResultsRQServices from '../searchResults/SearchResultsRQServices';
 
+import ViewASearchListingBuy from '../views/ViewASearchListingBuy';
+import ViewASearchListingRent from '../views/ViewASearchListingRent';
+import ViewASearchListingOfferedServices from '../views/ViewASearchListingOfferedServices';
+import ViewASearchListingRQItems from '../views/ViewASearchListingRQItems';
+import ViewASearchListingRQServices from '../views/ViewASearchListingRQServices';
+
 const Stack = createNativeStackNavigator();
 
 export default function SearchNav() {
@@ -22,6 +28,13 @@ export default function SearchNav() {
         <Stack.Screen options={{headerShown:false}} name="SearchResultsRent" component={SearchResultsRent} />
         <Stack.Screen options={{headerShown:false}} name="SearchResultsRQItems" component={SearchResultsRQItems} />
         <Stack.Screen options={{headerShown:false}} name="SearchResultsRQServices" component={SearchResultsRQServices} />
+
+        <Stack.Screen options={{headerShown:false}} name="ViewASearchListingBuy" component={ViewASearchListingBuy} />
+        <Stack.Screen options={{headerShown:false}} name="ViewASearchListingOfferedServices" component={ViewASearchListingOfferedServices} />
+        <Stack.Screen options={{headerShown:false}} name="ViewASearchListingRent" component={ViewASearchListingRent} />
+        <Stack.Screen options={{headerShown:false}} name="ViewASearchListingRQItems" component={ViewASearchListingRQItems} />
+        <Stack.Screen options={{headerShown:false}} name="ViewASearchListingRQServices" component={ViewASearchListingRQServices} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );

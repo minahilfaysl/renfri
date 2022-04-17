@@ -7,23 +7,21 @@ import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import SavedIconButtonDRed from "../../components/SavedIconButtonDRed";
-// import { getAdditionalUserInfo } from "firebase/auth";
-import app from '../../../firebase'
-import { getFirestore, collection, query, where, getDocs, setDoc } from "firebase/firestore";
-import { getAuth, signOut } from "firebase/auth";
 
-const auth = getAuth();
-
-const db = getFirestore(app);
+import ViewASearchListingBuy from '../views/ViewASearchListingBuy';
+import ViewASearchListingRent from '../views/ViewASearchListingRent';
+import ViewASearchListingOfferedServices from '../views/ViewASearchListingOfferedServices';
+import ViewASearchListingRQItems from '../views/ViewASearchListingRQItems';
+import ViewASearchListingRQServices from '../views/ViewASearchListingRQServices';
 
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
 
 // make functions for all display fields
 function GetRollNumber (data) {
-    if (data.lister_id) {
+    if (data.lister) {
 
-        let lister = data.lister_id
+        let lister = data.lister
 
         if (lister.email.includes('@')) {
             let arr = lister.email.split('@');
@@ -73,7 +71,7 @@ function ShowCoverImage (data) {
                     <ShowUrgent urgent = {data.urgent} />
                 </Row>
                 <Row style={styles.cell}>
-                    <GetRollNumber lister={getUser(data.lister_id)}/>
+                    <GetRollNumber lister={data.lister_id}/>
                 </Row>
             </Col>
             </>
@@ -91,35 +89,92 @@ function ShowCoverImage (data) {
                 <ShowUrgent urgent = {data.urgent} />
             </Row>
             <Row style={styles.cell}>
-                <GetRollNumber lister={getUser(data.lister_id)}/>
+                <GetRollNumber lister={data.lister_id}/>
             </Row>
         </Col>
     )
 }
 
-const getUser = async(email) => {
+function ShowResultCards (props) {
 
-    // Create a query against the collection.
-    const q = query(Ref, where("email", "==", email));
+    // =--------------------test data
 
-    getDocs(q).then((querySnapshot)=>{
-        querySnapshot.forEach((doc) => {
-        const doc1 = doc.data()
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
-        return doc1
-        });
-        
-    }).catch(err=>console.log(err))
-}
+    let app_images = [
+        require('../../assets/upload_images_rent.png'),
+        require('../../assets/upload_images_rent.png'),
+        require('../../assets/upload_images_rent.png'),
+        require('../../assets/upload_images_rent.png'),
+        require('../../assets/upload_images_rent.png'),
+    ]
+    
+    var data = {
+        post_id: 0,
+        category: "rent",
+        title: "This is my listing and i am a lister",
+        desc: "Description description description description description description description description description description description description description description description description description",
+        price: 3000,
+        duration: "1-2 hours",
+        insurance: 2000,
+        tags: "M7, iron",
+        images: app_images,
+        urgent: true,
+        closed: true,
+        saved_post: true,
+        date: "14/04/2022, 3:45PM",
+        lister_id: {name: "Minahil Faisal", email: "23100063@lums.edu.pk", rating: 4},
+        interested_users: [{name: "Minahil Faisal", email: "23100063@lums.edu.pk", rating: 2},
+                        {name: "Fatima Sohail", email: "23100065@lums.edu.pk", rating: 3},
+                        {name: "Ajwa Shahid", email: "23100066@lums.edu.pk", rating: 4}],
+    };
+    
+    var data2 = {
+        post_id: 1,
+        category: "rent",
+        title: "This is my listing and i am a lister",
+        desc: "Description description description description description description description description description description description description description description description description description",
+        price: 3000,
+        duration: "1-2 hours",
+        insurance: 2000,
+        tags: "M7, iron",
+        images: app_images,
+        urgent: true,
+        closed: true,
+        saved_post: true,
+        date: "14/04/2022, 3:45PM",
+        lister_id: {name: "Minahil Faisal", email: "23100063@lums.edu.pk", rating: 4},
+        interested_users: [{name: "Minahil Faisal", email: "23100063@lums.edu.pk", rating: 2},
+                        {name: "Fatima Sohail", email: "23100065@lums.edu.pk", rating: 3},
+                        {name: "Ajwa Shahid", email: "23100066@lums.edu.pk", rating: 4}],
+    };
+    
+    var data3 = {
+        post_id: 2,
+        category: "rent",
+        title: "This is my listing and i am a lister",
+        desc: "Description description description description description description description description description description description description description description description description description",
+        price: 3000,
+        duration: "1-2 hours",
+        insurance: 2000,
+        tags: "M7, iron",
+        images: null,
+        urgent: true,
+        closed: true,
+        saved_post: true,
+        date: "14/04/2022, 3:45PM",
+        lister_id: {name: "Minahil Faisal", email: "23100063@lums.edu.pk", rating: 4},
+        interested_users: [{name: "Minahil Faisal", email: "23100063@lums.edu.pk", rating: 2},
+                        {name: "Fatima Sohail", email: "23100065@lums.edu.pk", rating: 3},
+                        {name: "Ajwa Shahid", email: "23100066@lums.edu.pk", rating: 4}],
+    };
 
-function ShowResultCards (prop) {
+    // =------------------------------
+    
+    var array1 = [data, data2, data3];
 
-    const data = prop.data
+    // if (props.data) {
+    if(array1){
 
-    if (data) {
-
-        let posts = data;
+        let posts = array1;
 
         // *********** IMPORTANT *****************
         // need to sort this array in such a way that urgent walay posts show up first
@@ -129,14 +184,14 @@ function ShowResultCards (prop) {
                 <TouchableOpacity
                     style={styles.card_container}
                     key={post.post_id}
-                    onPress= {() => console.log("show me this post, the DETAILS PLS")}>
+                    onPress= {() => {console.log("show me this post, the DETAILS PLS")}}>
                     <Grid>
                         {/* image */}
                         <ShowCoverImage images={post.images}
                             title = {post.title}
                             price = {post.price}
                             urgent = {post.urgent}
-                            lister_id = {getUser(post.lister_id)}/>
+                            lister_id = {post.lister_id}/>
                         
                         <Col size={10}>
                             <Row style={styles.cell}>
@@ -153,11 +208,7 @@ function ShowResultCards (prop) {
     return null
 }
 
-export default function SearchResultsRent ({ route, navigation }) {
-
-    const { data } = route.params;
-
-    console.log("Data on other page:", data)
+export default function SearchResultsRent (props) {
 
     // const [heading2Text, setHeading2Text] = useState(false);
 
@@ -209,7 +260,7 @@ export default function SearchResultsRent ({ route, navigation }) {
                 {/* the form */}
                 <ScrollView style = {styles.form_container}> 
                     <View style = {styles.form_container2}>
-                        <ShowResultCards data = {data} />
+                        <ShowResultCards data = {props.data} />
                         <View style = {styles.end_box}></View>
                     </View> 
                 </ScrollView>
