@@ -143,7 +143,7 @@ export default function CreateANewListingRent ({navigation}) {
                     desc: desc,
                     duration: duration,
                     insurance: insurance,
-                    interested_user: [], 
+                    interested_users: [], 
                     lister_id: userid,
                     price: price,
                     closed: false,

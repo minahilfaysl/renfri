@@ -3,11 +3,141 @@ import { View, Text, SafeAreaView, Picker, TouchableOpacity, StatusBar, Image, S
 import {AntDesign} from "@expo/vector-icons";
 import SearchBottomNavBar from "./navbar/SearchBottomNavBar";
 import MyTabs from './navbar/NavNavigation'
+import app from '../../firebase'
+import { getFirestore, collection, query, where, getDocs, setDoc } from "firebase/firestore";
+import { getAuth, signOut } from "firebase/auth";
+
+const auth = getAuth();
+
+const db = getFirestore(app);
 
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
 
 const HomeScreenSearchByCategory  = ({navigation}) => {
+
+    const [dataArray, setArray] = useState([]);
+    const [doc2, setDoc1] = useState("");
+    const [usersInt, setUsers] = useState([])
+
+    // async function fetchUsers(i){
+
+    //     const users = dataArray[i].interested_users
+    //     for (let j=0; j<users.length; j++){
+    //         await getUser(users[i]);
+    //         setUsers([...usersInt,doc2])
+
+    //         console.log("Doc after lister/user:", doc2)
+    //     }
+
+    //     let dataArray = [...dataArray]
+    //     let thisUSer = {...dataArray[i]}
+    //     thisUSer.interested_users = usersInt
+    //     dataArray[i] = thisUSer
+    //     setArray({dataArray})
+    //     console.log("here 2")
+    // }
+
+    // }
+
+    // async function fetchForOne (i){
+
+    //     await getUser(dataArray[i].lister_id);
+
+    //     let dataArray = [...dataArray]
+    //     let thisUSer = {...dataArray[i]}
+    //     thisUSer.lister_id = doc2
+    //     dataArray[i] = thisUSer
+
+    //     setArray({dataArray})
+    //     console.log("here 1")
+
+    //     if(dataArray[i].interested_users.length != 0){}
+
+    // }
+
+    async function generateData(){
+
+        console.log("Array after generatec:", dataArray)
+    }
+
+    const getUser = async(email) => {
+    
+        const Ref = collection(db, "user");
+    
+        // Create a query against the collection.
+        const q = query(Ref, where("email", "==", email));
+    
+        getDocs(q).then((querySnapshot)=>{
+            querySnapshot.forEach((doc) => {
+            const doc3 = doc.data()
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            setDoc1(doc3)
+            console.log("Doc2:", doc3)
+            });
+            
+        }).catch(err=>console.log(err))
+    }
+
+    function goTo(type){
+
+        // first get data for type
+
+        fetchPosts(type).then(
+            // generateData().then(
+                console.log("Final array:", dataArray)
+            // )
+        )  
+
+        if (type === "rent"){
+
+            navigation.navigate('ViewASearchListingRQItems')
+        }
+
+        else if(type === "buy"){
+
+            navigation.navigate('ViewASearchListingRQItems')
+        }
+
+        else if (type == "off_services"){
+
+            navigation.navigate('ViewASearchListingRQItems')
+        }
+
+        else if (type == "rq_services"){
+
+            navigation.navigate('ViewASearchListingRQItems')
+        }
+
+        else if (type == "rq_items"){
+
+            navigation.navigate('ViewASearchListingRQItems')
+        }
+    }
+    
+    async function fetchPosts(queryFor){
+        
+        const Ref = collection(db, "post");
+    
+        // Create a query against the collection.
+        const q = query(Ref, where("category", "==", queryFor));
+
+        setArray([])
+    
+        getDocs(q).then((querySnapshot)=>{
+            querySnapshot.forEach((doc) => {
+            const doc1 = doc.data()
+            // doc.data() is never undefined for query doc snapshots
+            // console.log(doc.id, " => ", doc.data());
+            setArray((dataArray)=>[...dataArray, doc1])
+            console.log("Doc2:", doc1)
+            // console.log(dataArray)
+            }); 
+
+        }).catch(err=>console.log(err))
+    }
+
 	return (
         <SafeAreaView style={styles.overall}>
             
@@ -23,7 +153,7 @@ const HomeScreenSearchByCategory  = ({navigation}) => {
                 <TouchableOpacity style={styles.category_box_one}
                 onPress={() => {console.log("downnn Rent an Item pressed!!!!")}}>
                 <TouchableOpacity
-                    onPress={() => {console.log("Rent an Item pressed"), navigation.navigate('ViewASearchListingRent')}}>
+                    onPress={() => {console.log("Rent an Item pressed"), goTo("rent")}}>
                         <Image 
                         style={styles.cat_img} 
                         source = {require("../assets/category.png")}/>
@@ -38,7 +168,7 @@ const HomeScreenSearchByCategory  = ({navigation}) => {
                 <TouchableOpacity style={styles.category_box_two}
                 onPress={() => {console.log("downnn buy an Item pressed!!!!")}}>
                     <TouchableOpacity
-                    onPress={() => {console.log("Buy an Item pressed"), navigation.navigate('ViewASearchListingBuy')}}>
+                    onPress={() => {console.log("Buy an Item pressed"), goTo("buy")}}>
                         <Image 
                         style={styles.cat_img} 
                         source = {require("../assets/category.png")}/>

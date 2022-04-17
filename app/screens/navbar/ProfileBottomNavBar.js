@@ -19,46 +19,51 @@ const ProfileBottomNavBar  = ({navigation}) => {
     if (fonts) {
         return (
             <View style={styles.menu}>
-                <View style={styles.one_unit}>
+                <TouchableOpacity style={styles.one_unit}
+                onPress={() => {console.log("search pressed")}}>
                     <Image 
                         style={styles.menu_icon} 
                         source = {require("../../assets/navbar/Search.png")}/>
                     <Text style={[styles.body2, styles.menu_text]}>
                         Search
                     </Text>
-                </View>
-                <View style={styles.one_unit}>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.one_unit}
+                onPress={() => {console.log("profile pressed")}}>
                     <Image 
                         style={styles.menu_icon} 
                         source = {require("../../assets/navbar/User_bold.png")}/>
                     <Text style={[styles.navbarBold]}>
                         Profile
                     </Text>
-                </View>
-                <View style={styles.one_unit}>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.one_unit}
+                onPress={() => {console.log("post pressed")}}>
                     <Image 
                         style={styles.menu_icon} 
                         source = {require("../../assets/navbar/Add_ring_light.png")}/>
                     <Text style={[styles.body2, styles.menu_text]}>
                         Post
                     </Text>
-                </View>
-                <View style={styles.one_unit}> 
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.one_unit}
+                onPress={() => {console.log("notifs pressed")}}> 
                     <Image 
                         style={styles.menu_icon} 
                         source = {require("../../assets/navbar/Bell_pin_light.png")}/>
                     <Text style={[styles.body2, styles.menu_text]}>
                         Notifs
                     </Text>
-                </View>
-                <View style={styles.one_unit}> 
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.one_unit}
+                onPress={() => {console.log("chat pressed")}}> 
                     <Image 
                         style={styles.menu_icon} 
                         source = {require("../../assets/navbar/Message_light.png")}/>
                     <Text style={[styles.body2, styles.menu_text]}>
                         Chat
                     </Text>
-                </View>
+                </TouchableOpacity>
             </View>
         )
     }
