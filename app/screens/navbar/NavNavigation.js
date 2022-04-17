@@ -12,6 +12,7 @@ import ProfileNav from './ProfileNav';
 import PostNav from './PostNav';
 import SearchNav from './SearchNav';
 import ChatRoom from '../ChatRoom'
+import Notifications from '../Notifications'
 
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
@@ -64,7 +65,7 @@ export default function MyTabs() {
         )}}
         />
 
-      <Tab.Screen name="Notif" component={ProfileNav} options={{
+      <Tab.Screen name="Notif" component={Notifications} options={{
         headerShown:false,
         tabBarIcon: ({focused})=>(
           <View style={styles.one_unit}>

@@ -1,16 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { View, Text, SafeAreaView, Picker, TouchableOpacity, StatusBar, Image, ScrollView, TextInput, StyleSheet, Animated, Dimensions, Vibration, Alert, KeyboardAvoidingView, Platform} from "react-native";
-import ProfileBottomNavBar from "../navbar/ProfileBottomNavBar";
+import NotifsBottomNavBar from "./navbar/NotifsBottomNavBar";
 import { Montserrat_400Regular, Montserrat_500Medium } from '@expo-google-fonts/montserrat';
 import { OpenSans_400Regular, OpenSans_700Bold } from '@expo-google-fonts/open-sans';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { Col, Row, Grid } from 'react-native-easy-grid';
-import SavedIconButtonDGreen from "../../components/SavedIconButtonDGreen";
-import SavedIconButtonDRed from "../../components/SavedIconButtonDRed";
-import SavedIconButtonLRed from "../../components/SavedIconButtonLRed";
-import SavedIconButtonLGreen from "../../components/SavedIconButtonLGreen";
-import SavedIconButtonPeach from "../../components/SavedIconButtonPeach";
 
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
@@ -23,7 +18,7 @@ function GetCategory (data) {
             <View style={styles.cat_name}>
             <Image 
                 style={styles.icon} 
-                source = {require("../../assets/cat/cat_dred.png")}/>
+                source = {require("../assets/cat/cat_dred.png")}/>
             <Text style = {[styles.body_text, styles.rent]}>Rent An Item</Text>
             </View>
         )
@@ -34,7 +29,7 @@ function GetCategory (data) {
             <View style={styles.cat_name}>
             <Image 
                 style={styles.icon} 
-                source = {require("../../assets/cat/cat_lred.png")}/>
+                source = {require("../assets/cat/cat_lred.png")}/>
             <Text style = {[styles.body_text, styles.buy]}>Buy An Item</Text>
             </View>
         )
@@ -45,7 +40,7 @@ function GetCategory (data) {
             <View style={styles.cat_name}>
             <Image 
                 style={styles.icon} 
-                source = {require("../../assets/cat/cat_peach.png")}/>
+                source = {require("../assets/cat/cat_peach.png")}/>
             <Text style = {[styles.body_text, styles.rq_items]}>Requested Items</Text>
             </View>
         )
@@ -56,7 +51,7 @@ function GetCategory (data) {
             <View style={styles.cat_name}>
             <Image 
                 style={styles.icon} 
-                source = {require("../../assets/cat/cat_lgreen.png")}/>
+                source = {require("../assets/cat/cat_lgreen.png")}/>
             <Text style = {[styles.body_text, styles.rq_services]}>Requested Services</Text>
             </View>
         )
@@ -67,63 +62,12 @@ function GetCategory (data) {
             <View style={styles.cat_name}>
             <Image 
                 style={styles.icon} 
-                source = {require("../../assets/cat/cat_dgreen.png")}/>
+                source = {require("../assets/cat/cat_dgreen.png")}/>
             <Text style = {[styles.body_text, styles.off_services]}>Offered Services</Text>
             </View>
         )
     }
     return null
-}
-// -------------------
-function ShowUrgentRent (data) {
-    if (data.urgent) {
-        return (
-            <Text style = {[styles.urgent_text, styles.rent]}>URGENT</Text>
-        )
-    }
-    return (
-        <Text style = {[styles.not_urgent_text, styles.rent]}>.</Text>
-    )
-}
-function ShowUrgentBuy (data) {
-    if (data.urgent) {
-        return (
-            <Text style = {[styles.urgent_text, styles.buy]}>URGENT</Text>
-        )
-    }
-    return (
-        <Text style = {[styles.not_urgent_text, styles.buy]}>.</Text>
-    )
-}
-function ShowUrgentRQItems (data) {
-    if (data.urgent) {
-        return (
-            <Text style = {[styles.urgent_text, styles.rq_items]}>URGENT</Text>
-        )
-    }
-    return (
-        <Text style = {[styles.not_urgent_text, styles.rq_items]}>.</Text>
-    )
-}
-function ShowUrgentRQServices (data) {
-    if (data.urgent) {
-        return (
-            <Text style = {[styles.urgent_text, styles.rq_services]}>URGENT</Text>
-        )
-    }
-    return (
-        <Text style = {[styles.not_urgent_text, styles.rq_services]}>.</Text>
-    )
-}
-function ShowUrgentOffServices (data) {
-    if (data.urgent) {
-        return (
-            <Text style = {[styles.urgent_text, styles.off_services]}>URGENT</Text>
-        )
-    }
-    return (
-        <Text style = {[styles.not_urgent_text, styles.off_services]}>.</Text>
-    )
 }
 // --------------------
 function ShowCoverImageRent (data) {
@@ -144,7 +88,7 @@ function ShowCoverImageRent (data) {
                     <Text style = {[styles.price_text, styles.rent]}>PKR {data.price}</Text>
                 </Row>
                 <Row style={styles.cell}>
-                    <ShowUrgentRent urgent = {data.urgent} />
+                    <Text style = {styles.not_urgent_text}>.</Text>
                 </Row>
                 <Row style={styles.cell}>
                     <GetCategory category={data.category}/>
@@ -162,7 +106,7 @@ function ShowCoverImageRent (data) {
                 <Text style = {[styles.price_text, styles.rent]}>PKR {data.price}</Text>
             </Row>
             <Row style={styles.cell}>
-                <ShowUrgentRent urgent = {data.urgent} />
+                <Text style = {styles.not_urgent_text}>.</Text>
             </Row>
             <Row style={styles.cell}>
                 <GetCategory category={data.category}/>
@@ -188,7 +132,7 @@ function ShowCoverImageBuy (data) {
                     <Text style = {[styles.price_text, styles.buy]}>PKR {data.price}</Text>
                 </Row>
                 <Row style={styles.cell}>
-                    <ShowUrgentBuy urgent = {data.urgent} />
+                    <Text style = {styles.not_urgent_text}>.</Text>
                 </Row>
                 <Row style={styles.cell}>
                     <GetCategory category={data.category}/>
@@ -206,7 +150,7 @@ function ShowCoverImageBuy (data) {
                 <Text style = {[styles.price_text, styles.buy]}>PKR {data.price}</Text>
             </Row>
             <Row style={styles.cell}>
-                <ShowUrgentBuy urgent = {data.urgent} />
+                <Text style = {styles.not_urgent_text}>.</Text>
             </Row>
             <Row style={styles.cell}>
                 <GetCategory category={data.category}/>
@@ -232,7 +176,7 @@ function ShowCoverImageRQItems (data) {
                     <Text style = {[styles.price_text, styles.rq_items]}>PKR {data.price}</Text>
                 </Row>
                 <Row style={styles.cell}>
-                    <ShowUrgentRQItems urgent = {data.urgent} />
+                    <Text style = {styles.not_urgent_text}>.</Text>
                 </Row>
                 <Row style={styles.cell}>
                     <GetCategory category={data.category}/>
@@ -250,7 +194,7 @@ function ShowCoverImageRQItems (data) {
                 <Text style = {[styles.price_text, styles.rq_items]}>PKR {data.price}</Text>
             </Row>
             <Row style={styles.cell}>
-                <ShowUrgentRQItems urgent = {data.urgent} />
+                <Text style = {styles.not_urgent_text}>.</Text>
             </Row>
             <Row style={styles.cell}>
                 <GetCategory category={data.category}/>
@@ -276,7 +220,7 @@ function ShowCoverImageRQServices (data) {
                     <Text style = {[styles.price_text, styles.rq_services]}>PKR {data.price}</Text>
                 </Row>
                 <Row style={styles.cell}>
-                    <ShowUrgentRQServices urgent = {data.urgent} />
+                    <Text style = {styles.not_urgent_text}>.</Text>
                 </Row>
                 <Row style={styles.cell}>
                     <GetCategory category={data.category}/>
@@ -294,7 +238,7 @@ function ShowCoverImageRQServices (data) {
                 <Text style = {[styles.price_text, styles.rq_services]}>PKR {data.price}</Text>
             </Row>
             <Row style={styles.cell}>
-                <ShowUrgentRQServices urgent = {data.urgent} />
+                <Text style = {styles.not_urgent_text}>.</Text>
             </Row>
             <Row style={styles.cell}>
                 <GetCategory category={data.category}/>
@@ -320,7 +264,7 @@ function ShowCoverImageOffServices (data) {
                     <Text style = {[styles.price_text, styles.off_services]}>PKR {data.price}</Text>
                 </Row>
                 <Row style={styles.cell}>
-                    <ShowUrgentOffServices urgent = {data.urgent} />
+                    <Text style = {styles.not_urgent_text}>.</Text>
                 </Row>
                 <Row style={styles.cell}>
                     <GetCategory category={data.category}/>
@@ -338,7 +282,7 @@ function ShowCoverImageOffServices (data) {
                 <Text style = {[styles.price_text, styles.off_services]}>PKR {data.price}</Text>
             </Row>
             <Row style={styles.cell}>
-                <ShowUrgentOffServices urgent = {data.urgent} />
+                <Text style = {styles.not_urgent_text}>.</Text>
             </Row>
             <Row style={styles.cell}>
                 <GetCategory category={data.category}/>
@@ -348,17 +292,13 @@ function ShowCoverImageOffServices (data) {
 }
 // ---------------------
 
-function ShowResultCardsPending (props) {
+function ShowPendingForms (props) {
+
+    let count = 0;
 
     // =--------------------test data
 
-    let app_images = [
-        require('../../assets/upload_images_rent.png'),
-        require('../../assets/upload_images_rent.png'),
-        require('../../assets/upload_images_rent.png'),
-        require('../../assets/upload_images_rent.png'),
-        require('../../assets/upload_images_rent.png'),
-    ]
+    let app_images = []
     
     var data = {
         post_id: 0,
@@ -382,188 +322,6 @@ function ShowResultCardsPending (props) {
     
     var data2 = {
         post_id: 1,
-        category: "rq_items",
-        title: "This is my listing and i am a lister",
-        desc: "Description description description description description description description description description description description description description description description description description",
-        price: 3000,
-        duration: "1-2 hours",
-        insurance: 2000,
-        tags: "M7, iron",
-        images: app_images,
-        urgent: true,
-        closed: false,
-        saved_post: true,
-        date: "14/04/2022, 3:45PM",
-        lister_id: {name: "Minahil Faisal", email: "23100063@lums.edu.pk", rating: 4},
-        interested_users: [{name: "Minahil Faisal", email: "23100063@lums.edu.pk", rating: 2},
-                        {name: "Fatima Sohail", email: "23100065@lums.edu.pk", rating: 3},
-                        {name: "Ajwa Shahid", email: "23100066@lums.edu.pk", rating: 4}],
-    };
-    
-    var data3 = {
-        post_id: 2,
-        category: "rent",
-        title: "This is my listing and i am a lister",
-        desc: "Description description description description description description description description description description description description description description description description description",
-        price: 3000,
-        duration: "1-2 hours",
-        insurance: 2000,
-        tags: "M7, iron",
-        images: null,
-        urgent: true,
-        closed: false,
-        saved_post: true,
-        date: "14/04/2022, 3:45PM",
-        lister_id: {name: "Minahil Faisal", email: "23100063@lums.edu.pk", rating: 4},
-        interested_users: [{name: "Minahil Faisal", email: "23100063@lums.edu.pk", rating: 2},
-                        {name: "Fatima Sohail", email: "23100065@lums.edu.pk", rating: 3},
-                        {name: "Ajwa Shahid", email: "23100066@lums.edu.pk", rating: 4}],
-    };
-
-    // =------------------------------
-    
-    var array1 = [data, data2, data3];
-
-    if(array1){
-
-        let posts = array1;
-
-        // *********** IMPORTANT *****************
-        // need to sort this array in such a way that urgent walay posts show up first
-
-        return (
-            posts.map((post) => (
-                post.category == "rent" && post.closed == false ? 
-                <TouchableOpacity
-                    style={styles.card_container_rent}
-                    key={post.post_id}
-                    onPress= {() => console.log("show me this post, the DETAILS PLS")}>
-                    <Grid>
-                        {/* image */}
-                        <ShowCoverImageRent images={post.images}
-                            title = {post.title}
-                            price = {post.price}
-                            urgent = {post.urgent}
-                            category = {post.category}/>
-                        
-                        <Col size={10}>
-                            <Row style={styles.cell}>
-                            <View style={styles.save_icon}>
-                                <SavedIconButtonDRed state={post.saved_post}/>
-                            </View>
-                            </Row>
-                        </Col>
-                    </Grid>
-                </TouchableOpacity>
-                : post.category == "buy" && post.closed == false ? 
-                <TouchableOpacity
-                    style={styles.card_container_buy}
-                    key={post.post_id}
-                    onPress= {() => console.log("show me this post, the DETAILS PLS")}>
-                    <Grid>
-                        {/* image */}
-                        <ShowCoverImageBuy images={post.images}
-                            title = {post.title}
-                            price = {post.price}
-                            urgent = {post.urgent}
-                            category = {post.category}/>
-                        
-                        <Col size={10}>
-                            <Row style={styles.cell}>
-                            <View style={styles.save_icon}>
-                                <SavedIconButtonLRed state={post.saved_post}/>
-                            </View>
-                            </Row>
-                        </Col>
-                    </Grid>
-                </TouchableOpacity>
-                : post.category == "rq_items" && post.closed == false ? 
-                <TouchableOpacity
-                    style={styles.card_container_rq_items}
-                    key={post.post_id}
-                    onPress= {() => console.log("show me this post, the DETAILS PLS")}>
-                    <Grid>
-                        {/* image */}
-                        <ShowCoverImageRQItems images={post.images}
-                            title = {post.title}
-                            price = {post.price}
-                            urgent = {post.urgent}
-                            category = {post.category}/>
-                        
-                        <Col size={10}>
-                            <Row style={styles.cell}>
-                            <View style={styles.save_icon}>
-                                <SavedIconButtonPeach state={post.saved_post}/>
-                            </View>
-                            </Row>
-                        </Col>
-                    </Grid>
-                </TouchableOpacity>
-                : post.category == "rq_services" && post.closed == false ? 
-                <TouchableOpacity
-                    style={styles.card_container_rq_services}
-                    key={post.post_id}
-                    onPress= {() => console.log("show me this post, the DETAILS PLS")}>
-                    <Grid>
-                        {/* image */}
-                        <ShowCoverImageRQServices images={post.images}
-                            title = {post.title}
-                            price = {post.price}
-                            urgent = {post.urgent}
-                            category = {post.category}/>
-                        
-                        <Col size={10}>
-                            <Row style={styles.cell}>
-                            <View style={styles.save_icon}>
-                                <SavedIconButtonLGreen state={post.saved_post}/>
-                            </View>
-                            </Row>
-                        </Col>
-                    </Grid>
-                </TouchableOpacity>
-                : post.category == "off_services" && post.closed == false ? 
-                <TouchableOpacity
-                    style={styles.card_container_off_services}
-                    key={post.post_id}
-                    onPress= {() => console.log("show me this post, the DETAILS PLS")}>
-                    <Grid>
-                        {/* image */}
-                        <ShowCoverImageOffServices images={post.images}
-                            title = {post.title}
-                            price = {post.price}
-                            urgent = {post.urgent}
-                            category = {post.category}/>
-                        
-                        <Col size={10}>
-                            <Row style={styles.cell}>
-                            <View style={styles.save_icon}>
-                                <SavedIconButtonDGreen state={post.saved_post}/>
-                            </View>
-                            </Row>
-                        </Col>
-                    </Grid>
-                </TouchableOpacity>
-                : null
-            ))
-        )
-    }
-    return null
-}
-
-function ShowResultCardsCompleted (props) {
-
-    // =--------------------test data
-
-    let app_images = [
-        require('../../assets/upload_images_rent.png'),
-        require('../../assets/upload_images_rent.png'),
-        require('../../assets/upload_images_rent.png'),
-        require('../../assets/upload_images_rent.png'),
-        require('../../assets/upload_images_rent.png'),
-    ]
-    
-    var data = {
-        post_id: 0,
         category: "rent",
         title: "This is my listing and i am a lister",
         desc: "Description description description description description description description description description description description description description description description description description",
@@ -582,26 +340,6 @@ function ShowResultCardsCompleted (props) {
                         {name: "Ajwa Shahid", email: "23100066@lums.edu.pk", rating: 4}],
     };
     
-    var data2 = {
-        post_id: 1,
-        category: "rq_items",
-        title: "This is my listing and i am a lister",
-        desc: "Description description description description description description description description description description description description description description description description description",
-        price: 3000,
-        duration: "1-2 hours",
-        insurance: 2000,
-        tags: "M7, iron",
-        images: app_images,
-        urgent: true,
-        closed: false,
-        saved_post: true,
-        date: "14/04/2022, 3:45PM",
-        lister_id: {name: "Minahil Faisal", email: "23100063@lums.edu.pk", rating: 4},
-        interested_users: [{name: "Minahil Faisal", email: "23100063@lums.edu.pk", rating: 2},
-                        {name: "Fatima Sohail", email: "23100065@lums.edu.pk", rating: 3},
-                        {name: "Ajwa Shahid", email: "23100066@lums.edu.pk", rating: 4}],
-    };
-    
     var data3 = {
         post_id: 2,
         category: "rent",
@@ -613,7 +351,7 @@ function ShowResultCardsCompleted (props) {
         tags: "M7, iron",
         images: null,
         urgent: true,
-        closed: false,
+        closed: true,
         saved_post: true,
         date: "14/04/2022, 3:45PM",
         lister_id: {name: "Minahil Faisal", email: "23100063@lums.edu.pk", rating: 4},
@@ -626,20 +364,23 @@ function ShowResultCardsCompleted (props) {
     
     var array1 = [data, data2, data3];
 
+    // if (props.data) {
     if(array1){
 
         let posts = array1;
 
-        // *********** IMPORTANT *****************
-        // need to sort this array in such a way that urgent walay posts show up first
+        for (const post of posts) {
+            count =+ 1;
+        }
 
         return (
+            count > 0 ?
             posts.map((post) => (
-                post.category == "rent" && post.closed == true ? 
+                post.category == "rent" ?
                 <TouchableOpacity
                     style={styles.card_container_rent}
                     key={post.post_id}
-                    onPress= {() => console.log("show me this post, the DETAILS PLS")}>
+                    onPress= {() => console.log("show me this post's tracking form")}>
                     <Grid>
                         {/* image */}
                         <ShowCoverImageRent images={post.images}
@@ -650,18 +391,15 @@ function ShowResultCardsCompleted (props) {
                         
                         <Col size={10}>
                             <Row style={styles.cell}>
-                            <View style={styles.save_icon}>
-                                <SavedIconButtonDRed state={post.saved_post}/>
-                            </View>
                             </Row>
                         </Col>
                     </Grid>
                 </TouchableOpacity>
-                : post.category == "buy" && post.closed == true ? 
+                : post.category == "buy" ?
                 <TouchableOpacity
                     style={styles.card_container_buy}
                     key={post.post_id}
-                    onPress= {() => console.log("show me this post, the DETAILS PLS")}>
+                    onPress= {() => console.log("show me this post's tracking form")}>
                     <Grid>
                         {/* image */}
                         <ShowCoverImageBuy images={post.images}
@@ -672,18 +410,15 @@ function ShowResultCardsCompleted (props) {
                         
                         <Col size={10}>
                             <Row style={styles.cell}>
-                            <View style={styles.save_icon}>
-                                <SavedIconButtonLRed state={post.saved_post}/>
-                            </View>
                             </Row>
                         </Col>
                     </Grid>
                 </TouchableOpacity>
-                : post.category == "rq_items" && post.closed == true ? 
+                : post.category == "rq_items" ?
                 <TouchableOpacity
                     style={styles.card_container_rq_items}
                     key={post.post_id}
-                    onPress= {() => console.log("show me this post, the DETAILS PLS")}>
+                    onPress= {() => console.log("show me this post's tracking form")}>
                     <Grid>
                         {/* image */}
                         <ShowCoverImageRQItems images={post.images}
@@ -694,18 +429,15 @@ function ShowResultCardsCompleted (props) {
                         
                         <Col size={10}>
                             <Row style={styles.cell}>
-                            <View style={styles.save_icon}>
-                                <SavedIconButtonPeach state={post.saved_post}/>
-                            </View>
                             </Row>
                         </Col>
                     </Grid>
                 </TouchableOpacity>
-                : post.category == "rq_services" && post.closed == true ? 
+                : post.category == "rq_services" ?
                 <TouchableOpacity
                     style={styles.card_container_rq_services}
                     key={post.post_id}
-                    onPress= {() => console.log("show me this post, the DETAILS PLS")}>
+                    onPress= {() => console.log("show me this post's tracking form")}>
                     <Grid>
                         {/* image */}
                         <ShowCoverImageRQServices images={post.images}
@@ -716,18 +448,15 @@ function ShowResultCardsCompleted (props) {
                         
                         <Col size={10}>
                             <Row style={styles.cell}>
-                            <View style={styles.save_icon}>
-                                <SavedIconButtonLGreen state={post.saved_post}/>
-                            </View>
                             </Row>
                         </Col>
                     </Grid>
                 </TouchableOpacity>
-                : post.category == "off_services" && post.closed == true ? 
+                : post.category == "off_services" ?
                 <TouchableOpacity
                     style={styles.card_container_off_services}
                     key={post.post_id}
-                    onPress= {() => console.log("show me this post, the DETAILS PLS")}>
+                    onPress= {() => console.log("show me this post's tracking form")}>
                     <Grid>
                         {/* image */}
                         <ShowCoverImageOffServices images={post.images}
@@ -738,21 +467,21 @@ function ShowResultCardsCompleted (props) {
                         
                         <Col size={10}>
                             <Row style={styles.cell}>
-                            <View style={styles.save_icon}>
-                                <SavedIconButtonDGreen state={post.saved_post}/>
-                            </View>
                             </Row>
                         </Col>
                     </Grid>
                 </TouchableOpacity>
                 : null
-            ))
+            )) :
+            <Text style={styles.error_text}>
+                No pending transaction forms, you're all caught up!
+            </Text>
         )
     }
     return null
 }
 
-export default function ViewSavedListings (props) {
+export default function Notifications (props) {
 
     // const [heading2Text, setHeading2Text] = useState(false);
 
@@ -774,7 +503,7 @@ export default function ViewSavedListings (props) {
                 <StatusBar backgroundColor="#588D60" />
                 <View style={styles.top_nav_box}>
                     <Text style={styles.heading1}>
-                        Your Saved Listings
+                        Your Notifications
                     </Text>
                 </View>
 
@@ -782,20 +511,19 @@ export default function ViewSavedListings (props) {
                 <ScrollView style = {styles.form_container}> 
                     <View style = {styles.form_container2}>
                         <Text style={styles.heading2}>
-                            Pending Listings
+                            Pending Transaction Forms
                         </Text>
-                        <ShowResultCardsPending data = {props.data} />
-                        
-                        <Text style={styles.heading3}>
-                            Completed Listings
+                        <ShowPendingForms data = {props.data} />
+
+                        {/* <Text style={styles.heading3}>
+                            Other Notifications
                         </Text>
-                        <ShowResultCardsCompleted data = {props.data} />
+                        <ShowOtherNotifs data = {props.data} /> */}
                         <View style = {styles.end_box}></View> 
                     </View>
                 </ScrollView>
-                
             </View>
-            <ProfileBottomNavBar />
+            <NotifsBottomNavBar />
         </SafeAreaView>
     )
 }
@@ -980,4 +708,128 @@ const styles = StyleSheet.create({
     end_box: {
         marginBottom: 150,
     },
+    error_text: {
+        paddingHorizontal: "10%",
+        fontFamily: 'Montserrat_400Regular',
+        letterSpacing: 0,
+        color: "#193E26",
+        textAlign: 'left',
+        fontSize: 0.02*actual_height,
+        letterSpacing: 0.15,
+        color: "#193E26",
+        marginBottom: 20,
+    },
 })
+
+// function ShowOtherNotifs (props) {
+
+//     if (props.data) {
+
+//         let posts = props.data;
+
+//         // *********** IMPORTANT *****************
+//         // need to sort this array in such a way that urgent walay posts show up first
+
+//         return (
+//             posts.map((post) => (
+//                 post.category == "rent" && post.closed == true ? 
+//                 <TouchableOpacity
+//                     style={styles.card_container_rent}
+//                     key={post.post_id}
+//                     onPress= {() => console.log("show me this post's tracking form")}>
+//                     <Grid>
+//                         {/* image */}
+//                         <ShowCoverImageRent images={post.images}
+//                             title = {post.title}
+//                             price = {post.price}
+//                             urgent = {post.urgent}
+//                             category = {post.category}/>
+                        
+//                         <Col size={10}>
+//                             <Row style={styles.cell}>
+//                             </Row>
+//                         </Col>
+//                     </Grid>
+//                 </TouchableOpacity>
+//                 : post.category == "buy" && post.closed == true ? 
+//                 <TouchableOpacity
+//                     style={styles.card_container_buy}
+//                     key={post.post_id}
+//                     onPress= {() => console.log("show me this post's tracking form")}>
+//                     <Grid>
+//                         {/* image */}
+//                         <ShowCoverImageBuy images={post.images}
+//                             title = {post.title}
+//                             price = {post.price}
+//                             urgent = {post.urgent}
+//                             category = {post.category}/>
+                        
+//                         <Col size={10}>
+//                             <Row style={styles.cell}>
+//                             </Row>
+//                         </Col>
+//                     </Grid>
+//                 </TouchableOpacity>
+//                 : post.category == "rq_items" && post.closed == true ? 
+//                 <TouchableOpacity
+//                     style={styles.card_container_rq_items}
+//                     key={post.post_id}
+//                     onPress= {() => console.log("show me this post's tracking form")}>
+//                     <Grid>
+//                         {/* image */}
+//                         <ShowCoverImageRQItems images={post.images}
+//                             title = {post.title}
+//                             price = {post.price}
+//                             urgent = {post.urgent}
+//                             category = {post.category}/>
+                        
+//                         <Col size={10}>
+//                             <Row style={styles.cell}>
+//                             </Row>
+//                         </Col>
+//                     </Grid>
+//                 </TouchableOpacity>
+//                 : post.category == "rq_services" && post.closed == true ? 
+//                 <TouchableOpacity
+//                     style={styles.card_container_rq_services}
+//                     key={post.post_id}
+//                     onPress= {() => console.log("show me this post's tracking form")}>
+//                     <Grid>
+//                         {/* image */}
+//                         <ShowCoverImageRQServices images={post.images}
+//                             title = {post.title}
+//                             price = {post.price}
+//                             urgent = {post.urgent}
+//                             category = {post.category}/>
+                        
+//                         <Col size={10}>
+//                             <Row style={styles.cell}>
+//                             </Row>
+//                         </Col>
+//                     </Grid>
+//                 </TouchableOpacity>
+//                 : post.category == "off_services" && post.closed == true ? 
+//                 <TouchableOpacity
+//                     style={styles.card_container_off_services}
+//                     key={post.post_id}
+//                     onPress= {() => console.log("show me this post's tracking form")}>
+//                     <Grid>
+//                         {/* image */}
+//                         <ShowCoverImageOffServices images={post.images}
+//                             title = {post.title}
+//                             price = {post.price}
+//                             urgent = {post.urgent}
+//                             category = {post.category}/>
+                        
+//                         <Col size={10}>
+//                             <Row style={styles.cell}>
+//                             </Row>
+//                         </Col>
+//                     </Grid>
+//                 </TouchableOpacity>
+//                 : null
+//             ))
+//         )
+//     }
+//     return null
+// }
