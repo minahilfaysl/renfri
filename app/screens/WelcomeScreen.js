@@ -29,7 +29,7 @@ import AppLoading from 'expo-app-loading';
 
 // const bg = { uri: "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/803d/3506/f3350dc03e1a31ed18bbc0c9ce1e8234" };
 
-function WelcomeScreen(props) {
+function WelcomeScreen({ navigation }) {
 
     let [fontsLoaded]=useFonts({
 
@@ -95,7 +95,7 @@ function WelcomeScreen(props) {
 
                     <TouchableOpacity
                         style= {styles.rectangle2}
-                        onPress= {() => console.log("REGISTER PRESSED")}
+                        onPress= {() => {console.log("REGISTER PRESSED"), navigation.navigate('Sign Up')}}
                     >
                             <Text style= {styles.Register}> REGISTER </Text>
                             
@@ -103,7 +103,7 @@ function WelcomeScreen(props) {
 
                     <TouchableOpacity 
                         style= {styles.rectangle3}
-                        onPress= {() => console.log("LOGIN PRESSED")}
+                        onPress= {() => {console.log("LOGIN PRESSED"), navigation.navigate('Sign In')}}
                     >
                             <Text style= {styles.Login}> LOGIN </Text>
                     </TouchableOpacity>

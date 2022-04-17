@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { View, Text, SafeAreaView, Picker, TouchableOpacity, StatusBar, Image, ScrollView, TextInput, StyleSheet, Animated, Dimensions, Vibration, Alert, KeyboardAvoidingView, Platform} from "react-native";
 import {AntDesign} from "@expo/vector-icons";
+import PostBottomNavBar from "./navbar/PostBottomNavBar";
 
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
@@ -102,44 +103,7 @@ const AddPostByCategory  = ({navigation}) => {
             </View>
         </View>
         </ScrollView>
-            <View style={styles.menu}>
-                <TouchableOpacity
-                    onPress={() => {console.log("search pressed")}}>
-                        <Image 
-                        style={styles.menu_icon} 
-                        size={12}
-                        source = {require("../assets/search.png")}/>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => {console.log("profile pressed")}}>
-                        <Image 
-                        style={styles.menu_icon} 
-                        size={12}
-                        source = {require("../assets/profile.png")}/>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => {console.log("post pressed")}}>
-                        <Image 
-                        style={styles.menu_icon} 
-                        size={12}
-                        source = {require("../assets/post.png")}/>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => {console.log("notif pressed")}}>
-                        <Image 
-                        style={styles.menu_icon} 
-                        size={12}
-                        source = {require("../assets/notif.png")}/>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => {console.log("chat pressed")}}>
-                        <Image 
-                        style={styles.menu_icon} 
-                        size={12}
-                        source = {require("../assets/chat.png")}/>
-                </TouchableOpacity>
-            </View>
-        
+            {/* <PostBottomNavBar/>      */}
         </SafeAreaView>
         
     

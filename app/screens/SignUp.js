@@ -1,15 +1,89 @@
 import React, {useState} from 'react';
-import { View, Text, Button, TouchableHighlight, Dimensions, TouchableOpacity, Image, ScrollView, TextInput, StyleSheet, SafeAreaView} from "react-native";
+import { View, Text, Button, TouchableHighlight, Dimensions, TouchableOpacity, Image, ScrollView, TextInput, StyleSheet, SafeAreaView, Alert} from "react-native";
 import { ImageBackground } from 'react-native';
+import app from '../../firebase'
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification} from 'firebase/auth';
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 
+const auth = getAuth();
 
+const db = getFirestore(app);
 
-function SignUp(props) {
+function SignUp({navigation}) {
 
     const [name, setName] = useState("")
     const [id, setID] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirm] = useState("")
+
+    async function addUser() {
+        let reg = /^[0-9]{8}\@lums([\.])edu([\.])pk$/;
+        if (id === "" || name === "" || password === "" || confirmPassword===""){
+            Alert.alert(
+                "Empty Fields",
+                "Please fill all the fields given",
+                [
+                  { text: "OK", onPress: () => console.log("OK Pressed") }
+                ]
+              );
+        }
+        else if (reg.test(id)===false){
+            Alert.alert(
+                "Incorrect Email Format",
+                "You can only sign in with a valid LUMS student assigned email ID",
+                [
+                  { text: "OK", onPress: () => console.log("OK Pressed") }
+                ]
+              );
+        }
+
+        else if (password.length <8){
+            Alert.alert(
+                "Password too short",
+                "All passwords must be atleast 8 character long.",
+                [
+                  { text: "OK", onPress: () => console.log("OK Pressed") }
+                ]
+              );
+        }
+    
+        else if (password != confirmPassword){
+            Alert.alert(
+                "Incorrect Passwords",
+                "The passwords don't match",
+                [
+                  { text: "OK", onPress: () => console.log("OK Pressed") }
+                ]
+              );
+        }
+
+        else{
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, id, password);
+                // await sendEmailVerification(userCredential.user);
+
+                const docRef = await addDoc(collection(db, "user"), {
+                    avg_rating: 0,
+                    email:id,
+                    full_name:name,
+                    num_ratings: 0 });
+                console.log("Document written with ID: ", docRef.id);
+
+                Alert.alert(
+                    "Success",
+                    "You've been registered. Please LogIn again.",
+                    [
+                    { text: "OK", onPress: () => console.log("OK Pressed") }
+                    ]
+                );
+
+                navigation.navigate('Sign In');
+
+            } catch (error) {
+                console.log(error)
+            } 
+        }        
+    }
 
     return (
 
@@ -31,7 +105,7 @@ function SignUp(props) {
 
                 <TouchableOpacity
                     style= {styles.Register}
-                    onPress= {() => console.log(name, id, password, confirmPassword)}
+                    onPress= {() => {console.log(name, id, password, confirmPassword), addUser()}}
                 >
                         <Text style= {styles.RegisterText}> REGISTER </Text>
                 </TouchableOpacity>
@@ -68,12 +142,14 @@ function SignUp(props) {
                 />
 
                 <TextInput style={styles.textbox3}
+                    secureTextEntry={true}
                     onChangeText={(password) => setPassword(password)} //in case the user doesn't press enter
                     onSubmitEditing={(password) => setPassword(password.nativeEvent.text)} //name gets updated here upon user pressing enter
                 
                 />
 
                 <TextInput style={styles.textbox4}
+                    secureTextEntry={true}
                     onChangeText={(confirmPassword) => setConfirm(confirmPassword)} //in case the user doesn't press enter
                     onSubmitEditing={(confirmPassword) => setConfirm(confirmPassword.nativeEvent.text)} //name gets updated here upon user pressing enter
                 

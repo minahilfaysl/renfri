@@ -21,6 +21,7 @@ import { useFonts } from 'expo-font';
 import { useAuthentication } from './utils/hooks/useAuthentication';
 import AuthScreens from './AuthScreens';
 import UserScreens from './UserScreens';
+import NavNavigation from './app/screens/navbar/NavNavigation'
 
 import { 
   Montserrat_100Thin,
@@ -44,7 +45,6 @@ import {
 } from '@expo-google-fonts/montserrat'
 
 import { OpenSans_400Regular, OpenSans_700Bold } from '@expo-google-fonts/open-sans';
-
 
 export default function App() {
 

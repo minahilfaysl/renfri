@@ -1,11 +1,64 @@
 import React, { useState } from 'react';
-import { View, SafeAreaView, Text, Image, Button, Dimensions, ScrollView, TextInput, StyleSheet} from "react-native";
+import { View, SafeAreaView, Text, Image, Button, Dimensions, ScrollView, TextInput, StyleSheet, Alert} from "react-native";
 import { TouchableOpacity } from 'react-native';
+import '../../firebase'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { AsyncStorage } from '@react-native-async-storage/async-storage';
 
-
-function Login(props) {
+function Login({navigation}) {
     const [id, setIdd] = useState("temp")
     const [password, setPassword] = useState("")
+
+    const auth = getAuth();
+
+    async function authUser() {
+        let reg = /^[0-9]{8}\@lums([\.])edu([\.])pk$/;
+        if (id === "" || password === ""){
+            Alert.alert(
+                "Empty Fields",
+                "Please fill all the fields given",
+                [
+                  { text: "OK", onPress: () => console.log("OK Pressed") }
+                ]
+              );
+        }
+        else if (reg.test(id)===false){
+            Alert.alert(
+                "Incorrect Email Format",
+                "You can only login with a valid LUMS student assigned email ID",
+                [
+                  { text: "OK", onPress: () => console.log("OK Pressed") }
+                ]
+              );
+        }
+
+        else{
+            try {
+                await signInWithEmailAndPassword(auth, id, password);
+                // Alert.alert(
+                //     "Success",
+                //     "You've been registered. We have sent you a verification email, please verify and login again.",
+                //     [
+                //     { text: "OK", onPress: () => console.log("OK Pressed") }
+                //     ]
+                // );
+
+                navigation.navigate('Home')
+
+            } catch (error) {
+                console.log(error)
+                Alert.alert(
+                    "Login Failed",
+                    "Please try again.",
+                    [
+                      { text: "OK", onPress: () => console.log("OK Pressed") }
+                    ]
+                  );
+            } 
+        }
+    }
+
+
     return (
         <View>
             <View style = {styles.overall}>
@@ -39,7 +92,8 @@ function Login(props) {
 			    </View>
                 <TouchableOpacity style={styles.comp_reg_box} 
                 onPress={() => {
-                    console.log(id, password)
+                    console.log(id, password),
+                    authUser()
                     }
                 }>
                     <Text style={styles.comp_reg_text}>
