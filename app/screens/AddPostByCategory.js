@@ -2,6 +2,10 @@ import React, { useState, useRef, useEffect } from "react";
 import { View, Text, SafeAreaView, Picker, TouchableOpacity, StatusBar, Image, ScrollView, TextInput, StyleSheet, Animated, Dimensions, Vibration, Alert, KeyboardAvoidingView, Platform} from "react-native";
 import {AntDesign} from "@expo/vector-icons";
 import PostBottomNavBar from "./navbar/PostBottomNavBar";
+import app from '../../firebase'
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+
+const db = getFirestore(app);
 
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
@@ -30,7 +34,7 @@ const AddPostByCategory  = ({navigation}) => {
                 <TouchableOpacity style={styles.category_box_one}
                 onPress={() => {console.log("downnn Rent an Item pressed!!!!")}}>
                 <TouchableOpacity
-                    onPress={() => {console.log("Rent an Item pressed")}}>
+                    onPress={() => {console.log("Rent an Item pressed"), navigation.navigate('CreateANewListingRent')}}>
                         <Image 
                         style={styles.cat_img} 
                         source = {require("../assets/category.png")}/>
@@ -45,7 +49,7 @@ const AddPostByCategory  = ({navigation}) => {
                 <TouchableOpacity style={styles.category_box_two}
                 onPress={() => {console.log("downnn buy an Item pressed!!!!")}}>
                     <TouchableOpacity
-                    onPress={() => {console.log("Buy an Item pressed")}}>
+                    onPress={() => {console.log("Buy an Item pressed"), navigation.navigate('CreateANewListingBuy')}}>
                         <Image 
                         style={styles.cat_img} 
                         source = {require("../assets/category.png")}/>
@@ -60,7 +64,7 @@ const AddPostByCategory  = ({navigation}) => {
                 <TouchableOpacity style={styles.category_box_three}
                 onPress={() => {console.log("downnn requested items pressed!!!!")}}>
                     <TouchableOpacity
-                    onPress={() => {console.log("Requested Items pressed")}}>
+                    onPress={() => {console.log("Requested Items pressed"), navigation.navigate('CreateANewListingRQItems')}}>
                         <Image 
                         style={styles.cat_img} 
                         source = {require("../assets/category.png")}/>
@@ -75,7 +79,7 @@ const AddPostByCategory  = ({navigation}) => {
                 <TouchableOpacity style={styles.category_box_four}
                 onPress={() => {console.log("downnn offered services pressed!!!!")}}>
                     <TouchableOpacity
-                    onPress={() => {console.log("Offered Services pressed")}}>
+                    onPress={() => {console.log("Offered Services pressed"), navigation.navigate('CreateANewListingOfferedServices')}}>
                         <Image 
                         style={styles.cat_img} 
                         source = {require("../assets/category.png")}/>
@@ -90,7 +94,7 @@ const AddPostByCategory  = ({navigation}) => {
                 <TouchableOpacity style={styles.category_box_five}
                 onPress={() => {console.log("downnn requested services pressed!!!!")}}>
                     <TouchableOpacity
-                    onPress={() => {console.log("Requested Services pressed")}}>
+                    onPress={() => {console.log("Requested Services pressed"), navigation.navigate('CreateANewListingRQServices')}}>
                         <Image 
                         style={styles.cat_img} 
                         source = {require("../assets/category.png")}/>
@@ -103,12 +107,7 @@ const AddPostByCategory  = ({navigation}) => {
             </View>
         </View>
         </ScrollView>
-            {/* <PostBottomNavBar/>      */}
         </SafeAreaView>
-        
-    
-    
-
 )}
 
 

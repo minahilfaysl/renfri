@@ -8,7 +8,7 @@ import AppLoading from 'expo-app-loading';;
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
 
-export default function UrgentButton() {
+export default function UrgentButton(prop) {
     const [urgentClicked, setUrgentClicked] = useState(false);
     const [urgentText, setUrgentText] = useState("MARK AS URGENT")
 
@@ -16,11 +16,13 @@ export default function UrgentButton() {
         onPress: () => { 
             if (urgentClicked) {
                 setUrgentClicked(false),
-                setUrgentText("MARK AS URGENT")
+                setUrgentText("MARK AS URGENT"),
+                prop.changeState(false)
             }
             else {
                 setUrgentClicked(true),
-                setUrgentText("MARKED URGENT")
+                setUrgentText("MARKED URGENT"),
+                prop.changeState(true)
             }
         },
         style: urgentClicked ? styles.urgent_box_clicked : styles.urgent_box,

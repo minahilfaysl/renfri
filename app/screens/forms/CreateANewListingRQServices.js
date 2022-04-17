@@ -7,11 +7,23 @@ import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import UrgentButton from "../../components/UrgentButton";
 import { SliderBox } from "react-native-image-slider-box";
+import * as ImagePicker from 'expo-image-picker';
+import app from '../../../firebase'
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+
+const db = getFirestore(app);
 
 const actual_height = Dimensions.get("window").height
 const actual_width = Dimensions.get("window").width
 
 export default function CreateANewListingRQServices () {
+
+    const [image, setImage] = useState();
+    const [numUploaded, setNum] = useState(0);
+
+    let paths = ["", "", "", "", ""]
+    
+    const [src_paths, setSrc] = useState(paths)
 
     let app_images = [
         require('../../assets/upload_images_rq_services.png'),
@@ -20,6 +32,34 @@ export default function CreateANewListingRQServices () {
         require('../../assets/upload_images_rq_services.png'),
         require('../../assets/upload_images_rq_services.png'),
     ]
+
+    const [imgArray, setArray] = useState(app_images);
+
+    const pickImage = async (index) => {
+        console.log("in picker")
+        // No permissions request is necessary for launching the image library
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+        //   allowsEditing: true,
+        //   aspect: [4, 3],
+            type: 'image',
+            allowsMultipleSelection: true,
+            quality: 1,
+        });
+
+        console.log(result);
+
+        if (!result.cancelled) {
+            const paths = src_paths
+            paths[index] = result.uri
+            setSrc([...paths])
+            app_images = imgArray
+            app_images[index] = result.uri
+            setArray([...app_images])
+            console.log(imgArray)
+            console.log(numUploaded, src_paths)
+        }
+    };
     
     // here are all the variables from the input fields
     const [title, setTitle] = useState('');
@@ -27,7 +67,95 @@ export default function CreateANewListingRQServices () {
     const [price, setPrice] = useState('');
     const [duration, setDuration] = useState('');
     const [insurance, setInsurance] = useState('');
+    const [urgent, setUrgent] = useState(false)
     const [tags, setTags] = useState('');
+    const [docId, setDocId] = useState('')
+    const [newArr, setNewArr] = useState([])
+
+    async function uploadPost(){
+        if(title === "" || price === "" ){
+            Alert.alert(
+                "Empty Fields",
+                "Please fill all the compulsory fields",
+                [
+                  { text: "OK", onPress: () => console.log("OK Pressed") }
+                ]
+              );
+        }
+
+        else{
+
+            if(desc === ""){
+                setDesc(null)
+            }
+
+            if(duration === ""){
+                setDuration(null)
+            }
+
+            if(insurance === ""){
+                setInsurance(null)
+            }
+
+            if(tags === ""){
+                setTags(null)
+            }
+
+            const user1 = auth.currentUser;
+            const userid = user1.email
+            category = 'rq-service'
+            date = new Date().toLocaleString()
+
+            try {
+
+                const docRef = await addDoc(collection(db, "post"), {
+                    category: category,
+                    date: date,
+                    description: desc,
+                    duration: duration,
+                    insurance: insurance,
+                    interested_user: [], 
+                    poster: userid,
+                    price: price,
+                    status: 'open',
+                    tags: tags,
+                    title: title,
+                    urgent:urgent
+                });
+
+                console.log("Document written with ID: ", docRef.id);
+                setDocId(docRef.id)
+
+            } catch (error) {
+                console.log(error)
+            }
+
+            try{
+
+                for(i=0;i<5; i++){
+                    const arr = newArr
+                    if(src_paths[i]!=""){
+                        arr.push(src_paths[i])
+                    }
+
+                    setArray([...arr])
+                }
+
+
+                const imgRef = await addDoc(collection(db, "images"), {
+
+                    doc_ref:docId,
+                    img_array: newArr.length === 0? null : newArr
+
+                });
+
+                console.log("Document written with ID: ", imgRef.id);
+
+            }catch (error) {
+             console.log(error) 
+            }               
+        } 
+    }
 
     let [fontsLoaded] = useFonts({
         Montserrat_400Regular,
@@ -63,7 +191,7 @@ export default function CreateANewListingRQServices () {
                         </Text>
                         <SliderBox
                             style = {styles.slider_box}
-                            images = {app_images}
+                            images = {imgArray}
                             dotColor = "#193E26"
                             inactiveDotColor = "#C4C4C4"
                             dotStyle = {{
@@ -76,7 +204,7 @@ export default function CreateANewListingRQServices () {
                             // here, I think if you try to replace the images in the images array,
                             // the images should be uploaded and displayed again.
                             // please add a check for uploading only 5 images as well.
-                            onCurrentImagePressed={index => console.log(`image ${index} pressed`)}
+                            onCurrentImagePressed={index => {console.log(`image ${index} pressed`), pickImage(index)}}
                             currentImageEmitter={index => console.log(`current pos is ${index}`)}
                         />
 
@@ -133,13 +261,13 @@ export default function CreateANewListingRQServices () {
                             style={styles.text_box}/>
 
                         {/* buttons */}
-                        <UrgentButton />
+                        <UrgentButton changeState = {setUrgent}/>
                         <Text style = {styles.message}>
                             Please recheck your post and its details before confirming. {'\n'}{'\n'}
                             You will not be able to edit this post once it has been uploaded. {'\n'}{'\n'}
                             In case of any changes, you will have to delete this post and re-post it with the changes. {'\n'}
                         </Text>
-                        <TouchableOpacity style={styles.confirm_button} onPress={() => console.log("neow")}>
+                        <TouchableOpacity style={styles.confirm_button} onPress={() => {console.log("neow"),uploadPost()}}>
                             <Text style={styles.confirm_button_text}>
                                 CONFIRM
                             </Text>
